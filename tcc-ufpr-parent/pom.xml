@@ -7,10 +7,20 @@
 	<name>TCC Parent</name>
 	
 	<properties>
-		<tcc-ufpr.version>0.0.1-SNAPSHOT</tcc-ufpr.version>
 		<spring.version>4.1.1.RELEASE</spring.version>
+		<spring-data-jpa.version>1.5.0.RELEASE</spring-data-jpa.version>
+		<hibernate.version>4.2.8.Final</hibernate.version>
+		<hibernate-jpa.version>1.0.1.Final</hibernate-jpa.version>
+		<hibernate-commons-annotation.version>4.0.4.Final</hibernate-commons-annotation.version>
+		<hibernate-validator.version>5.1.0.Final</hibernate-validator.version>
+		<postgresql.version>9.1-901.jdbc4</postgresql.version>
 		<slf4j.version>1.5.8</slf4j.version>
 		<log4j.version>1.2.14</log4j.version>
+		<joda-time.version>2.2</joda-time.version>
+		<jackson-faster.version>2.3.2</jackson-faster.version>
+		<junit.version>4.11</junit.version>
+		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+		<java-compiler.version>1.7</java-compiler.version>
 	</properties>
 	
 	<modules>
@@ -25,23 +35,142 @@
 	
 		<dependencies>
 		
-			<dependency>
-		        <groupId>org.springframework</groupId>
-		        <artifactId>spring-context</artifactId>
-		        <version>${spring.version}</version>
-	    	</dependency>
-	    	
-		    <dependency>
-		        <groupId>org.springframework</groupId>
-		        <artifactId>spring-core</artifactId>
-		        <version>${spring.version}</version>
-		    </dependency>
-		    
+		
+			<!-- LOG4J -->
+		
 		    <dependency>
 		        <groupId>log4j</groupId>
 		        <artifactId>log4j</artifactId>
 		        <version>${log4j.version}</version>
 		    </dependency>	    	
+		    
+		    <!-- SPRING -->
+		
+			<dependency>
+			  <groupId>org.springframework</groupId>
+			  <artifactId>spring-core</artifactId>
+			  <version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+			  <groupId>org.springframework</groupId>
+			  <artifactId>spring-context</artifactId>
+			  <version>${spring.version}</version>
+			</dependency>
+		
+			<dependency>
+			  <groupId>org.springframework</groupId>
+			  <artifactId>spring-beans</artifactId>
+			  <version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+			  <groupId>org.springframework</groupId>
+			  <artifactId>spring-tx</artifactId>
+			  <version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+			  <groupId>org.springframework</groupId>
+			  <artifactId>spring-jdbc</artifactId>
+			  <version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+			  <groupId>org.springframework</groupId>
+			  <artifactId>spring-orm</artifactId>
+			  <version>${spring.version}</version>
+			</dependency>
+			
+			
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-jpa</artifactId>
+				<version>${spring-data-jpa.version}</version>
+			</dependency>
+			
+			<!-- HIBERNATE -->
+			
+	        <dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.0-api</artifactId>
+				<version>${hibernate-jpa.version}</version>
+			</dependency>
+			            
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			            
+			<dependency>
+				<groupId>org.hibernate.common</groupId>
+				<artifactId>hibernate-commons-annotations</artifactId>
+				<version>${hibernate-commons-annotation.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>${hibernate-validator.version}</version>
+			</dependency>
+			            		
+			<!-- POSTGRESQL -->
+			
+			<dependency>
+				<groupId>postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${postgresql.version}</version>
+			</dependency>
+			
+			<!-- JODA TIME -->
+	        <dependency>
+	            <groupId>joda-time</groupId>
+	            <artifactId>joda-time</artifactId>
+	            <version>${joda-time.version}</version>
+	        </dependency>
+	        
+	        <!-- JACKSON -->
+	        
+	        <dependency>
+			    <groupId>com.fasterxml.jackson.core</groupId>
+			    <artifactId>jackson-core</artifactId>
+			    <version>${jackson-faster.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>com.fasterxml.jackson.core</groupId>
+			    <artifactId>jackson-databind</artifactId>
+			    <version>${jackson-faster.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>com.fasterxml.jackson.module</groupId>
+			    <artifactId>jackson-module-jaxb-annotations</artifactId>
+			    <version>${jackson-faster.version}</version>
+			</dependency>
+			
+			<!-- TEST -->	
+	
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+				<scope>test</scope>
+			</dependency>
 		
 		</dependencies>
 	
@@ -53,6 +182,14 @@
 		
 			<plugins>
 			
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>${java-compiler.version}</source>
+						<target>${java-compiler.version}</target>
+					</configuration>
+				</plugin>
 			
 			</plugins>
 		

@@ -2,23 +2,19 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>tcc-ufpr-services</artifactId>
   <name>TCC Services</name>
-  <build>
-    <sourceDirectory>src</sourceDirectory>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+  
   <parent>
   	<groupId>br.ufpr</groupId>
   	<artifactId>tcc-ufpr-parent</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
   	<relativePath>../tcc-ufpr-parent</relativePath>
   </parent>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>
