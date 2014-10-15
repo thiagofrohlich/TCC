@@ -7,7 +7,22 @@
 	<name>TCC Parent</name>
 	
 	<properties>
-		<spring.version>4.1.1.RELEASE</spring.version>
+	    <primefaces.version>4.0</primefaces.version>
+	    <jsf.version>2.1.11</jsf.version>
+		<servletapi.version>2.5</servletapi.version>
+		<servletjsp.version>2.1</servletjsp.version>
+		<servlet.version>1.2</servlet.version>
+		<stella.version>2.1.0</stella.version>
+		<jasper.version>5.5.1</jasper.version>
+	    <jackson.version>1.9.13</jackson.version>
+	    <jersey.version>1.18.1</jersey.version>
+	    <el.version>2.2</el.version>
+	    <javax.version>2.0</javax.version>
+	    <http.version>4.3.3</http.version>
+	    <jerseyclient.version>2.8</jerseyclient.version>
+		<spring-security.version>3.2.3.RELEASE</spring-security.version>
+	    <spring.version>4.1.1.RELEASE</spring.version>
+	    <org.springframework.version>4.0.2.RELEASE</org.springframework.version>
 		<spring-data-jpa.version>1.5.0.RELEASE</spring-data-jpa.version>
 		<hibernate.version>4.2.8.Final</hibernate.version>
 		<hibernate-jpa.version>1.0.1.Final</hibernate-jpa.version>
@@ -88,6 +103,42 @@
 				<artifactId>spring-data-jpa</artifactId>
 				<version>${spring-data-jpa.version}</version>
 			</dependency>
+		
+			<dependency>
+			  <groupId>org.springframework</groupId>
+			  <artifactId>spring-web</artifactId>
+			  <version>${org.springframework.version}</version>
+			</dependency>
+			
+			<dependency>
+			  <groupId>org.springframework</groupId>
+			  <artifactId>spring-webmvc</artifactId>
+			  <version>${org.springframework.version}</version>
+			</dependency>
+			
+			<dependency>
+			  <groupId>org.springframework</groupId>
+			  <artifactId>spring-webmvc-portlet</artifactId>
+			  <version>${org.springframework.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-core</artifactId>
+				<version>${spring-security.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${spring-security.version}</version>
+			</dependency>
+			            		
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>${spring-security.version}</version>
+			</dependency>
 			
 			<!-- HIBERNATE -->
 			
@@ -154,6 +205,117 @@
 			    <groupId>com.fasterxml.jackson.module</groupId>
 			    <artifactId>jackson-module-jaxb-annotations</artifactId>
 			    <version>${jackson-faster.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>com.fasterxml.jackson.core</groupId>
+			    <artifactId>jackson-annotations</artifactId>
+			    <version>${jackson-faster.version}</version>
+			</dependency>
+			
+			 <dependency>
+			   <groupId>org.codehaus.jackson</groupId>
+			   <artifactId>jackson-mapper-asl</artifactId>
+			   <version>${jackson.version}</version>
+			  </dependency>	
+			
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-jaxrs</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			
+			<!-- JERSEY -->
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-client</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+			
+			<!-- JASPER -->
+			
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports</artifactId>
+				<version>${jasper.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.primefaces</groupId>
+				<artifactId>primefaces</artifactId>
+				<version>${primefaces.version}</version>
+			</dependency>
+			
+			<!-- JSF 2 -->
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-api</artifactId>
+				<version>${jsf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-impl</artifactId>
+				<version>${jsf.version}</version>
+			</dependency>
+	 
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>jstl</artifactId>
+				<version>${servlet.version}</version>
+			</dependency>
+	 
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>${servletapi.version}</version>
+			</dependency>
+	 
+			<dependency>
+				<groupId>javax.servlet.jsp</groupId>
+				<artifactId>jsp-api</artifactId>
+				<version>${servletjsp.version}</version>
+			</dependency>
+			
+			<!-- STELLA  -->
+			<dependency>
+			    <groupId>br.com.caelum.stella</groupId>
+			    <artifactId>caelum-stella-core</artifactId>
+			    <version>${stella.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>br.com.caelum.stella</groupId>
+			    <artifactId>caelum-stella-bean-validation</artifactId>
+			    <version>${stella.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>br.com.caelum.stella</groupId>
+			    <artifactId>caelum-stella-faces</artifactId>
+			    <version>${stella.version}</version>
+			</dependency>
+	 
+			<!-- EL -->
+			<dependency>
+				<groupId>org.glassfish.web</groupId>
+				<artifactId>el-impl</artifactId>
+				<version>${el.version}</version>
+			</dependency>
+			
+			<!-- JAVAX -->
+			
+			<dependency>
+	           <groupId>javax.ws.rs</groupId>
+			    <artifactId>javax.ws.rs-api</artifactId>
+			    <version>${javax.version}</version>
+			</dependency>
+			
+			<!-- HTTP -->
+			
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>${http.version}</version>
 			</dependency>
 			
 			<!-- TEST -->	
