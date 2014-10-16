@@ -10,17 +10,23 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 	 
-	<http auto-config="true"> 
-	    <intercept-url pattern="/index**" access="ROLE_USER"/> 
-	</http> 
+<context:component-scan base-package="org.ufpr.dac.security" />
 	
-	<authentication-manager> 
-	    <authentication-provider> 
-	        <user-service> 
-	            <user name="admin" password="admin" authorities="ROLE_USER"/> 
-	        </user-service> 
-	    </authentication-provider> 
-    </authentication-manager> 
+	<http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/**" access="hasRole('')" />
+        
+        <!-- <logout logout-url="/logout" /> -->
+        <logout logout-success-url="/login.jsf" delete-cookies="JSESSIONID"/>
+        <form-login default-target-url="/welcome.jsf"
+        always-use-default-target="true"
+		username-parameter="username"
+		password-parameter="password"
+		login-page="/login.jsf" />
+    </http>
+ 
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="dacCrmAuthenticationProvider" />
+    </authentication-manager>	
     
 </beans:beans>
 
