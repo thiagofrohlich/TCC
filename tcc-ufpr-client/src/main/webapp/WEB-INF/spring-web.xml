@@ -14,7 +14,7 @@
     <mvc:annotation-driven />
  
     <!-- Import spring security configurations -->
-    <import resource="spring-security.xml" />
+    <!-- <import resource="spring-security.xml" /> -->
     <import resource="spring-beans.xml" />
  
 </beans>

@@ -10,206 +10,157 @@
   	<relativePath>../tcc-ufpr-parent</relativePath>
   </parent>
   
- <!-- Shared version number properties -->
-	<properties>
-		<dac-crm.version>0.0.1-SNAPSHOT</dac-crm.version>
-	    <org.springframework.version>4.0.2.RELEASE</org.springframework.version>
-	    <jackson.version>1.9.13</jackson.version>
-	    <jersey.version>1.18.1</jersey.version>
-	    <jackson-faster.version>2.3.2</jackson-faster.version>
-		<spring-security.version>3.2.3.RELEASE</spring-security.version>
-	</properties>
-	
+ 
 	<dependencies>
-	
+	        
         <dependency>
-        	<groupId>org.ufpr.dac</groupId>
-        	<artifactId>dac-crm-model</artifactId>
-        	<version>${dac-crm.version}</version>
-        </dependency>
-        
-          <dependency>
 		  <groupId>net.sf.jasperreports</groupId>
 		  <artifactId>jasperreports</artifactId>
-		  <version>5.5.1</version>
 		</dependency>
         
 		<!--  PRIMEFACES -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>4.0</version>
 		</dependency>
 		
 		<!-- JSF 2 -->
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>
-			<version>2.1.11</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-impl</artifactId>
-			<version>2.1.11</version>
 		</dependency>
  
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			<version>1.2</version>
 		</dependency>
  
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
 		</dependency>
  
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
-			<version>2.1</version>
 		</dependency>
 		
 		<!-- STELLA  -->
 		<dependency>
 		    <groupId>br.com.caelum.stella</groupId>
 		    <artifactId>caelum-stella-core</artifactId>
-		    <version>2.1.0</version>
 		</dependency>
 		
 		<dependency>
 		    <groupId>br.com.caelum.stella</groupId>
 		    <artifactId>caelum-stella-bean-validation</artifactId>
-		    <version>2.1.0</version>
 		</dependency>
 		
 		<dependency>
 		    <groupId>br.com.caelum.stella</groupId>
 		    <artifactId>caelum-stella-faces</artifactId>
-		    <version>2.1.0</version>
 		</dependency>
  
 		<!-- EL -->
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>el-impl</artifactId>
-			<version>2.2</version>
 		</dependency>
 		
 		<dependency>
 		  <groupId>org.springframework</groupId>
 		  <artifactId>spring-core</artifactId>
-		  <version>${org.springframework.version}</version>
 		</dependency>
 		
 		<dependency>
 		  <groupId>org.springframework</groupId>
 		  <artifactId>spring-context</artifactId>
-		  <version>${org.springframework.version}</version>
 		</dependency>
 		
 		<dependency>
            <groupId>javax.ws.rs</groupId>
 		    <artifactId>javax.ws.rs-api</artifactId>
-		    <version>2.0</version>
 		</dependency>
 		
-        <dependency>
-		    <groupId>org.glassfish.jersey.core</groupId>
-		    <artifactId>jersey-client</artifactId>
-		    <version>2.8</version>
-		</dependency> 
-		
+   		
 		<dependency>
 		  <groupId>org.springframework</groupId>
 		  <artifactId>spring-web</artifactId>
-		  <version>${org.springframework.version}</version>
 		</dependency>
 
 		<dependency>
 		  <groupId>org.springframework</groupId>
 		  <artifactId>spring-webmvc</artifactId>
-		  <version>${org.springframework.version}</version>
 		</dependency>
 		
 		<dependency>
 		  <groupId>org.springframework</groupId>
 		  <artifactId>spring-webmvc-portlet</artifactId>
-		  <version>${org.springframework.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>${spring-security.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>${spring-security.version}</version>
 		</dependency>
 		            		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>${spring-security.version}</version>
 		</dependency>
 		            
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-jaxrs</artifactId>
-			<version>${jackson.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
-			<version>${jersey.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.3.3</version>
 		</dependency>
 		
 	<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-core</artifactId>
-		    <version>2.2.2</version>
 		</dependency>
 		
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
-		    <version>2.2.2</version>
 		</dependency>
 		
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-annotations</artifactId>
-		    <version>2.2.2</version>
 		</dependency>
 		
 		 <dependency>
 		   <groupId>org.codehaus.jackson</groupId>
 		   <artifactId>jackson-mapper-asl</artifactId>
-		   <version>${jackson.version}</version>
 		  </dependency>	
 		            		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${org.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
   </dependencies>
