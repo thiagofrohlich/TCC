@@ -12,12 +12,12 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
-public class Usuario implements Serializable {
+public class Usuario implements Serializable, DomainObject {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@SequenceGenerator(name="USUARIO_ID_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_ID_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="USUARIO_ID_GENERATOR")
 	private Integer id;
 
 	private String acessos;
