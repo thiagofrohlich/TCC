@@ -11,7 +11,7 @@ public abstract class Pessoa extends BusinessModel {
 	protected String nome;
 	protected Date dataNascimento;
 	protected String email;
-	protected Genero sexo;
+	protected Genero sexo; // TODO create custom converter
 	
 	protected String pais;
 	protected String estado;
