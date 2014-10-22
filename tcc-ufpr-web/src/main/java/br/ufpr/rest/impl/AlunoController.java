@@ -10,19 +10,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.ufpr.domain.Pessoa;
 import br.ufpr.model.Aluno;
-import br.ufpr.rest.AbstractRestController;
 import br.ufpr.services.CrudService;
 
 @Controller
-@RequestMapping("/pessoa")
-public class AlunoController extends AbstractRestController<Aluno, br.ufpr.domain.Aluno> {
+@RequestMapping("/aluno")
+public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.domain.Aluno> {
 
-	private CrudService<Pessoa> pessoaService;
 
 	@Autowired
 	public AlunoController(Mapper mapper, CrudService<br.ufpr.domain.Aluno> alunoService, CrudService<Pessoa> pessoaService) {
-		super(mapper, alunoService);
-		this.pessoaService = pessoaService;
+		super(mapper, alunoService, pessoaService);
 	}
 
 	@Override
@@ -37,10 +34,6 @@ public class AlunoController extends AbstractRestController<Aluno, br.ufpr.domai
 		return mapToModel(domain);
 	}
 
-	private Pessoa createPessoa(Aluno model) {
-		return pessoaService.create(mapper.map(model, Pessoa.class));
-	}
-	
 	private Aluno mapToModel(br.ufpr.domain.Aluno alunoDomain) {
 		Aluno aluno = mapper.map(alunoDomain, Aluno.class);
 		mapper.map(alunoDomain.getPessoa(), aluno);

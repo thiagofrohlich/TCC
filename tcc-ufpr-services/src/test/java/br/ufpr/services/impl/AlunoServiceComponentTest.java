@@ -8,19 +8,15 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.ufpr.domain.Aluno;
-import br.ufpr.repository.PessoaRepository;
 import br.ufpr.support.PessoaTestSupport;
 
 public class AlunoServiceComponentTest extends PessoaTestSupport {
 
 	@Autowired
-	private PessoaRepository pessoaRepository;
-	
-	@Autowired
 	private AlunoService alunoService;
 
 	@Test
-	public void shouldInsertNewValidPessoa() {
+	public void shouldInsertNewValidAluno() {
 //		Given
 		Aluno aluno = new Aluno();
 		aluno.setPessoa(savedPessoa);

@@ -15,7 +15,7 @@ public class AlunoControllerComponentTest extends SpringTestSupport {
 	private AlunoController alunoController;
 	
 	@Test
-	public void shouldInsertNewValidPessoa() {
+	public void shouldInsertNewValidAluno() {
 //		Given
 		Aluno aluno = new Aluno();
 		aluno.setNome("fake name");

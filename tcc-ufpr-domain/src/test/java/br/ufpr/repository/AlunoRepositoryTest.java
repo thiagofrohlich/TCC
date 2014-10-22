@@ -4,38 +4,22 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.ufpr.domain.Aluno;
-import br.ufpr.domain.Pessoa;
-import br.ufpr.support.SpringTestSupport;
+import br.ufpr.support.PessoaTestSupport;
 
-public class AlunoRepositoryTest extends SpringTestSupport {
+public class AlunoRepositoryTest extends PessoaTestSupport {
 
 	@Autowired
 	private AlunoRepository alunoRepository;
 	
-	@Autowired
-	private PessoaRepository pessoaRepository;
-
-	private Pessoa validPessoa;
-	
-	@Before
-	public void createValidPessoa() {
-		Pessoa pessoa = new Pessoa();
-		pessoa.setNome("fake name");
-		pessoa.setCpf("123456789-00");
-		validPessoa = pessoaRepository.save(pessoa);
-		
-	}
-	
 	@Test
-	public void shouldInsertNewValidPessoa() {
+	public void shouldInsertNewValidAluno() {
 //		Given
 		Aluno aluno = new Aluno();
-		aluno.setPessoa(validPessoa);
+		aluno.setPessoa(savedPessoa);
 		aluno.setAtivo(true);
 		
 //		When

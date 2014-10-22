@@ -12,12 +12,12 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Professor.findAll", query="SELECT p FROM Professor p")
-public class Professor implements Serializable {
+public class Professor implements Serializable, DomainObject {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@SequenceGenerator(name="PROFESSOR_ID_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PROFESSOR_ID_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="PROFESSOR_ID_GENERATOR")
 	private Integer id;
 
 	private Boolean ativo;
@@ -50,7 +50,7 @@ public class Professor implements Serializable {
 		this.id = id;
 	}
 
-	public Boolean getAtivo() {
+	public Boolean isAtivo() {
 		return this.ativo;
 	}
 

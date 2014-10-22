@@ -35,7 +35,7 @@
 	    <dependency>
 	        <groupId>br.ufpr</groupId>
 	        <artifactId>tcc-ufpr-domain</artifactId>
-	        <version>${tcc-ufpr.version}</version>
+	        <version>${tcc-ufpr.version}</version><!--$NO-MVN-MAN-VER$-->
 	        <scope>test</scope>
 	        <classifier>tests</classifier>
 	    </dependency>
