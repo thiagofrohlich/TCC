@@ -31,11 +31,11 @@ public class Usuario implements Serializable {
 	private Date updatedAt;
 
 	//bi-directional many-to-one association to Aluno
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="updatedBy")
 	private List<Aluno> alunos;
 
 	//bi-directional many-to-one association to AlunoDisciplina
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="updatedBy")
 	private List<AlunoDisciplina> alunoDisciplinas;
 
 	//bi-directional many-to-one association to Disciplina
@@ -43,7 +43,7 @@ public class Usuario implements Serializable {
 	private List<Disciplina> disciplinas;
 
 	//bi-directional many-to-one association to Noticia
-	@OneToMany(mappedBy="updatedBy")
+	@OneToMany(mappedBy="usuario")
 	private List<Noticia> noticias;
 
 	//bi-directional many-to-one association to Pessoa
@@ -64,7 +64,7 @@ public class Usuario implements Serializable {
 	private Usuario updatedBy;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="updatedBy")
 	private List<Usuario> usuarios;
 
 	public Usuario() {

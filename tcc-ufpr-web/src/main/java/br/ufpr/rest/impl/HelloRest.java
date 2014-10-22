@@ -1,4 +1,4 @@
-package br.ufpr.rest;
+package br.ufpr.rest.impl;
 
 import java.util.concurrent.atomic.AtomicLong;
 
