@@ -37,5 +37,13 @@ public class Aluno extends Pessoa {
 	public void setDisciplinas(List<Disciplina> disciplinas) {
 		this.disciplinas = disciplinas;
 	}
+	@Override
+	public Integer getId() {
+		return getMatricula();
+	}
+	@Override
+	public void setId(Integer id) {
+		setMatricula(id);
+	}
 	
 }
