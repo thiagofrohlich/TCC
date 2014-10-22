@@ -7,6 +7,7 @@
 	<name>TCC Parent</name>
 	
 	<properties>
+		<tcc-ufpr.version>0.0.1-SNAPSHOT</tcc-ufpr.version>
 	    <primefaces.version>4.0</primefaces.version>
 	    <jsf.version>2.1.11</jsf.version>
 		<servletapi.version>2.5</servletapi.version>
@@ -38,10 +39,12 @@
 		<javax-validation.version>1.1.0.Final</javax-validation.version>
 		<el-impl.version>2.2</el-impl.version>
 		<jasperreports.version>5.5.1</jasperreports.version>
+		<dozer.version>5.5.1</dozer.version>
 		<junit.version>4.11</junit.version>
 		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
 		<java-compiler.version>1.7</java-compiler.version>
 		<maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
+		<maven-jar-plugin.version>2.5</maven-jar-plugin.version>
 	</properties>
 	
 	<modules>
@@ -56,6 +59,25 @@
 	
 		<dependencies>
 		
+			<!-- TCC PROJECTS -->
+			
+		    <dependency>
+		        <groupId>br.ufpr</groupId>
+		        <artifactId>tcc-ufpr-domain</artifactId>
+		        <version>${tcc-ufpr.version}</version>
+		    </dependency>	    	
+		
+		    <dependency>
+		        <groupId>br.ufpr</groupId>
+		        <artifactId>tcc-ufpr-model</artifactId>
+		        <version>${tcc-ufpr.version}</version>
+		    </dependency>	    	
+		
+		    <dependency>
+		        <groupId>br.ufpr</groupId>
+		        <artifactId>tcc-ufpr-services</artifactId>
+		        <version>${tcc-ufpr.version}</version>
+		    </dependency>	    	
 		
 			<!-- LOG4J -->
 		
@@ -379,6 +401,14 @@
 				<version>${http.version}</version>
 			</dependency>
 			
+			<!-- DOZER -->
+			
+			<dependency>
+				<groupId>net.sf.dozer</groupId>
+				<artifactId>dozer</artifactId>
+				<version>${dozer.version}</version>
+			</dependency>
+			
 			<!-- TEST -->	
 	
 			<dependency>
@@ -423,6 +453,18 @@
 					</configuration>
 				</plugin>
       
+				<plugin>
+				  <groupId>org.apache.maven.plugins</groupId>
+				  <artifactId>maven-jar-plugin</artifactId>
+				  <version>${maven-jar-plugin.version}</version>
+				  <executions>
+				    <execution>
+				      <goals>
+				        <goal>test-jar</goal>
+				      </goals>
+				    </execution>
+				  </executions>
+				</plugin>
 			</plugins>
 		
 		</pluginManagement>
