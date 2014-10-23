@@ -10,7 +10,7 @@ import br.ufpr.services.AbstractCrudService;
 
 @Service
 @Transactional
-public class AlunoService extends AbstractCrudService<Aluno, Long> {
+public class AlunoService extends AbstractCrudService<Aluno, Integer> {
 
 	@Autowired
 	public AlunoService(AlunoRepository repository) {

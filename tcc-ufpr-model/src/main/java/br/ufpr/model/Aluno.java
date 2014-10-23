@@ -19,7 +19,7 @@ public class Aluno extends Pessoa {
 	public void setMatricula(Integer matricula) {
 		this.matricula = matricula;
 	}
-	public Boolean getAtivo() {
+	public Boolean isAtivo() {
 		return ativo;
 	}
 	public void setAtivo(Boolean ativo) {

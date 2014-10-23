@@ -12,6 +12,8 @@
 		<property name="mappingFiles">
 			<list>
 				<value>tcc-dozer-config.xml</value>
+				<value>tcc-aluno-mapping.xml</value>
+				<value>tcc-pessoa-mapping.xml</value>
 			</list>
 		</property>
 	</bean>

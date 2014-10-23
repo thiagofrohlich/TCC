@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public abstract class Pessoa extends BusinessModel {
 
+	protected Integer pessoaId;
 	protected String cpf;
 	protected String nome;
 	protected Date dataNascimento;
@@ -92,6 +93,12 @@ public abstract class Pessoa extends BusinessModel {
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+	public Integer getPessoaId() {
+		return pessoaId;
+	}
+	public void setPessoaId(Integer idPessoa) {
+		this.pessoaId = idPessoa;
 	}
 	
 }

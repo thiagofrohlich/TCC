@@ -116,4 +116,9 @@ public class Aluno implements Serializable, DomainObject {
 		return alunoDisciplina;
 	}
 
+	@Override
+	public Serializable getId() {
+		return getMatricula();
+	}
+
 }
