@@ -15,6 +15,7 @@ import br.ufpr.exception.NotDeletedObjectException;
 import br.ufpr.exception.NullParameterException;
 import br.ufpr.model.Professor;
 import br.ufpr.services.CrudService;
+import br.ufpr.util.AssertUtils;
 
 @Controller
 @RequestMapping("/professor")
@@ -28,8 +29,8 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 	@Override
 	@ResponseBody
 	@RequestMapping(method=RequestMethod.POST)
-	public Professor create(@RequestBody Professor model) {
-		
+	public Professor create(@RequestBody Professor model) throws NullParameterException {
+		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Professor domain = mapper.map(model, br.ufpr.domain.Professor.class);
 		domain.setPessoa(createPessoa(model));
 		domain = crudService.create(domain);
@@ -40,7 +41,8 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 	@Override
 	@ResponseBody
 	@RequestMapping(method=RequestMethod.PUT)
-	public Professor update(@RequestBody Professor model) throws MissingIdException {
+	public Professor update(@RequestBody Professor model) throws MissingIdException, NullParameterException {
+		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Professor domain = mapper.map(model, br.ufpr.domain.Professor.class);
 		domain.setPessoa(findPessoa(model.getPessoaId()));
 		domain = crudService.update(domain);
@@ -48,17 +50,18 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 		return mapToModel(domain);
 	}
 	
+	@Override
+	@RequestMapping(method=RequestMethod.DELETE)
+	public void delete(@RequestBody Professor model) throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
+		AssertUtils.assertParameterIsSupplied(model);
+		br.ufpr.domain.Professor domain = mapper.map(model, br.ufpr.domain.Professor.class);
+		crudService.delete(domain.getId());
+	}
+	
 	private Professor mapToModel(br.ufpr.domain.Professor professorDomain) {
 		Professor professor = mapper.map(professorDomain, Professor.class);
 		mapper.map(professorDomain.getPessoa(), professor);
 		return professor;
-	}
-
-	@Override
-	public void delete(Professor model) throws NullParameterException,
-			NotDeletedObjectException, NoResultFoundException {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

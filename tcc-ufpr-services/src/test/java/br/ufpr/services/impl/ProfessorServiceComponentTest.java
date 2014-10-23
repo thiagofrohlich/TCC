@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.ufpr.domain.Professor;
 import br.ufpr.exception.MissingIdException;
+import br.ufpr.exception.NoResultFoundException;
+import br.ufpr.exception.NotDeletedObjectException;
+import br.ufpr.exception.NullParameterException;
 import br.ufpr.repository.ProfessorRepository;
 import br.ufpr.support.PessoaTestSupport;
 
@@ -42,7 +45,7 @@ public class ProfessorServiceComponentTest extends PessoaTestSupport {
 	@Test
 	public void shouldUpdateExistentProfessor() throws MissingIdException {
 //		Given
-		Professor professor = createAndSaveProfessor();
+		Professor professor = createAndSaveProfessor(false);
 		professor.setAtivo(true);
 		
 //		When
@@ -54,10 +57,40 @@ public class ProfessorServiceComponentTest extends PessoaTestSupport {
 		assertTrue(savedProfessor.isAtivo());
 	}
 	
-	private Professor createAndSaveProfessor() {
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseNullParameterExceptionGivenNullParameter() throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
+//		When
+		professorService.delete(null);
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseNoResultFoundExceptionGivenInvalidId() throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
+//		When
+		professorService.delete(1);
+		
+//		Then exception
+	}
+	
+	@Test
+	public void shouldDeleteExistentProfessor() throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
+//		Given
+		Professor professor = createAndSaveProfessor(true);
+		
+//		When
+		professorService.delete(professor.getId());
+		
+//		Then
+		Professor deletedProfessor = professorRepository.findOne(professor.getId());
+		assertTrue(deletedProfessor.isDeleted());
+		assertFalse(deletedProfessor.isAtivo());
+	}
+	
+	private Professor createAndSaveProfessor(boolean isActive) {
 		Professor professor = new Professor();
 		professor.setPessoa(savedPessoa);
-		professor.setAtivo(false);
+		professor.setAtivo(isActive);
 		professorRepository.saveAndFlush(professor);
 		return professor;
 	}
