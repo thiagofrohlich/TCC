@@ -39,7 +39,7 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 	@RequestMapping(method=RequestMethod.PUT)
 	public Aluno update(@RequestBody Aluno model) throws MissingIdException {
 		br.ufpr.domain.Aluno domain = mapper.map(model, br.ufpr.domain.Aluno.class);
-		domain.setPessoa(findPessoa(model.getPessoaId())); //find pessoa
+		domain.setPessoa(findPessoa(model.getPessoaId()));
 		domain = crudService.update(domain);
 		
 		return mapToModel(domain);

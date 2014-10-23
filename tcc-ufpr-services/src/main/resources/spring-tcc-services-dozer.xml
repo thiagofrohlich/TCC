@@ -11,9 +11,10 @@
 	<bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
 		<property name="mappingFiles">
 			<list>
-				<value>tcc-dozer-config.xml</value>
-				<value>tcc-aluno-mapping.xml</value>
-				<value>tcc-pessoa-mapping.xml</value>
+				<value>mapping/dozer-config.xml</value>
+				<value>mapping/pessoa-mapping.xml</value>
+				<value>mapping/aluno-mapping.xml</value>
+				<value>mapping/professor-mapping.xml</value>
 			</list>
 		</property>
 	</bean>

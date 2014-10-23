@@ -34,16 +34,21 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 		return mapToModel(domain);
 	}
 
+	@Override
+	@ResponseBody
+	@RequestMapping(method=RequestMethod.PUT)
+	public Professor update(@RequestBody Professor model) throws MissingIdException {
+		br.ufpr.domain.Professor domain = mapper.map(model, br.ufpr.domain.Professor.class);
+		domain.setPessoa(findPessoa(model.getPessoaId()));
+		domain = crudService.update(domain);
+		
+		return mapToModel(domain);
+	}
+	
 	private Professor mapToModel(br.ufpr.domain.Professor professorDomain) {
 		Professor professor = mapper.map(professorDomain, Professor.class);
 		mapper.map(professorDomain.getPessoa(), professor);
 		return professor;
-	}
-
-	@Override
-	public Professor update(Professor model) throws MissingIdException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
