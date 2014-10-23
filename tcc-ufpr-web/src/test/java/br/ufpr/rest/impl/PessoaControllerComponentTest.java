@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.ufpr.support.SpringTestSupport;
 
 @Ignore
+@Deprecated
 public class PessoaControllerComponentTest extends SpringTestSupport {
 
 	@Autowired
