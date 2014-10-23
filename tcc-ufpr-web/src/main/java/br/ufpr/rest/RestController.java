@@ -1,12 +1,17 @@
 package br.ufpr.rest;
 
 import br.ufpr.exception.MissingIdException;
+import br.ufpr.exception.NoResultFoundException;
+import br.ufpr.exception.NotDeletedObjectException;
+import br.ufpr.exception.NullParameterException;
 import br.ufpr.model.BusinessModel;
 
 public interface RestController<M extends BusinessModel> {
 
-	M create(M model);
+	M create(M model) throws NullParameterException;
 
-	M update(M model) throws MissingIdException;
+	M update(M model) throws MissingIdException, NullParameterException;
+	
+	void delete(M model) throws NullParameterException, NotDeletedObjectException, NoResultFoundException;
 	
 }

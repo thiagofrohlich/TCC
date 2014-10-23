@@ -15,7 +15,8 @@ import br.ufpr.services.CrudService;
 
 @Controller
 @RequestMapping("/pessoa")
-public class PessoaController extends AbstractRestController<Pessoa, br.ufpr.domain.Pessoa, Integer> {
+@Deprecated
+public abstract class PessoaController extends AbstractRestController<Pessoa, br.ufpr.domain.Pessoa, Integer> {
 
 	@Autowired
 	public PessoaController(Mapper mapper, CrudService<br.ufpr.domain.Pessoa, Integer> pessoaService) {

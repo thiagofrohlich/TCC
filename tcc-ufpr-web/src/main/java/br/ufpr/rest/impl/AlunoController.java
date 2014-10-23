@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.ufpr.domain.Pessoa;
 import br.ufpr.exception.MissingIdException;
+import br.ufpr.exception.NoResultFoundException;
+import br.ufpr.exception.NotDeletedObjectException;
+import br.ufpr.exception.NullParameterException;
 import br.ufpr.model.Aluno;
 import br.ufpr.services.CrudService;
+import br.ufpr.util.AssertUtils;
 
 @Controller
 @RequestMapping("/aluno")
@@ -26,7 +30,8 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 	@Override
 	@ResponseBody
 	@RequestMapping(method=RequestMethod.POST)
-	public Aluno create(@RequestBody Aluno model) {
+	public Aluno create(@RequestBody Aluno model) throws NullParameterException {
+		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Aluno domain = mapper.map(model, br.ufpr.domain.Aluno.class);
 		domain.setPessoa(createPessoa(model));
 		domain = crudService.create(domain);
@@ -37,7 +42,8 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 	@Override
 	@ResponseBody
 	@RequestMapping(method=RequestMethod.PUT)
-	public Aluno update(@RequestBody Aluno model) throws MissingIdException {
+	public Aluno update(@RequestBody Aluno model) throws MissingIdException, NullParameterException {
+		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Aluno domain = mapper.map(model, br.ufpr.domain.Aluno.class);
 		domain.setPessoa(findPessoa(model.getPessoaId()));
 		domain = crudService.update(domain);
@@ -45,6 +51,14 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 		return mapToModel(domain);
 	}
 
+	@Override
+	@RequestMapping(method=RequestMethod.DELETE)
+	public void delete(@RequestBody Aluno model) throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
+		AssertUtils.assertParameterIsSupplied(model);
+		br.ufpr.domain.Aluno domain = mapper.map(model, br.ufpr.domain.Aluno.class);
+		crudService.delete(domain.getId());
+	}
+	
 	private Aluno mapToModel(br.ufpr.domain.Aluno alunoDomain) {
 		Aluno aluno = mapper.map(alunoDomain, Aluno.class);
 		mapper.map(alunoDomain.getPessoa(), aluno);

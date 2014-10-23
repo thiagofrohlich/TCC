@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.ufpr.domain.Pessoa;
 import br.ufpr.exception.MissingIdException;
+import br.ufpr.exception.NoResultFoundException;
+import br.ufpr.exception.NotDeletedObjectException;
+import br.ufpr.exception.NullParameterException;
 import br.ufpr.model.Usuario;
 import br.ufpr.services.CrudService;
 
@@ -49,6 +52,13 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 		Usuario usuario = mapper.map(usuarioDomain, Usuario.class);
 		mapper.map(usuarioDomain.getPessoa(), usuario);
 		return usuario;
+	}
+
+	@Override
+	public void delete(Usuario model) throws NullParameterException,
+			NotDeletedObjectException, NoResultFoundException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

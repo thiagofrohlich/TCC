@@ -9,6 +9,7 @@ import br.ufpr.exception.MissingIdException;
 import br.ufpr.exception.NoResultFoundException;
 import br.ufpr.exception.NotDeletedObjectException;
 import br.ufpr.exception.NullParameterException;
+import br.ufpr.util.AssertUtils;
 
 public abstract class AbstractCrudService<D extends DomainObject, ID extends Serializable> implements CrudService<D, ID> {
 
@@ -26,21 +27,21 @@ public abstract class AbstractCrudService<D extends DomainObject, ID extends Ser
 	
 	@Override
 	public D update(D domainObject) throws MissingIdException {
-		assertHasId(domainObject);
+		AssertUtils.assertHasId(domainObject);
 		return repository.saveAndFlush(domainObject);
 	}
 	
 	@Override
 	public void delete(ID id) throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
-		assertParameterIsSupplied(id);
+		AssertUtils.assertParameterIsSupplied(id);
 		
 		D domainObject = find(id);
-		assertIsFound(domainObject);
+		AssertUtils.assertIsFound(domainObject);
 		
 		try {
 			domainObject.delete();
 			domainObject = repository.saveAndFlush(domainObject);
-			assertIsDeleted(domainObject);
+			AssertUtils.assertIsDeleted(domainObject);
 		} catch(Exception e) {
 			throw new NotDeletedObjectException(e);
 		}
@@ -50,30 +51,6 @@ public abstract class AbstractCrudService<D extends DomainObject, ID extends Ser
 	@Override
 	public D find(ID id) {
 		return repository.findOne(id);
-	}
-
-	private void assertHasId(D domainObject) throws MissingIdException {
-		if(domainObject.getId() == null) {
-			throw new MissingIdException();
-		}
-	}
-
-	private void assertParameterIsSupplied(ID id) throws NullParameterException {
-		if(id == null) {
-			throw new NullParameterException();
-		}
-	}
-
-	private void assertIsDeleted(D domainObject) throws NotDeletedObjectException {
-		if(!domainObject.isDeleted()) {
-			throw new NotDeletedObjectException();
-		}
-	}
-
-	private void assertIsFound(D domainObject) throws NoResultFoundException {
-		if(domainObject == null) {
-			throw new NoResultFoundException();
-		}
 	}
 
 }

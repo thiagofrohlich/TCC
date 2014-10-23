@@ -1,7 +1,9 @@
 package br.ufpr.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -117,8 +119,18 @@ public class Aluno implements Serializable, DomainObject {
 	}
 
 	@Override
-	public Serializable getId() {
+	public Integer getId() {
 		return getMatricula();
+	}
+
+	@Override
+	public void delete() {
+		setAtivo(false);
+	}
+
+	@Override
+	public boolean isDeleted() {
+		return !isAtivo();
 	}
 
 }

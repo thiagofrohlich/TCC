@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.ufpr.domain.Pessoa;
 import br.ufpr.exception.MissingIdException;
+import br.ufpr.exception.NoResultFoundException;
+import br.ufpr.exception.NotDeletedObjectException;
+import br.ufpr.exception.NullParameterException;
 import br.ufpr.model.Professor;
 import br.ufpr.services.CrudService;
 
@@ -49,6 +52,13 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 		Professor professor = mapper.map(professorDomain, Professor.class);
 		mapper.map(professorDomain.getPessoa(), professor);
 		return professor;
+	}
+
+	@Override
+	public void delete(Professor model) throws NullParameterException,
+			NotDeletedObjectException, NoResultFoundException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

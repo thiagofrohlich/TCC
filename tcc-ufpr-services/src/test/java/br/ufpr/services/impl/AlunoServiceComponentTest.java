@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.ufpr.domain.Aluno;
 import br.ufpr.exception.MissingIdException;
+import br.ufpr.exception.NoResultFoundException;
+import br.ufpr.exception.NotDeletedObjectException;
+import br.ufpr.exception.NullParameterException;
 import br.ufpr.repository.AlunoRepository;
 import br.ufpr.support.PessoaTestSupport;
 
@@ -42,7 +45,7 @@ public class AlunoServiceComponentTest extends PessoaTestSupport {
 	@Test
 	public void shouldUpdateExistentAluno() throws MissingIdException {
 //		Given
-		Aluno aluno = createAndSaveAluno();
+		Aluno aluno = createAndSaveAluno(false);
 		aluno.setAtivo(true);
 		
 //		When
@@ -54,10 +57,40 @@ public class AlunoServiceComponentTest extends PessoaTestSupport {
 		assertTrue(savedAluno.isAtivo());
 	}
 	
-	private Aluno createAndSaveAluno() {
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseNullParameterExceptionGivenNullParameter() throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
+//		When
+		alunoService.delete(null);
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseNoResultFoundExceptionGivenInvalidId() throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
+//		When
+		alunoService.delete(1);
+		
+//		Then exception
+	}
+	
+	@Test
+	public void shouldDeleteExistentAluno() throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
+//		Given
+		Aluno aluno = createAndSaveAluno(true);
+		
+//		When
+		alunoService.delete(aluno.getId());
+		
+//		Then
+		Aluno deletedAluno = alunoRepository.findOne(aluno.getId());
+		assertTrue(deletedAluno.isDeleted());
+		assertFalse(deletedAluno.isAtivo());
+	}
+	
+	private Aluno createAndSaveAluno(boolean isActive) {
 		br.ufpr.domain.Aluno aluno = new br.ufpr.domain.Aluno();
 		aluno.setPessoa(savedPessoa);
-		aluno.setAtivo(false);
+		aluno.setAtivo(isActive);
 		alunoRepository.saveAndFlush(aluno);
 		return aluno;
 	}
