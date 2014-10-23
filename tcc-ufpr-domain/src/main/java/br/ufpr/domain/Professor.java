@@ -1,7 +1,9 @@
 package br.ufpr.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -102,6 +104,16 @@ public class Professor implements Serializable, DomainObject {
 
 	public void setUpdatedBy(Usuario updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	@Override
+	public boolean isDeleted() {
+		return !isAtivo();
+	}
+	
+	@Override
+	public void delete() {
+		setAtivo(false);
 	}
 
 }

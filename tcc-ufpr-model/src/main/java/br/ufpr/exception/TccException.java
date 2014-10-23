@@ -8,4 +8,8 @@ public class TccException extends Exception {
 		super(string);
 	}
 	
+	public TccException(String string, Throwable exception) {
+		super(string, exception);
+	}
+	
 }

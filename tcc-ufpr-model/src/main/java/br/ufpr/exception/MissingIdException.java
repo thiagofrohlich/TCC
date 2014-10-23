@@ -8,4 +8,8 @@ public class MissingIdException extends TccException {
 		super("The given id must not be null!");
 	}
 
+	public MissingIdException(String message, Throwable exception) {
+		super(message, exception);
+	}
+	
 }

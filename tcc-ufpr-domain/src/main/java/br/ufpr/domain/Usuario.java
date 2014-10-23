@@ -1,7 +1,9 @@
 package br.ufpr.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -83,7 +85,7 @@ public class Usuario implements Serializable, DomainObject {
 	}
 
 	public void setAcessos(String acessos) {
-		this.acessos = acessos;
+		this.acessos = acessos == null ? null : acessos.trim();
 	}
 
 	public String getLogin() {
@@ -278,6 +280,16 @@ public class Usuario implements Serializable, DomainObject {
 		usuario.setUpdatedBy(null);
 
 		return usuario;
+	}
+
+	@Override
+	public boolean isDeleted() {
+		return getAcessos() == null || getAcessos().trim().isEmpty();
+	}
+
+	@Override
+	public void delete() {
+		setAcessos(null);
 	}
 
 }

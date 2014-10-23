@@ -1,7 +1,9 @@
 package br.ufpr.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -254,6 +256,16 @@ public class Pessoa implements Serializable, DomainObject {
 		usuario.setPessoa(null);
 
 		return usuario;
+	}
+
+	@Override
+	public boolean isDeleted() {
+		return false;
+	}
+
+	@Override
+	public void delete() {
+		// TODO Will never be deleted
 	}
 
 }
