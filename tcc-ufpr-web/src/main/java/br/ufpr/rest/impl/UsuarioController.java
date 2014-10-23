@@ -34,16 +34,21 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 		return mapToModel(domain);
 	}
 
+	@Override
+	@ResponseBody
+	@RequestMapping(method=RequestMethod.PUT)
+	public Usuario update(@RequestBody Usuario model) throws MissingIdException {
+		br.ufpr.domain.Usuario domain = mapper.map(model, br.ufpr.domain.Usuario.class);
+		domain.setPessoa(findPessoa(model.getPessoaId()));
+		domain = crudService.update(domain);
+		
+		return mapToModel(domain);
+	}
+	
 	private Usuario mapToModel(br.ufpr.domain.Usuario usuarioDomain) {
 		Usuario usuario = mapper.map(usuarioDomain, Usuario.class);
 		mapper.map(usuarioDomain.getPessoa(), usuario);
 		return usuario;
-	}
-
-	@Override
-	public Usuario update(Usuario model) throws MissingIdException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
