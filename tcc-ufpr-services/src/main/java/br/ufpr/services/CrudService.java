@@ -1,9 +1,15 @@
 package br.ufpr.services;
 
-import br.ufpr.domain.DomainObject;
+import java.io.Serializable;
 
-public interface CrudService<D extends DomainObject> {
+import br.ufpr.domain.DomainObject;
+import br.ufpr.exception.MissingIdException;
+
+public interface CrudService<D extends DomainObject, ID extends Serializable> {
 	
 	D create(D domainObject);
+	
+	D update(D domainObject) throws MissingIdException;
 
+	D find(ID id);
 }

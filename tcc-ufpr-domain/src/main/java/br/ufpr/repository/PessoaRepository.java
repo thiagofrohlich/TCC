@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.ufpr.domain.Pessoa;
 
 @Repository
-public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
+public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
 
 }

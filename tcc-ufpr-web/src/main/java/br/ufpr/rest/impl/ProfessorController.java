@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.ufpr.domain.Pessoa;
+import br.ufpr.exception.MissingIdException;
 import br.ufpr.model.Professor;
 import br.ufpr.services.CrudService;
 
 @Controller
 @RequestMapping("/professor")
-public class ProfessorController extends AbstractPessoaController<Professor, br.ufpr.domain.Professor> {
+public class ProfessorController extends AbstractPessoaController<Professor, br.ufpr.domain.Professor, Integer> {
 
 	@Autowired
-	public ProfessorController(Mapper mapper, CrudService<br.ufpr.domain.Professor> professorService, CrudService<Pessoa> pessoaService) {
+	public ProfessorController(Mapper mapper, CrudService<br.ufpr.domain.Professor, Integer> professorService, CrudService<Pessoa, Integer> pessoaService) {
 		super(mapper, professorService, pessoaService);
 	}
 
@@ -37,6 +38,12 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 		Professor professor = mapper.map(professorDomain, Professor.class);
 		mapper.map(professorDomain.getPessoa(), professor);
 		return professor;
+	}
+
+	@Override
+	public Professor update(Professor model) throws MissingIdException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

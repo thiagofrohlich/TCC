@@ -10,7 +10,7 @@ import br.ufpr.services.AbstractCrudService;
 
 @Service
 @Transactional
-public class UsuarioService extends AbstractCrudService<Usuario, Long> {
+public class UsuarioService extends AbstractCrudService<Usuario, Integer> {
 
 	@Autowired
 	public UsuarioService(UsuarioRepository repository) {
