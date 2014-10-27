@@ -116,6 +116,38 @@ public class UsuarioControllerComponentTest extends PessoaTestSupport {
 		assertNull(deletedUsuario.getAcessos());
 	}
 	
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseExceptionGivenNullParameterSuppliedOnFind() throws NullParameterException, NoResultFoundException {
+//		When
+		usuarioController.find(null);
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInvalidIdOnFind() throws NullParameterException, NoResultFoundException {
+//		When
+		usuarioController.find(1);
+		
+//		Then exception
+	}
+	
+	@Test
+	public void shouldFindProfessorGivenValidId() throws NullParameterException, NoResultFoundException {
+//		Given
+		br.ufpr.domain.Usuario usuario = createAndSaveUsuario();
+		
+//		When
+		Usuario usuarioFound = usuarioController.find(usuario.getId());
+		
+//		Then
+		assertNotNull(usuarioFound);
+		assertEquals(usuario.getId().intValue(), usuarioFound.getId().intValue());
+		assertEquals(usuario.getLogin(), usuarioFound.getLogin());
+		assertNotNull(usuarioFound.getPessoaId());
+		assertEquals(usuario.getPessoa().getId(), usuarioFound.getPessoaId());
+	}
+	
 	private br.ufpr.domain.Usuario createAndSaveUsuario() {
 		br.ufpr.domain.Usuario usuario = new br.ufpr.domain.Usuario();
 		usuario.setPessoa(savedPessoa);

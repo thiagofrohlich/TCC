@@ -90,6 +90,19 @@ public class UsuarioServiceComponentTest extends PessoaTestSupport {
 		assertNull(deletedUsuario.getAcessos());
 	}
 	
+	@Test
+	public void shouldFindAlunoGivenValidId() {
+//		Given
+		Usuario usuario = createAndSaveUsuario();
+		
+//		When
+		Usuario usuarioFound = usuarioService.find(usuario.getId());
+		
+//		Then
+		assertNotNull(usuarioFound);
+		assertSame(usuario, usuarioFound);
+	}
+	
 	private Usuario createAndSaveUsuario() {
 		Usuario usuario = new Usuario();
 		usuario.setPessoa(savedPessoa);

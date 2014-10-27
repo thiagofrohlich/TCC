@@ -8,7 +8,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.ufpr.domain.Aluno;
 import br.ufpr.domain.Professor;
 import br.ufpr.exception.MissingIdException;
 import br.ufpr.exception.NoResultFoundException;

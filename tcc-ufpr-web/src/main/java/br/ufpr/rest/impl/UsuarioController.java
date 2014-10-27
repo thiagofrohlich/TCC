@@ -3,6 +3,7 @@ package br.ufpr.rest.impl;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,17 +59,21 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 		crudService.delete(domain.getId());
 	}
 	
+	@Override
+	@ResponseBody
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public Usuario find(@PathVariable final Integer id) throws NullParameterException,
+			NoResultFoundException {
+		AssertUtils.assertParameterIsSupplied(id);
+		br.ufpr.domain.Usuario domain = crudService.find(id);
+		AssertUtils.assertIsFound(domain);
+		return mapToModel(domain);
+	}
+	
 	private Usuario mapToModel(br.ufpr.domain.Usuario usuarioDomain) {
 		Usuario usuario = mapper.map(usuarioDomain, Usuario.class);
 		mapper.map(usuarioDomain.getPessoa(), usuario);
 		return usuario;
-	}
-
-	@Override
-	public Usuario find(Integer id) throws NullParameterException,
-			NoResultFoundException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
