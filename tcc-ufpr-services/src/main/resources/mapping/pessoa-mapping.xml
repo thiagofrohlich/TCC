@@ -14,4 +14,13 @@
 		</field>
 	</mapping>
 	
+	<mapping>
+		<class-a is-accessible="true">br.ufpr.model.Aluno</class-a>
+		<class-b is-accessible="true">br.ufpr.domain.Pessoa</class-b>
+		<field-exclude>
+			<a>id</a>
+			<b>id</b>
+		</field-exclude>
+	</mapping>
+	
 </mappings>

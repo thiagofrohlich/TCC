@@ -112,6 +112,22 @@ public class AlunoControllerComponentTest extends PessoaTestSupport {
 		assertFalse(deletedAluno.isAtivo());
 	}
 	
+	@Test
+	public void shouldFindAlunoGivenValidId() throws NullParameterException, NoResultFoundException {
+//		Given
+		br.ufpr.domain.Aluno aluno = createAndSaveAluno(false);
+		
+//		When
+		Aluno alunoFound = alunoController.find(aluno.getId());
+		
+//		Then
+		assertNotNull(alunoFound);
+		assertEquals(aluno.getId().intValue(), alunoFound.getId().intValue());
+		assertEquals(aluno.isAtivo(), alunoFound.isAtivo());
+		assertNotNull(alunoFound.getPessoaId());
+		assertEquals(aluno.getPessoa().getId(), alunoFound.getPessoaId());
+	}
+	
 	private br.ufpr.domain.Aluno createAndSaveAluno(boolean isActive) {
 		br.ufpr.domain.Aluno aluno = new br.ufpr.domain.Aluno();
 		aluno.setPessoa(savedPessoa);

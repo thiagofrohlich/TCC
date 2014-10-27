@@ -3,6 +3,7 @@ package br.ufpr.rest.impl;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,6 +58,17 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Aluno domain = mapper.map(model, br.ufpr.domain.Aluno.class);
 		crudService.delete(domain.getId());
+	}
+	
+	@Override
+	@ResponseBody
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public Aluno find(@PathVariable final Integer id) throws NullParameterException,
+			NoResultFoundException {
+		AssertUtils.assertParameterIsSupplied(id);
+		br.ufpr.domain.Aluno domain = crudService.find(id);
+		AssertUtils.assertIsFound(domain);
+		return mapToModel(domain);
 	}
 	
 	private Aluno mapToModel(br.ufpr.domain.Aluno alunoDomain) {

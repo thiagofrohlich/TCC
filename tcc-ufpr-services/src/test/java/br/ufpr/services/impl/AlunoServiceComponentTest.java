@@ -87,6 +87,19 @@ public class AlunoServiceComponentTest extends PessoaTestSupport {
 		assertFalse(deletedAluno.isAtivo());
 	}
 	
+	@Test
+	public void shouldFindAlunoGivenValidId() {
+//		Given
+		Aluno aluno = createAndSaveAluno(false);
+		
+//		When
+		Aluno alunoFound = alunoService.find(aluno.getId());
+		
+//		Then
+		assertNotNull(alunoFound);
+		assertSame(aluno, alunoFound);
+	}
+	
 	private Aluno createAndSaveAluno(boolean isActive) {
 		br.ufpr.domain.Aluno aluno = new br.ufpr.domain.Aluno();
 		aluno.setPessoa(savedPessoa);
