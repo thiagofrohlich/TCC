@@ -64,4 +64,11 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 		return professor;
 	}
 
+	@Override
+	public Professor find(Integer id) throws NullParameterException,
+			NoResultFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

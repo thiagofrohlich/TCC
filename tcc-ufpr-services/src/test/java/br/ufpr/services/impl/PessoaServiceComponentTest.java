@@ -2,6 +2,7 @@ package br.ufpr.services.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,19 @@ public class PessoaServiceComponentTest extends SpringTestSupport {
 		pessoaService.delete(pessoa.getId());
 		
 //		Then exception
+	}
+	
+	@Test
+	public void shouldFindPessoaGivenValidId() {
+//		Given
+		Pessoa pessoa = createAndSavePessoa();
+		
+//		When
+		Pessoa pessoaFound = pessoaService.find(pessoa.getId());
+		
+//		Then
+		assertNotNull(pessoaFound);
+		assertSame(pessoa, pessoaFound);
 	}
 	
 	private Pessoa createAndSavePessoa() {

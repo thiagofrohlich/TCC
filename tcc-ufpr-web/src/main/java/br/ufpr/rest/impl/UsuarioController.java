@@ -64,4 +64,11 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 		return usuario;
 	}
 
+	@Override
+	public Usuario find(Integer id) throws NullParameterException,
+			NoResultFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
