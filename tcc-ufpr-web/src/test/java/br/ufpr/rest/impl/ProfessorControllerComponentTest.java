@@ -112,6 +112,38 @@ public class ProfessorControllerComponentTest extends PessoaTestSupport {
 		assertFalse(deletedProfessor.isAtivo());
 	}
 	
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseExceptionGivenNullParameterSuppliedOnFind() throws NullParameterException, NoResultFoundException {
+//		When
+		professorController.find(null);
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInvalidIdOnFind() throws NullParameterException, NoResultFoundException {
+//		When
+		professorController.find(1);
+		
+//		Then exception
+	}
+	
+	@Test
+	public void shouldFindProfessorGivenValidId() throws NullParameterException, NoResultFoundException {
+//		Given
+		br.ufpr.domain.Professor professor = createAndSaveProfessor(false);
+		
+//		When
+		Professor professorFound = professorController.find(professor.getId());
+		
+//		Then
+		assertNotNull(professorFound);
+		assertEquals(professor.getId().intValue(), professorFound.getId().intValue());
+		assertEquals(professor.isAtivo(), professorFound.isAtivo());
+		assertNotNull(professorFound.getPessoaId());
+		assertEquals(professor.getPessoa().getId(), professorFound.getPessoaId());
+	}
+	
 	private br.ufpr.domain.Professor createAndSaveProfessor(boolean isActive) {
 		br.ufpr.domain.Professor professor = new br.ufpr.domain.Professor();
 		professor.setPessoa(savedPessoa);

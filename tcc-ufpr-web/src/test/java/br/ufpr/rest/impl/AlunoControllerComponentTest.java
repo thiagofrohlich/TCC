@@ -112,6 +112,22 @@ public class AlunoControllerComponentTest extends PessoaTestSupport {
 		assertFalse(deletedAluno.isAtivo());
 	}
 	
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseExceptionGivenNullParameterSuppliedOnFind() throws NullParameterException, NoResultFoundException {
+//		When
+		alunoController.find(null);
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInvalidIdOnFind() throws NullParameterException, NoResultFoundException {
+//		When
+		alunoController.find(1);
+		
+//		Then exception
+	}
+	
 	@Test
 	public void shouldFindAlunoGivenValidId() throws NullParameterException, NoResultFoundException {
 //		Given

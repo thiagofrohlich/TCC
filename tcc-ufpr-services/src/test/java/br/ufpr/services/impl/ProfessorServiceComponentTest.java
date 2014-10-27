@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import br.ufpr.domain.Aluno;
 import br.ufpr.domain.Professor;
 import br.ufpr.exception.MissingIdException;
 import br.ufpr.exception.NoResultFoundException;
@@ -85,6 +86,19 @@ public class ProfessorServiceComponentTest extends PessoaTestSupport {
 		Professor deletedProfessor = professorRepository.findOne(professor.getId());
 		assertTrue(deletedProfessor.isDeleted());
 		assertFalse(deletedProfessor.isAtivo());
+	}
+	
+	@Test
+	public void shouldFindAlunoGivenValidId() {
+//		Given
+		Professor professor = createAndSaveProfessor(false);
+		
+//		When
+		Professor professorFound = professorService.find(professor.getId());
+		
+//		Then
+		assertNotNull(professorFound);
+		assertSame(professor, professorFound);
 	}
 	
 	private Professor createAndSaveProfessor(boolean isActive) {
