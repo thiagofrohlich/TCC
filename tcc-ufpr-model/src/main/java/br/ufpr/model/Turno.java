@@ -5,9 +5,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public enum Turno implements BusinessEnum {
 	
-	MANHA("M", "Manhã"),
-	TARDE("T", "Tarde"),
-	NOITE("N", "Noite");
+	M("M", "Manhã"),
+	T("T", "Tarde"),
+	N("N", "Noite");
 
 	private String key;
 	private String value;

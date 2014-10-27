@@ -20,6 +20,12 @@ public class AssertUtils {
 		}
 	}
 
+	public static void assertParameterIsSupplied(Object id, String message) throws NullParameterException {
+		if(id == null) {
+			throw new NullParameterException(message);
+		}
+	}
+	
 	public static void assertIsDeleted(DomainObject domainObject) throws NotDeletedObjectException {
 		if(!domainObject.isDeleted()) {
 			throw new NotDeletedObjectException();

@@ -265,7 +265,7 @@ public class Pessoa implements Serializable, DomainObject {
 
 	@Override
 	public void delete() {
-		// TODO Will never be deleted
+		// Will never be deleted
 	}
 
 }

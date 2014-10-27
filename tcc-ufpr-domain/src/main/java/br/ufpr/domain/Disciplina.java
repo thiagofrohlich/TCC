@@ -12,12 +12,12 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Disciplina.findAll", query="SELECT d FROM Disciplina d")
-public class Disciplina implements Serializable {
+public class Disciplina implements Serializable, DomainObject {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@SequenceGenerator(name="DISCIPLINA_ID_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="DISCIPLINA_ID_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="DISCIPLINA_ID_GENERATOR")
 	private Integer id;
 
 	private String nome;
@@ -122,6 +122,16 @@ public class Disciplina implements Serializable {
 
 	public void setUpdatedBy(Usuario updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	@Override
+	public void delete() {
+		// Not applicable
+	}
+
+	@Override
+	public boolean isDeleted() {
+		return false;
 	}
 
 }
