@@ -1,6 +1,7 @@
 package br.ufpr.rest.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -173,10 +174,91 @@ public class UsuarioControllerComponentTest extends PessoaTestSupport {
 		assertEquals(usuarioController.encodePassword(password), encodedPassword);
 	}
 	
+	@Test
+	public void shouldNotLoginGivenNullLogin() {
+//		Given
+		String login = null;
+		String password = "password";
+		
+//		When
+		boolean canLogin = usuarioController.canLogin(login, password);
+		
+//		Then
+		assertFalse(canLogin);
+	}
+	
+	@Test
+	public void shouldNotLoginGivenEmptyPassword() {
+//		Given
+		String login = "login";
+		String password = "";
+		
+//		When
+		boolean canLogin = usuarioController.canLogin(login, password);
+		
+//		Then
+		assertFalse(canLogin);
+	}
+	
+	@Test
+	public void shouldNotLoginGivenWrongUser() throws NullParameterException {
+//		Given
+		br.ufpr.domain.Usuario usuario = createAndSaveUsuario();
+		String login = usuario.getLogin() + "-wrong";
+		String password = usuario.getSenha();
+		
+		usuario.setSenha(usuarioController.encodePassword(usuario.getSenha()));
+		usuarioRepository.saveAndFlush(usuario);
+		
+//		When
+		boolean canLogin = usuarioController.canLogin(login, password);
+		
+//		Then
+		assertFalse(canLogin);
+		
+	}
+	
+	@Test
+	public void shouldNotLoginGivenWrongPassword() throws NullParameterException {
+//		Given
+		br.ufpr.domain.Usuario usuario = createAndSaveUsuario();
+		String login = usuario.getLogin();
+		String password = usuario.getSenha() + "-wrong";
+		
+		usuario.setSenha(usuarioController.encodePassword(usuario.getSenha()));
+		usuarioRepository.saveAndFlush(usuario);
+		
+//		When
+		boolean canLogin = usuarioController.canLogin(login, password);
+		
+//		Then
+		assertFalse(canLogin);
+		
+	}
+	
+	@Test
+	public void shouldLogin() throws NullParameterException {
+//		Given
+		br.ufpr.domain.Usuario usuario = createAndSaveUsuario();
+		String login = usuario.getLogin();
+		String password = usuario.getSenha();
+		
+		usuario.setSenha(usuarioController.encodePassword(usuario.getSenha()));
+		usuarioRepository.saveAndFlush(usuario);
+		
+//		When
+		boolean canLogin = usuarioController.canLogin(login, password);
+		
+//		Then
+		assertTrue(canLogin);
+		
+	}
+	
 	private br.ufpr.domain.Usuario createAndSaveUsuario() {
 		br.ufpr.domain.Usuario usuario = new br.ufpr.domain.Usuario();
 		usuario.setPessoa(savedPessoa);
 		usuario.setLogin("none");
+		usuario.setSenha("password");
 		usuarioRepository.saveAndFlush(usuario);
 		return usuario;
 	}

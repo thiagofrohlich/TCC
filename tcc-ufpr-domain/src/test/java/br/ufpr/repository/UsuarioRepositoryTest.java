@@ -21,7 +21,7 @@ public class UsuarioRepositoryTest extends PessoaTestSupport {
 		Usuario usuario = new Usuario();
 		usuario.setPessoa(savedPessoa);
 		usuario.setLogin("login");
-		usuario.setSenha("senha");;
+		usuario.setSenha("senha");
 		
 //		When
 		Usuario savedUsuario = usuarioRepository.save(usuario);
@@ -33,6 +33,28 @@ public class UsuarioRepositoryTest extends PessoaTestSupport {
 		assertSame(usuario.getPessoa(), savedUsuario.getPessoa());
 		assertEquals(usuario.getLogin(), savedUsuario.getLogin());
 		assertEquals(usuario.getSenha(), savedUsuario.getSenha());
+	}
+	
+	@Test
+	public void shoulFindByLogin() {
+//		Given
+		Usuario user = createUser();
+		
+//		When
+		Usuario userFound = usuarioRepository.findByLogin(user.getLogin());
+		
+//		Then
+		assertNotNull(userFound);
+		assertSame(user, userFound);
+		
+	}
+
+	private Usuario createUser() {
+		Usuario usuario = new Usuario();
+		usuario.setPessoa(savedPessoa);
+		usuario.setLogin("login");
+		usuario.setSenha("senha");;
+		return usuarioRepository.save(usuario);
 	}
 	
 }

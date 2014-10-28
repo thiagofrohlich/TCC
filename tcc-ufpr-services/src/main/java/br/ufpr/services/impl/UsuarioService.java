@@ -42,7 +42,26 @@ public class UsuarioService extends AbstractCrudService<Usuario, Integer> implem
 
 	@Override
 	public boolean canLogin(String login, String password) {
-		return false;
+		if(isEmptyString(login) || isEmptyString(password)) {
+			return false;
+		}
+		
+		Usuario usuario = findByLogin(login);
+		if(usuario == null) {
+			return false;
+		}
+		
+		return encodePassword(password).equals(
+				usuario.getSenha());
+	}
+	
+	@Override
+	public Usuario findByLogin(String login) {
+		return ((UsuarioRepository) repository).findByLogin(login);
+	}
+	
+	private boolean isEmptyString(String parameter) {
+		return parameter == null || parameter.trim().equals("");
 	}
 
 }

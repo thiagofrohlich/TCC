@@ -77,6 +77,11 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 		return getUserService().encodePassword(password);
 	}
 	
+	@RequestMapping(value="/login/{login}/{password}", method=RequestMethod.GET)
+	public boolean canLogin(@PathVariable final String login, @PathVariable final String password) {
+		return getUserService().canLogin(login, password);
+	}
+	
 	private Usuario mapToModel(br.ufpr.domain.Usuario usuarioDomain) {
 		Usuario usuario = mapper.map(usuarioDomain, Usuario.class);
 		mapper.map(usuarioDomain.getPessoa(), usuario);

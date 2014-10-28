@@ -1,6 +1,7 @@
 package br.ufpr.services.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -121,8 +122,90 @@ public class UsuarioServiceComponentTest extends PessoaTestSupport {
 		assertEquals(userService.encodePassword(password), encodedPassword);
 	}
 	
+	@Test
+	public void shouldNotLoginGivenNullLogin() {
+//		Given
+		String login = null;
+		String password = "password";
+		
+//		When
+		boolean canLogin = userService.canLogin(login, password);
+		
+//		Then
+		assertFalse(canLogin);
+	}
+	
+	@Test
+	public void shouldNotLoginGivenEmptyPassword() {
+//		Given
+		String login = "login";
+		String password = "";
+		
+//		When
+		boolean canLogin = userService.canLogin(login, password);
+		
+//		Then
+		assertFalse(canLogin);
+	}
+	
+	@Test
+	public void shouldNotLoginGivenWrongUser() {
+//		Given
+		Usuario usuario = createAndSaveUsuario();
+		String login = usuario.getLogin() + "-wrong";
+		String password = usuario.getSenha();
+		
+		usuario.setSenha(userService.encodePassword(usuario.getSenha()));
+		usuarioRepository.saveAndFlush(usuario);
+		
+//		When
+		boolean canLogin = userService.canLogin(login, password);
+		
+//		Then
+		assertFalse(canLogin);
+		
+	}
+	
+	@Test
+	public void shouldNotLoginGivenWrongPassword() {
+//		Given
+		Usuario usuario = createAndSaveUsuario();
+		String login = usuario.getLogin();
+		String password = usuario.getSenha() + "-wrong";
+		
+		usuario.setSenha(userService.encodePassword(usuario.getSenha()));
+		usuarioRepository.saveAndFlush(usuario);
+		
+//		When
+		boolean canLogin = userService.canLogin(login, password);
+		
+//		Then
+		assertFalse(canLogin);
+		
+	}
+	
+	@Test
+	public void shouldLogin() {
+//		Given
+		Usuario usuario = createAndSaveUsuario();
+		String login = usuario.getLogin();
+		String password = usuario.getSenha();
+		
+		usuario.setSenha(userService.encodePassword(usuario.getSenha()));
+		usuarioRepository.saveAndFlush(usuario);
+		
+//		When
+		boolean canLogin = userService.canLogin(login, password);
+		
+//		Then
+		assertTrue(canLogin);
+		
+	}
+	
 	private Usuario createAndSaveUsuario() {
 		Usuario usuario = new Usuario();
+		usuario.setLogin("login");
+		usuario.setSenha("password");
 		usuario.setPessoa(savedPessoa);
 		usuario.setAcessos("none");
 		usuarioRepository.saveAndFlush(usuario);
