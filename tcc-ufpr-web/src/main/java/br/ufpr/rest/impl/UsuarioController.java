@@ -16,6 +16,7 @@ import br.ufpr.exception.NotDeletedObjectException;
 import br.ufpr.exception.NullParameterException;
 import br.ufpr.model.Usuario;
 import br.ufpr.services.CrudService;
+import br.ufpr.services.UserService;
 import br.ufpr.util.AssertUtils;
 
 @Controller
@@ -70,10 +71,20 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 		return mapToModel(domain);
 	}
 	
+	@RequestMapping(value="/password/encode/{password}", method=RequestMethod.GET)
+	public String encodePassword(@PathVariable final String password) throws NullParameterException {
+		AssertUtils.assertParameterIsSupplied(password);
+		return getUserService().encodePassword(password);
+	}
+	
 	private Usuario mapToModel(br.ufpr.domain.Usuario usuarioDomain) {
 		Usuario usuario = mapper.map(usuarioDomain, Usuario.class);
 		mapper.map(usuarioDomain.getPessoa(), usuario);
 		return usuario;
+	}
+	
+	private UserService getUserService() {
+		return (UserService) crudService;
 	}
 
 }

@@ -14,9 +14,11 @@ public class AssertUtils {
 		}
 	}
 
-	public static void assertParameterIsSupplied(Object id) throws NullParameterException {
-		if(id == null) {
+	public static void assertParameterIsSupplied(Object parameter) throws NullParameterException {
+		if(parameter == null) {
 			throw new NullParameterException();
+		} else if(parameter instanceof String) {
+			assertStringIsNotEmpty((String) parameter);
 		}
 	}
 
@@ -35,6 +37,13 @@ public class AssertUtils {
 	public static void assertIsFound(DomainObject domainObject) throws NoResultFoundException {
 		if(domainObject == null) {
 			throw new NoResultFoundException();
+		}
+	}
+
+	private static void assertStringIsNotEmpty(String parameter)
+			throws NullParameterException {
+		if(parameter != null && parameter.trim().equals("")) {
+			throw new NullParameterException();				
 		}
 	}
 

@@ -15,12 +15,17 @@ import br.ufpr.exception.NoResultFoundException;
 import br.ufpr.exception.NotDeletedObjectException;
 import br.ufpr.exception.NullParameterException;
 import br.ufpr.repository.UsuarioRepository;
+import br.ufpr.services.CrudService;
+import br.ufpr.services.UserService;
 import br.ufpr.support.PessoaTestSupport;
 
 public class UsuarioServiceComponentTest extends PessoaTestSupport {
 
 	@Autowired
-	private UsuarioService usuarioService;
+	private CrudService<Usuario, Integer> usuarioService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -101,6 +106,19 @@ public class UsuarioServiceComponentTest extends PessoaTestSupport {
 //		Then
 		assertNotNull(usuarioFound);
 		assertSame(usuario, usuarioFound);
+	}
+	
+	@Test
+	public void shouldEncodePassword() {
+//		Given
+		String password = "password";
+		
+//		When
+		String encodedPassword = userService.encodePassword(password);
+		
+//		Then
+		assertNotNull(encodedPassword);
+		assertEquals(userService.encodePassword(password), encodedPassword);
 	}
 	
 	private Usuario createAndSaveUsuario() {

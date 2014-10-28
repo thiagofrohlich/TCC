@@ -148,6 +148,31 @@ public class UsuarioControllerComponentTest extends PessoaTestSupport {
 		assertEquals(usuario.getPessoa().getId(), usuarioFound.getPessoaId());
 	}
 	
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseExceptionGivenNullParameterOnEncodePassword() throws NullParameterException {
+//		When
+		usuarioController.encodePassword(null);
+	}
+	
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseExceptionGivenEmptyParameterOnEncodePassword() throws NullParameterException {
+//		When
+		usuarioController.encodePassword("");
+	}
+	
+	@Test
+	public void shouldEncodePassword() throws NullParameterException {
+//		Given
+		String password = "password";
+		
+//		When
+		String encodedPassword = usuarioController.encodePassword(password);
+		
+//		Then
+		assertNotNull(encodedPassword);
+		assertEquals(usuarioController.encodePassword(password), encodedPassword);
+	}
+	
 	private br.ufpr.domain.Usuario createAndSaveUsuario() {
 		br.ufpr.domain.Usuario usuario = new br.ufpr.domain.Usuario();
 		usuario.setPessoa(savedPessoa);
