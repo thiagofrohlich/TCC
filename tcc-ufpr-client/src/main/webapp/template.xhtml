@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/composite/tags">
+
+<h:head>
+	<link rel="stylesheet" type="text/css" href="resources/default.css" />
+		<link rel="stylesheet" type="text/css" href="resources/principal.css" />
+		<link rel="stylesheet" type="text/css" href="resources/theme.css" />
+	
+		  <style type="text/css">
+                   .ui-layout-north {
+                          z-index:20 !important;
+                         overflow:visible !important;;
+                    }
+
+                  .ui-layout-north .ui-layout-unit-content {
+                        overflow:visible !important;
+                   }
+            </style>
+
+</h:head>
+<h:body>
+	
+	<div align="center">
+            <p:layout >  
+                <p:layoutUnit position="north" size="100">  
+                   
+                </p:layoutUnit>  
+ 
+                <p:layoutUnit position="west" size="220" >  
+                    <ui:insert name="menu">
+                        <h:form>
+                            
+                        </h:form>
+                    </ui:insert>
+                </p:layoutUnit>  
+                <p:layoutUnit position="center" id="centro">  
+                    <ui:insert name="centro" >
+                     
+                    </ui:insert>
+                </p:layoutUnit>  
+            </p:layout>  
+        </div>
+
+</h:body>
+</html>

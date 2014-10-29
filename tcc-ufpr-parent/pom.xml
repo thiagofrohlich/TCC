@@ -7,7 +7,8 @@
 	<name>TCC Parent</name>
 	
 	<properties>
-	    <primefaces.version>4.0</primefaces.version>
+	    <primefaces.version>5.0</primefaces.version>
+	    <theme.version>1.0.10</theme.version>  
 	    <jsf.version>2.1.11</jsf.version>
 		<servletapi.version>2.5</servletapi.version>
 		<servletjsp.version>2.1</servletjsp.version>
@@ -293,19 +294,20 @@
 				<version>${jersey.version}</version>
 			</dependency>
 			
-			<!-- JASPER -->
 			
-			<dependency>
-				<groupId>net.sf.jasperreports</groupId>
-				<artifactId>jasperreports</artifactId>
-				<version>${jasper.version}</version>
-			</dependency>
+			<!-- PRIMEFACES -->
 			
 			<dependency>
 				<groupId>org.primefaces</groupId>
 				<artifactId>primefaces</artifactId>
 				<version>${primefaces.version}</version>
 			</dependency>
+			
+			<dependency>  
+			    <groupId>org.primefaces.themes</groupId>  
+			    <artifactId>all-themes</artifactId>
+			    <version>${theme.version}</version>  
+			</dependency> 
 			
 			<!-- JSF 2 -->
 			<dependency>
@@ -428,5 +430,22 @@
 		</pluginManagement>
 	
 	</build>
+	<!-- repositories -->
+	<repositories>
+	
+	<repository>
+        <id>local</id>
+        <name>local</name>
+        <url>C:/Users/Rodrigo Silva/.m2/repository</url>
+        <layout>default</layout>
+    </repository>
+	    
+    <repository>
+        <id>prime-repo</id>
+        <name>PrimeFaces Maven Repository</name>
+        <url>http://repository.primefaces.org</url>
+        <layout>default</layout>
+    </repository>
+</repositories>
 	
 </project>

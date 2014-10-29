@@ -5,15 +5,21 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/composite/tags">
 
 <h:head>
+	<link rel="stylesheet" type="text/css" href="resources/default.css" />
+		<link rel="stylesheet" type="text/css" href="resources/principal.css" />
+		<link rel="stylesheet" type="text/css" href="resources/theme.css" />
+	
+
 </h:head>
 <h:body>
 	<h1>Hello World PrimeFaces</h1>
 
 	<h:form>
-		<h:outputText value="#{helloWorldBean.welcomeMessage}" />
+		<tag:cadastro pessoa="#{alunoBean.aluno}" />
 	</h:form>
 
 </h:body>
