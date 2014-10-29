@@ -1,7 +1,9 @@
 package br.ufpr.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -12,12 +14,12 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
-public class Usuario implements Serializable {
+public class Usuario implements Serializable, DomainObject {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@SequenceGenerator(name="USUARIO_ID_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_ID_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="USUARIO_ID_GENERATOR")
 	private Integer id;
 
 	private String acessos;
@@ -31,11 +33,11 @@ public class Usuario implements Serializable {
 	private Date updatedAt;
 
 	//bi-directional many-to-one association to Aluno
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="updatedBy")
 	private List<Aluno> alunos;
 
 	//bi-directional many-to-one association to AlunoDisciplina
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="updatedBy")
 	private List<AlunoDisciplina> alunoDisciplinas;
 
 	//bi-directional many-to-one association to Disciplina
@@ -43,7 +45,7 @@ public class Usuario implements Serializable {
 	private List<Disciplina> disciplinas;
 
 	//bi-directional many-to-one association to Noticia
-	@OneToMany(mappedBy="updatedBy")
+	@OneToMany(mappedBy="usuario")
 	private List<Noticia> noticias;
 
 	//bi-directional many-to-one association to Pessoa
@@ -64,7 +66,7 @@ public class Usuario implements Serializable {
 	private Usuario updatedBy;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="updatedBy")
 	private List<Usuario> usuarios;
 
 	public Usuario() {
@@ -83,7 +85,7 @@ public class Usuario implements Serializable {
 	}
 
 	public void setAcessos(String acessos) {
-		this.acessos = acessos;
+		this.acessos = acessos == null ? null : acessos.trim();
 	}
 
 	public String getLogin() {
@@ -278,6 +280,16 @@ public class Usuario implements Serializable {
 		usuario.setUpdatedBy(null);
 
 		return usuario;
+	}
+
+	@Override
+	public boolean isDeleted() {
+		return getAcessos() == null || getAcessos().trim().isEmpty();
+	}
+
+	@Override
+	public void delete() {
+		setAcessos(null);
 	}
 
 }

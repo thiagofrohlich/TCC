@@ -11,12 +11,12 @@ import java.util.Date;
  */
 @Entity
 @NamedQuery(name="Noticia.findAll", query="SELECT n FROM Noticia n")
-public class Noticia implements Serializable {
+public class Noticia implements Serializable, DomainObject {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@SequenceGenerator(name="NOTICIA_ID_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="NOTICIA_ID_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="NOTICIA_ID_GENERATOR")
 	private Integer id;
 	
 	private String titulo;
@@ -72,6 +72,16 @@ public class Noticia implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	@Override
+	public void delete() {
+		
+	}
+
+	@Override
+	public boolean isDeleted() {
+		return false;
 	}
 
 }

@@ -1,7 +1,9 @@
 package br.ufpr.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -12,12 +14,12 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Aluno.findAll", query="SELECT a FROM Aluno a")
-public class Aluno implements Serializable {
+public class Aluno implements Serializable, DomainObject {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@SequenceGenerator(name="ALUNO_MATRICULA_GENERATOR", sequenceName="ALUNO-MATRICULA")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ALUNO_MATRICULA_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="ALUNO_MATRICULA_GENERATOR")
 	private Integer matricula;
 
 	private Boolean ativo;
@@ -54,7 +56,7 @@ public class Aluno implements Serializable {
 		this.matricula = matricula;
 	}
 
-	public Boolean getAtivo() {
+	public Boolean isAtivo() {
 		return this.ativo;
 	}
 
@@ -114,6 +116,21 @@ public class Aluno implements Serializable {
 		alunoDisciplina.setAluno(null);
 
 		return alunoDisciplina;
+	}
+
+	@Override
+	public Integer getId() {
+		return getMatricula();
+	}
+
+	@Override
+	public void delete() {
+		setAtivo(false);
+	}
+
+	@Override
+	public boolean isDeleted() {
+		return !isAtivo();
 	}
 
 }

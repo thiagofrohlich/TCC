@@ -30,16 +30,18 @@ public class AlunoDisciplina implements Serializable {
 
 	//bi-directional many-to-one association to Aluno
 	@ManyToOne
+	@JoinColumn(name="aluno_matricula", insertable=false, updatable=false)
 	private Aluno aluno;
 
 	//bi-directional many-to-one association to Disciplina
 	@ManyToOne
+	@JoinColumn(name="disciplina_id", insertable=false, updatable=false)
 	private Disciplina disciplina;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="updated_by")
-	private Usuario usuario;
+	private Usuario updatedBy;
 
 	public AlunoDisciplina() {
 	}
@@ -93,11 +95,11 @@ public class AlunoDisciplina implements Serializable {
 	}
 
 	public Usuario getUsuario() {
-		return this.usuario;
+		return this.updatedBy;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuario(Usuario updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 }

@@ -5,8 +5,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public enum Genero implements BusinessEnum {
 	
-	MASCULINO("M", "Masculino"),
-	FEMININO("F", "Feminino");
+	M("M", "Masculino"),
+	F("F", "Feminino");
 	
 	private String key;
 	private String value;
@@ -25,5 +25,5 @@ public enum Genero implements BusinessEnum {
 	public String getValue() {
 		return this.value;
 	}
-
+	
 }

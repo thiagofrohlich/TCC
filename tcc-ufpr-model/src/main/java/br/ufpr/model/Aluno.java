@@ -23,7 +23,7 @@ public class Aluno extends Pessoa {
 	public void setMatricula(Integer matricula) {
 		this.matricula = matricula;
 	}
-	public Boolean getAtivo() {
+	public Boolean isAtivo() {
 		return ativo;
 	}
 	public void setAtivo(Boolean ativo) {
@@ -40,6 +40,14 @@ public class Aluno extends Pessoa {
 	}
 	public void setDisciplinas(List<Disciplina> disciplinas) {
 		this.disciplinas = disciplinas;
+	}
+	@Override
+	public Integer getId() {
+		return getMatricula();
+	}
+	@Override
+	public void setId(Integer id) {
+		setMatricula(id);
 	}
 	
 }

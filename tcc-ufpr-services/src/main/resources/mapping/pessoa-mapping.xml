@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+          
+	
+	<mapping>
+		<class-a is-accessible="true">br.ufpr.model.Pessoa</class-a>
+		<class-b is-accessible="true">br.ufpr.domain.Pessoa</class-b>
+		<field>
+			<a>pessoaId</a>
+			<b>id</b>
+		</field>
+	</mapping>
+	
+	<mapping>
+		<class-a is-accessible="true">br.ufpr.model.Aluno</class-a>
+		<class-b is-accessible="true">br.ufpr.domain.Pessoa</class-b>
+		<field-exclude>
+			<a>id</a>
+			<b>id</b>
+		</field-exclude>
+	</mapping>
+	
+	<mapping>
+		<class-a is-accessible="true">br.ufpr.model.Professor</class-a>
+		<class-b is-accessible="true">br.ufpr.domain.Pessoa</class-b>
+		<field-exclude>
+			<a>id</a>
+			<b>id</b>
+		</field-exclude>
+	</mapping>
+	
+	<mapping>
+		<class-a is-accessible="true">br.ufpr.model.Usuario</class-a>
+		<class-b is-accessible="true">br.ufpr.domain.Pessoa</class-b>
+		<field-exclude>
+			<a>id</a>
+			<b>id</b>
+		</field-exclude>
+	</mapping>
+	
+</mappings>

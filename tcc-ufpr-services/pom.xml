@@ -10,6 +10,48 @@
   	<relativePath>../tcc-ufpr-parent</relativePath>
   </parent>
   
+  <dependencies>
+  
+	    <dependency>
+	        <groupId>br.ufpr</groupId>
+	        <artifactId>tcc-ufpr-model</artifactId>
+	    </dependency>
+	    	    	
+	    <dependency>
+	        <groupId>br.ufpr</groupId>
+	        <artifactId>tcc-ufpr-domain</artifactId>
+	    </dependency>
+		
+	    <dependency>
+	        <groupId>log4j</groupId>
+	        <artifactId>log4j</artifactId>
+	    </dependency>
+	    	    	
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+		</dependency>
+		
+	    <dependency>
+	        <groupId>br.ufpr</groupId>
+	        <artifactId>tcc-ufpr-domain</artifactId>
+	        <version>${tcc-ufpr.version}</version><!--$NO-MVN-MAN-VER$-->
+	        <scope>test</scope>
+	        <classifier>tests</classifier>
+	    </dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		
+  </dependencies>
+  
   <build>
     <plugins>
       <plugin>

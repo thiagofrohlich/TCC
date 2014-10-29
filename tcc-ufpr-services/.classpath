@@ -22,5 +22,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/repo/TCC/tcc-ufpr-services/src/main/resources"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

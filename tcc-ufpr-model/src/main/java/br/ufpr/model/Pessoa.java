@@ -8,11 +8,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public abstract class Pessoa extends BusinessModel {
 	
 	
+	protected Integer pessoaId;
 	protected String cpf;
 	protected String nome;
 	protected Date dataNascimento;
 	protected String email;
-	protected Genero sexo;
+	protected Genero sexo; // TODO create custom converter
 	protected String cep;
 	protected String pais;
 	protected String estado;
@@ -99,6 +100,12 @@ public abstract class Pessoa extends BusinessModel {
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+	public Integer getPessoaId() {
+		return pessoaId;
+	}
+	public void setPessoaId(Integer idPessoa) {
+		this.pessoaId = idPessoa;
 	}
 	
 }
