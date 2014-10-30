@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:stella="http://stella.caelum.com.br/faces">
+
+	<h:head>
+		
+		<link rel="stylesheet" type="text/css" href="resources/default.css" />
+		<link rel="stylesheet" type="text/css" href="resources/principal.css" />
+		<link rel="stylesheet" type="text/css" href="resources/theme.css" />
+	
+            <style type="text/css">
+                   .ui-layout-north {
+                          z-index:20 !important;
+                         overflow:visible !important;;
+                    }
+
+                  .ui-layout-north .ui-layout-unit-content {
+                        overflow:visible !important;
+                   }
+            </style>
+	</h:head>
+	<h:body>
+		<composite:interface>
+			<composite:attribute name="pessoa" required="true" />
+			<composite:attribute name="panelId" required="true" />
+			<composite:attribute name="verificaCPF" method-signature="java.lang.String action()" />
+			<composite:attribute name="verificaCEP" method-signature="java.lang.String action()" />
+			
+		</composite:interface>
+		<composite:implementation>
+		
+					
+					<div class="center" style="padding-top: 15px;">
+						<p:panelGrid  styleClass="noborder" id="panelId" >
+							
+							<p:row >
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.nome}: " />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{cc.attrs.pessoa.nome}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.cpf}: "  />
+								</p:column>
+								<p:column>
+									<p:inputMask mask="999.999.999-99" value="#{cc.attrs.pessoa.cpf}" stylestyleClass="cpf"  >
+										<p:ajax event="valueChange" listener="#{cc.attrs.verificaCPF}" update="#{cc.attrs.panelId}:panelId" process="@this"  />
+									</p:inputMask>
+								</p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.datanasc}: "  />
+								</p:column>
+								<p:column>
+									<p:calendar locale="pt_BR" mask="true" showButtonPanel="false" navigator="true" value="#{cc.attrs.pessoa.dataNascimento}" 
+												pattern="dd/MM/yyyy" styleClass="inputDate" validatorMessage="data invalida" />
+																			
+								</p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.genero}: " />
+								</p:column>
+								<p:column>
+									<h:selectOneRadio value="#{cc.attrs.pessoa.sexo}" layout="lineDirection">
+										<f:selectItem itemLabel="#{msg.masc}" itemValue="1"  />
+										<f:selectItem itemLabel="#{msg.feminino}" itemValue="2"/>
+									</h:selectOneRadio>
+								</p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.cep}: " />
+								</p:column>
+								<p:column>
+									<p:inputMask mask="99999-999" value="#{cc.attrs.pessoa.cep}" >
+										<p:ajax event="valueChange" listener="#{cc.attrs.verificaCEP}"  update="#{cc.attrs.panelId}:panelId" process="@this" />
+									</p:inputMask>	
+								</p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.endereco}: " />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{cc.attrs.pessoa.endereco}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.numero}: " />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{cc.attrs.pessoa.numero}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.complemento}: " />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{cc.attrs.pessoa.complemento}"/>	
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.cidade}: " />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{cc.attrs.pessoa.cidade}"/>	
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.estado}: " />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{cc.attrs.pessoa.estado}" />	
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.pais}: " />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{cc.attrs.pessoa.pais}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.email}: " />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{cc.attrs.pessoa.email}" validatorMessage="#{msg.erroemail}" id="emailPessoa">
+										 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" for="emailPessoa" />
+									</p:inputText>	
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column  styleClass="label">
+									<h:outputText value="#{msg.telefone}: " />
+								</p:column>
+								<p:column>
+									<p:inputMask mask="(99) 9999-9999" value="#{cc.attrs.pessoa.telefone}" />	
+								</p:column>
+							</p:row>
+							
+						</p:panelGrid>
+					</div>
+		</composite:implementation>
+	
+	</h:body>
+</html>

@@ -1,11 +1,12 @@
 package br.ufpr.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public abstract class BusinessModel {
+public abstract class BusinessModel implements Serializable {
 
 	protected Integer id;
 	protected Date updatedAt;

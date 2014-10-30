@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>tcc-ufpr-client</artifactId>
   <name>TCC Client</name>
@@ -10,6 +11,7 @@
   	<relativePath>../tcc-ufpr-parent</relativePath>
   </parent>
   
+    
  
 	<dependencies>
 	        
@@ -28,6 +30,11 @@
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 		</dependency>
+		
+		<dependency>  
+		    <groupId>org.primefaces.themes</groupId>  
+		    <artifactId>all-themes</artifactId>
+		</dependency> 
 		
 		<!-- JSF 2 -->
 		<dependency>
@@ -175,4 +182,5 @@
       </plugin>
     </plugins>
   </build>
+  <packaging>war</packaging>
 </project>

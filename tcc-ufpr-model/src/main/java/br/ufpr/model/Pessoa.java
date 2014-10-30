@@ -6,14 +6,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public abstract class Pessoa extends BusinessModel {
-
+	
+	
 	protected Integer pessoaId;
 	protected String cpf;
 	protected String nome;
 	protected Date dataNascimento;
 	protected String email;
 	protected Genero sexo; // TODO create custom converter
-	
+	protected String cep;
 	protected String pais;
 	protected String estado;
 	protected String cidade;
@@ -51,6 +52,12 @@ public abstract class Pessoa extends BusinessModel {
 	}
 	public void setSexo(Genero sexo) {
 		this.sexo = sexo;
+	}
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 	public String getPais() {
 		return pais;

@@ -13,6 +13,10 @@ public class Aluno extends Pessoa {
 	private Date dataMatricula;
 	private List<Disciplina> disciplinas;
 	
+	public Aluno(){
+		super();
+	}
+	
 	public Integer getMatricula() {
 		return matricula;
 	}
