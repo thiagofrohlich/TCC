@@ -13,6 +13,11 @@
  
 	<dependencies>
 	        
+	    <dependency>
+	        <groupId>br.ufpr</groupId>
+	        <artifactId>tcc-ufpr-model</artifactId>
+	    </dependency>	    	
+		
         <dependency>
 		  <groupId>net.sf.jasperreports</groupId>
 		  <artifactId>jasperreports</artifactId>
