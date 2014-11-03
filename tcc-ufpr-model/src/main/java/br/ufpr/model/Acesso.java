@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public enum Acesso implements BusinessEnum {
 	
-	CADASTRO("CAD", "Usuário com permissão de cadastro");
+	CADASTRO("CADASTRO", "Usuário com permissão de cadastro");
 	
 	private String key;
 	private String value;

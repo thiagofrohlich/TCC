@@ -14,6 +14,11 @@
 				<class-b>java.lang.String</class-b>
 			</converter>
 		
+			<converter type="br.ufpr.converter.StringToAcessoListConverter">
+				<class-a>java.util.List</class-a>
+				<class-b>java.lang.String</class-b>
+			</converter>
+		
 		</custom-converters>
 	
 	</configuration>
