@@ -72,7 +72,7 @@ public class AlunoControllerComponentTest extends PessoaTestSupport {
 //		Then
 		assertNotNull(savedAluno);
 		assertNotNull(savedAluno.getMatricula());
-		assertTrue(savedAluno.isAtivo());
+		assertTrue(savedAluno.getAtivo());
 	}
 	
 	@Test(expected=NullParameterException.class)
@@ -139,7 +139,7 @@ public class AlunoControllerComponentTest extends PessoaTestSupport {
 //		Then
 		assertNotNull(alunoFound);
 		assertEquals(aluno.getId().intValue(), alunoFound.getId().intValue());
-		assertEquals(aluno.isAtivo(), alunoFound.isAtivo());
+		assertEquals(aluno.isAtivo(), alunoFound.getAtivo());
 		assertNotNull(alunoFound.getPessoaId());
 		assertEquals(aluno.getPessoa().getId(), alunoFound.getPessoaId());
 	}

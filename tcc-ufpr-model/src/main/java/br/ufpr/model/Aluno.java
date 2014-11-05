@@ -8,6 +8,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Aluno extends Pessoa {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer matricula;
 	private Boolean ativo;
 	private Date dataMatricula;
@@ -23,7 +27,7 @@ public class Aluno extends Pessoa {
 	public void setMatricula(Integer matricula) {
 		this.matricula = matricula;
 	}
-	public Boolean isAtivo() {
+	public Boolean getAtivo() {
 		return ativo;
 	}
 	public void setAtivo(Boolean ativo) {

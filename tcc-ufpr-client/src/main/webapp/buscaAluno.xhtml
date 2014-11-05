@@ -8,17 +8,16 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:tag="http://java.sun.com/jsf/composite/tags">
 
-<h:head>
-	<link rel="stylesheet" type="text/css" href="resources/default.css" />
-		<link rel="stylesheet" type="text/css" href="resources/principal.css" />
-		<link rel="stylesheet" type="text/css" href="resources/theme.css" />
-	
+	<ui:composition template="/template.xhtml">
 
-</h:head>
-<h:body>
-	<h1>Hello World PrimeFaces</h1>
-
-	
-
-</h:body>
+		<ui:define name="centro">
+			<h:form id="buscaAluno">
+			<p:messages showDetail="true" showIcon="true" showSummary="false" autoUpdate="true" id="messageDisciplina" />
+				
+				
+			</h:form>
+		</ui:define>
+		
+	</ui:composition>
 </html>
+

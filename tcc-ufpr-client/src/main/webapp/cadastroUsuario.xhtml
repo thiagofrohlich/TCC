@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/composite/tags">
+
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="centro">
+			<h:form id="cadastroAluno">
+			<p:messages showDetail="true" showIcon="true" showSummary="false" autoUpdate="true" id="messageUsuario" />
+				
+				<div  style="margin: auto; clear: both">
+					<tag:cadastro pessoa="#{usuarioBean.usuario}" id="tagAluno" panelId=":cadastroAluno:tagAluno" verificaCEP="#{usuarioBean.buscaCEP}" verificaCPF="#{usuarioBean.verificaCPF}"/>
+					<p:panelGrid styleClass="noborder" id="panelId">
+						
+						<p:row>
+							<p:column styleClass="label">
+								<h:outputText value="#{msg.login}: " />
+							</p:column>
+							<p:column>
+								<p:inputText value="#{usuarioBean.usuario.login}" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column styleClass="label">
+								<h:outputText value="#{msg.senha}: " />	
+							</p:column>
+							<p:column>
+								<p:password value="#{usuarioBean.usuario.senha}" id="senha" validatorMessage="#{msg.senha}">
+									<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})" for="senha"/>
+								</p:password>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column styleClass="label">
+								<h:outputText value="#{msg.confirmar}: " />	
+							</p:column>
+							<p:column>
+								<p:password value="#{usuarioBean.usuario.senha}" id="confirmar" validatorMessage="#{msg.senha}">
+									<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})" for="confirmar"/>
+								</p:password>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column styleClass="label">
+								<p:commandButton onclick="PF('cancelaUsuario').show()" type="button" value="#{msg.cancelar}" />
+							</p:column>
+							<p:column>
+								<p:commandButton action="#{usuarioBean.buscaCEP()}" ajax="false" value="#{msg.salvar}" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</div>
+				<p:dialog header="#{msg.cancelar}" widgetVar="cancelaUsuario"  height="100" >
+					<p:button outcome="index.xhtml" value="#{msg.sim}" />
+					<p:commandButton onclick="PF('cancelaUsuario').hide()" type="button" value="#{msg.nao}" />    
+				</p:dialog>
+				
+			</h:form>
+		</ui:define>
+		
+	</ui:composition>
+</html>
+

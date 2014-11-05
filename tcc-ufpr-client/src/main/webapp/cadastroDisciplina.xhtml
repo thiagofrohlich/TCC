@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/composite/tags">
+
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="centro">
+			<h:form id="cadastroDisciplina">
+			<p:messages showDetail="true" showIcon="true" showSummary="false" autoUpdate="true" id="messageDisciplina" />
+				
+				<p:panelGrid styleClass="noborder">
+					<p:row>
+						<p:column styleClass="label">
+							<h:outputText value="#{msg.disciplina}: " />		
+						</p:column>
+						<p:column>
+							<p:inputText value="#{disciplinaBean.disciplina.nome}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="label">
+							<h:outputText value="#{msg.periodo}: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{disciplinaBean.disciplina.periodo}" >
+								 <f:validateRegex pattern="[0-9]" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="label">
+							<h:outputText value="#{msg.turno}: " />
+						</p:column>
+						<p:column>
+							<h:selectOneRadio value="#{disciplinaBean.disciplina.turno.value}">
+								<f:selectItem itemLabel="#{msg.manha}" itemValue="M"/>
+								<f:selectItem itemLabel="#{msg.tarde}" itemValue="T"/>
+								<f:selectItem itemLabel="#{msg.noite}" itemValue="N"/>
+							</h:selectOneRadio>
+						</p:column>
+					</p:row>
+				
+					<p:row>
+						<p:column styleClass="label">
+							<h:outputText value="#{msg.professor}: " />
+						</p:column>
+						<p:column>
+							<h:outputText value="" />
+							<p:commandButton  onclick="PF('professorDialog').show()" icon="ui-icon-search" ajax="true" type="button" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="label">
+								<p:commandButton onclick="PF('cancelaDisciplina').show()" type="button" value="#{msg.cancelar}" />
+							</p:column>
+							<p:column>
+								<p:commandButton ajax="false" value="#{msg.salvar}" />
+							</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				
+				<p:dialog header="#{msg.cancelar}" widgetVar="cancelaDisciplina"  height="100" >
+					<p:button outcome="index.xhtml" value="#{msg.sim}" />
+					<p:commandButton onclick="PF('cancelaDisciplina|').hide()" type="button" value="#{msg.nao}" />    
+				</p:dialog>
+				
+				
+				<p:dialog widgetVar="professorDialog" id="profDialog" closable="true" resizable="true" width="500" height="500">
+					<p:panelGrid styleClass="noborder">
+						<p:row>
+						<p:column styleClass="label">
+							<h:outputText value="#{msg.professor}: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{disciplinaBean.nomeProfessor}" />
+							<p:commandButton  icon="ui-icon-search" ajax="true" action="#{disciplinaBean.buscaProfessor()}" update=":cadastroDisciplina:profTable"/>
+						</p:column>
+					</p:row>
+					</p:panelGrid>
+					
+					<p:dataTable value="#{disciplinaBean.lstProfessores}" var="lstProf" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{lstProf.id}" 
+									 id="profTable">
+							<p:ajax event="rowSelect"  update="@form" />
+						<p:column style="text-align: left;">
+							<f:facet name="header">
+								<h:outputText value="#{msg.nome}" />
+							</f:facet>
+							<h:outputText value="#{lstProf.nome}" />
+						</p:column>
+						
+						<p:column style="text-align: right;">
+							<f:facet name="header">
+								<h:outputText value="#{msg.doc}" />
+							</f:facet>
+							<h:outputText value="#{lstProf.cpf}"  />
+						</p:column>
+					</p:dataTable>
+				</p:dialog>
+				
+			</h:form>
+		</ui:define>
+		
+	</ui:composition>
+</html>
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/composite/tags">
+
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="centro">
+			<h:form id="login" prependId="false">
+				
+						<div style="clear:both;" class="center">
+							<h:outputText value="#{msg.bemVindo}" style="font-size:13px; "/>
+							<h:messages globalOnly="true"/>
+						</div>
+						<div class="center" style="padding-top: 15px;">
+							<table border="0">
+								<tr>
+									<td class="label">
+										<h:outputText value="#{msg.login}: " />
+									</td>
+									<td>
+										<p:inputText value="#{loginBean.user.login}" id="username" />
+									</td>
+								</tr>
+								<tr>
+									<td class="label">
+										<h:outputText value="#{msg.senha}: " />
+									</td>
+									<td>
+										<p:password  value="#{loginBean.user.senha}" id="password" />
+									</td>
+								</tr>
+								<tr>
+									<td class="label">
+										<p:commandButton value="#{msg.voltar}" />
+									</td>
+									<td>
+										<p:commandButton value="#{msg.entrar}" type="submit" action="#{loginController.doLogin}" ajax="false" />
+									</td>
+								</tr>
+							</table>
+						</div>
+					</h:form>		
+		</ui:define>
+		
+	</ui:composition>
+</html>
+
