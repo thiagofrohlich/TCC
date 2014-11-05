@@ -14,13 +14,12 @@
     
  
 	<dependencies>
-	    
-	 <dependency>  
-        <groupId>${project.parent.groupId}</groupId>  
-        <artifactId>tcc-ufpr-model</artifactId>  
-        <version>${project.parent.version}</version>  
-    </dependency>
-	    
+	        
+	    <dependency>
+	        <groupId>br.ufpr</groupId>
+	        <artifactId>tcc-ufpr-model</artifactId>
+	    </dependency>	    	
+		
         <dependency>
 		  <groupId>net.sf.jasperreports</groupId>
 		  <artifactId>jasperreports</artifactId>
@@ -183,4 +182,5 @@
       </plugin>
     </plugins>
   </build>
+  <packaging>war</packaging>
 </project>

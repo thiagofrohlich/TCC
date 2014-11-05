@@ -15,13 +15,11 @@
 	    <dependency>
 	        <groupId>br.ufpr</groupId>
 	        <artifactId>tcc-ufpr-domain</artifactId>
-	        <scope>provided</scope>
 	    </dependency>
 	    	    	
 	    <dependency>
 	        <groupId>br.ufpr</groupId>
 	        <artifactId>tcc-ufpr-model</artifactId>
-	        <scope>provided</scope>
 	    </dependency>	    	
 		
 	    <dependency>
@@ -182,4 +180,5 @@
 			
 		</plugins>
 	</build>
+	<packaging>war</packaging>
 </project>
