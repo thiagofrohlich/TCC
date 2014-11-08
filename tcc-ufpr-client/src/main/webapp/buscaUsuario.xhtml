@@ -20,14 +20,14 @@
 							<h:outputText value="#{msg.pesquisar}: " />
 						</p:column>
 						<p:column>
-							<h:selectOneRadio value="#{buscaAlunoBean.tipoPesquisa}">
+							<h:selectOneRadio value="#{buscaUsuarioBean.tipoPesquisa}">
 								<p:ajax event="valueChange"  update=":panelPesquisa" />
 								<f:selectItems itemLabel="#{msg.matricula}" itemValue="1"/>
 								<f:selectItems itemLabel="#{msg.nome}" itemValue="2"/>
 							</h:selectOneRadio>
 						</p:column>
 					</p:row>
-					<p:row rendered="#{buscaAlunoBean.tipoPesquisa == 1}">
+					<p:row rendered="#{buscaUsuarioBean.tipoPesquisa == 1}">
 						<p:column>
 							<h:outputText value="#{msg.matricula}: " />
 						</p:column>
@@ -35,7 +35,7 @@
 							<p:inputText value=""/>
 						</p:column>
 					</p:row>
-					<p:row rendered="#{buscaAlunoBean.tipoPesquisa == 2}">
+					<p:row rendered="#{buscaUsuarioBean.tipoPesquisa == 2}">
 						<p:column>
 							<h:outputText value="#{msg.nome}: " />
 						</p:column>
@@ -47,14 +47,14 @@
 				</p:panelGrid>
 				
 				<div class="center" style="padding-top: 15px;">
-						<p:panelGrid  styleClass="noborder" id="panelId" rendered="#{!buscaAlunoBean.renderInfo}">
+						<p:panelGrid  styleClass="noborder" id="panelId" rendered="#{!buscaUsuarioBean.renderInfo}">
 							
 							<p:row >
 								<p:column styleClass="label">
 									<h:outputText value="#{msg.nome}: " />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.nome}" />
+									<h:outputText value="#{buscaUsuarioBean.usuario.nome}" />
 								</p:column>
 							</p:row>
 							<p:row>
@@ -62,7 +62,7 @@
 									<h:outputText value="#{msg.cpf}: "  />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.cpf}" />
+									<h:outputText value="#{buscaUsuarioBean.usuario.cpf}" />
 								</p:column>
 							</p:row>
 							
@@ -71,7 +71,7 @@
 									<h:outputText value="#{msg.datanasc}: "  />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.dataNascimento}" />
+									<h:outputText value="#{buscaUsuarioBean.usuario.dataNascimento}" />
 								</p:column>
 							</p:row>
 							
@@ -80,7 +80,7 @@
 									<h:outputText value="#{msg.genero}: " />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.sexo}" />
+									<h:outputText value="#{buscaUsuarioBean.usuario.sexo}" />
 								</p:column>
 							</p:row>
 							
@@ -89,7 +89,7 @@
 									<h:outputText value="#{msg.cep}: " />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.cep}" />	
+									<h:outputText value="#{buscaUsuarioBean.usuario.cep}" />	
 								</p:column>
 							</p:row>
 							
@@ -98,7 +98,7 @@
 									<h:outputText value="#{msg.endereco}: " />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.endereco}" />
+									<h:outputText value="#{buscaUsuarioBean.usuario.endereco}" />
 								</p:column>
 							</p:row>
 							<p:row>
@@ -106,7 +106,7 @@
 									<h:outputText value="#{msg.numero}: " />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.numero}" />
+									<h:outputText value="#{buscaUsuarioBean.usuario.numero}" />
 								</p:column>
 							</p:row>
 							<p:row>
@@ -114,7 +114,7 @@
 									<h:outputText value="#{msg.complemento}: " />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.complemento}"/>	
+									<h:outputText value="#{buscaUsuarioBean.usuario.complemento}"/>	
 								</p:column>
 							</p:row>
 							<p:row>
@@ -122,7 +122,7 @@
 									<h:outputText value="#{msg.cidade}: " />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.cidade}"/>	
+									<h:outputText value="#{buscaUsuarioBean.usuario.cidade}"/>	
 								</p:column>
 							</p:row>
 							<p:row>
@@ -130,7 +130,7 @@
 									<h:outputText value="#{msg.estado}: " />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.estado}" />	
+									<h:outputText value="#{buscaUsuarioBean.usuario.estado}" />	
 								</p:column>
 							</p:row>
 							<p:row>
@@ -138,7 +138,7 @@
 									<h:outputText value="#{msg.pais}: " />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.pais}" />
+									<h:outputText value="#{buscaUsuarioBean.usuario.pais}" />
 								</p:column>
 							</p:row>
 							<p:row>
@@ -146,7 +146,7 @@
 									<h:outputText value="#{msg.email}: " />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.email}" />
+									<h:outputText value="#{buscaUsuarioBean.usuario.email}" />
 										 	
 								</p:column>
 							</p:row>
@@ -155,7 +155,7 @@
 									<h:outputText value="#{msg.telefone}: " />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.telefone}" />
+									<h:outputText value="#{buscaUsuarioBean.usuario.telefone}" />
 								</p:column>
 							</p:row>
 							<p:row>
@@ -163,7 +163,7 @@
 									<p:commandButton value="#{msg.imprimir}" />
 								</p:column>
 								<p:column>
-									<p:commandButton value="#{msg.editar}" action="#{buscaAlunoBean.editaAluno()}" ajax="false" />
+									<p:commandButton value="#{msg.editar}" action="#{buscaUsuarioBean.editaUsuario()}" ajax="false" />
 								</p:column>
 							</p:row>
 						</p:panelGrid>

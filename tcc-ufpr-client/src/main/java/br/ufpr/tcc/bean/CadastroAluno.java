@@ -29,7 +29,10 @@ public class CadastroAluno implements Serializable{
 	
 	@PostConstruct
 	public void init(){
-		aluno = new Aluno();
+		aluno = (Aluno) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("editAluno");
+		if(aluno == null){
+			aluno = new Aluno();
+		}
 		cepHandler = new CEPHandler();
 		rb = ResourceBundle.getBundle("msg");
 	}
