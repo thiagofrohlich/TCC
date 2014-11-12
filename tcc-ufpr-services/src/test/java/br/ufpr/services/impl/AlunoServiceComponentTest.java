@@ -14,6 +14,7 @@ import br.ufpr.exception.NoResultFoundException;
 import br.ufpr.exception.NotDeletedObjectException;
 import br.ufpr.exception.NullParameterException;
 import br.ufpr.repository.AlunoRepository;
+import br.ufpr.services.AlunoService;
 import br.ufpr.support.PessoaTestSupport;
 
 public class AlunoServiceComponentTest extends PessoaTestSupport {
@@ -98,6 +99,27 @@ public class AlunoServiceComponentTest extends PessoaTestSupport {
 //		Then
 		assertNotNull(alunoFound);
 		assertSame(aluno, alunoFound);
+	}
+	
+	@Test
+	public void shouldFindAlunoByPessoa() throws NoResultFoundException {
+//		Given
+		Aluno aluno = createAndSaveAluno(false);
+		
+//		When
+		Aluno alunoFound = alunoService.findByPessoa(savedPessoa);
+		
+//		Then
+		assertNotNull(alunoFound);
+		assertSame(aluno, alunoFound);
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldNotFindAlunoByPessoaGivenNotCreatedAluno() throws NoResultFoundException {
+//		When
+		alunoService.findByPessoa(savedPessoa);
+		
+//		Then exception
 	}
 	
 	private Aluno createAndSaveAluno(boolean isActive) {

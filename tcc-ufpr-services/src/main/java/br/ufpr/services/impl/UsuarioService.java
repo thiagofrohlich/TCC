@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.ufpr.domain.Pessoa;
 import br.ufpr.domain.Usuario;
+import br.ufpr.exception.NoResultFoundException;
 import br.ufpr.repository.UsuarioRepository;
 import br.ufpr.services.AbstractCrudService;
 import br.ufpr.services.UserService;
+import br.ufpr.util.AssertUtils;
 
 @Service
 @Transactional
@@ -60,8 +63,19 @@ public class UsuarioService extends AbstractCrudService<Usuario, Integer> implem
 		return ((UsuarioRepository) repository).findByLogin(login);
 	}
 	
+	@Override
+	public Usuario findByPessoa(Pessoa pessoa) throws NoResultFoundException {
+		Usuario usuario = getRepository().findByPessoa(pessoa);
+		AssertUtils.assertIsFound(usuario);
+		return usuario;
+	}
+	
 	private boolean isEmptyString(String parameter) {
 		return parameter == null || parameter.trim().equals("");
+	}
+	
+	private UsuarioRepository getRepository() {
+		return (UsuarioRepository) repository;
 	}
 
 }

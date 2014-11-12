@@ -144,6 +144,104 @@ public class ProfessorControllerComponentTest extends PessoaTestSupport {
 		assertEquals(professor.getPessoa().getId(), professorFound.getPessoaId());
 	}
 	
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseExceptionGivenNullCpf() throws NullParameterException, NoResultFoundException {
+//		When
+		professorController.findByCpf("");
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentProfessor() throws NullParameterException, NoResultFoundException {
+//		When
+		professorController.findByCpf(savedPessoa.getCpf() + "00");
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentCpf() throws NullParameterException, NoResultFoundException {
+//		Given
+		createAndSaveProfessor(true);
+		
+//		When
+		professorController.findByCpf(savedPessoa.getCpf() + "00");
+	}
+	
+	@Test
+	public void shouldFindExistentProfessorByCpf() throws NullParameterException, NoResultFoundException {
+//		Given
+		br.ufpr.domain.Professor professor = createAndSaveProfessor(true);
+		
+//		When
+		Professor professorFound = professorController.findByCpf(savedPessoa.getCpf());
+		
+//		Then
+		assertNotNull(professorFound);
+		assertEquals(professor.getId(), professorFound.getId());
+	}
+	
+	@Test
+	public void shouldCreateProfessorForPessoaWithCpf() throws NullParameterException, NoResultFoundException {
+		
+//		When
+		Professor professorFound = professorController.findByCpf(savedPessoa.getCpf());
+		
+//		Then
+		assertNotNull(professorFound);
+		assertEquals(professorFound.getCpf(), savedPessoa.getCpf());
+	}
+	
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseExceptionGivenNullNome() throws NullParameterException, NoResultFoundException {
+//		When
+		professorController.findByNome(null);
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentProfessorWithNome() throws NullParameterException, NoResultFoundException {
+//		When
+		professorController.findByNome("invalid");
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentNome() throws NullParameterException, NoResultFoundException {
+//		Given
+		createAndSaveProfessor(true);
+		
+//		When
+		professorController.findByNome("invalid");
+	}
+	
+	@Test
+	public void shouldFindExistentProfessorByNome() throws NullParameterException, NoResultFoundException {
+//		Given
+		br.ufpr.domain.Professor professor = createAndSaveProfessor(true);
+		
+//		When
+		Professor professorFound = professorController.findByNome(savedPessoa.getNome());
+		
+//		Then
+		assertNotNull(professorFound);
+		assertEquals(professor.getId(), professorFound.getId());
+	}
+	
+	@Test
+	public void shouldCreateProfessorForPessoaWithNome() throws NullParameterException, NoResultFoundException {
+		
+//		When
+		Professor professorFound = professorController.findByNome(savedPessoa.getNome());
+		
+//		Then
+		assertNotNull(professorFound);
+		assertEquals(professorFound.getNome(), savedPessoa.getNome());
+	}
+	
 	private br.ufpr.domain.Professor createAndSaveProfessor(boolean isActive) {
 		br.ufpr.domain.Professor professor = new br.ufpr.domain.Professor();
 		professor.setPessoa(savedPessoa);

@@ -8,4 +8,8 @@ import br.ufpr.domain.Pessoa;
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
 
+	Pessoa findByCpf(String cpf);
+	
+	Pessoa findByNomeContaining(String nome);
+	
 }

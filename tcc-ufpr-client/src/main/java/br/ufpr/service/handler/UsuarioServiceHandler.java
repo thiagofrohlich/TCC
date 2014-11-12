@@ -8,4 +8,8 @@ public interface UsuarioServiceHandler extends ServiceHandler<Usuario, Integer>{
 	
 	boolean canLogin(String login, String password);
 	
+	Usuario findByCpf(String cpf);
+	
+	Usuario findByNome(String nome);
+	
 }

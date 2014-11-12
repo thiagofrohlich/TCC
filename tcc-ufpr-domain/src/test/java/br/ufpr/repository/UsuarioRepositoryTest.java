@@ -48,6 +48,19 @@ public class UsuarioRepositoryTest extends PessoaTestSupport {
 		assertSame(user, userFound);
 		
 	}
+	
+	@Test
+	public void shouldFindByPessoa() {
+//		Given
+		Usuario usuario = createUser();
+		
+//		When
+		Usuario usuarioFound = usuarioRepository.findByPessoa(savedPessoa);
+		
+//		Then
+		assertNotNull(usuarioFound);
+		assertSame(usuario, usuarioFound);
+	}
 
 	private Usuario createUser() {
 		Usuario usuario = new Usuario();

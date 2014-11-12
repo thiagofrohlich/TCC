@@ -40,7 +40,7 @@ public class DisciplinaController extends AbstractRestController<Disciplina, br.
 		AssertUtils.assertParameterIsSupplied(model.getProfessor(), "Professor não pode ser nulo");
 		br.ufpr.domain.Disciplina domain = mapper.map(model, br.ufpr.domain.Disciplina.class);
 		domain.setProfessor(professorService.find(model.getProfessor().getId()));
-		domain = crudService.create(domain);
+		domain = service.create(domain);
 		
 		return mapToModel(domain);
 	}
@@ -53,7 +53,7 @@ public class DisciplinaController extends AbstractRestController<Disciplina, br.
 		AssertUtils.assertParameterIsSupplied(model.getProfessor(), "Professor não pode ser nulo");
 		br.ufpr.domain.Disciplina domain = mapper.map(model, br.ufpr.domain.Disciplina.class);
 		domain.setProfessor(professorService.find(model.getProfessor().getId()));
-		domain = crudService.update(domain);
+		domain = service.update(domain);
 		
 		return mapToModel(domain);
 	}
@@ -63,7 +63,7 @@ public class DisciplinaController extends AbstractRestController<Disciplina, br.
 	public void delete(@RequestBody Disciplina model) throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Disciplina domain = mapper.map(model, br.ufpr.domain.Disciplina.class);
-		crudService.delete(domain.getId());
+		service.delete(domain.getId());
 	}
 	
 	@Override
@@ -72,7 +72,7 @@ public class DisciplinaController extends AbstractRestController<Disciplina, br.
 	public Disciplina find(@PathVariable final Integer id) throws NullParameterException,
 			NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(id);
-		br.ufpr.domain.Disciplina domain = crudService.find(id);
+		br.ufpr.domain.Disciplina domain = service.find(id);
 		AssertUtils.assertIsFound(domain);
 		return mapToModel(domain);
 	}

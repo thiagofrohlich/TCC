@@ -23,4 +23,14 @@ public class UsuarioServiceHandlerImpl extends AbstractServiceHandler<Usuario, I
 		return getRestTemplate().getForObject(getPath()+"/login/{login}/{password}", Boolean.class, login, password);
 	}
 
+	@Override
+	public Usuario findByCpf(String cpf) {
+		return getRestTemplate().getForObject(getPath()+"/cpf/{cpf}", getReturnClass(), cpf);
+	}
+
+	@Override
+	public Usuario findByNome(String nome) {
+		return getRestTemplate().getForObject(getPath()+"/nome/{nome}", getReturnClass(), nome);
+	}
+	
 }
