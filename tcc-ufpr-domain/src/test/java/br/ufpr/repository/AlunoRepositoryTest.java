@@ -32,5 +32,26 @@ public class AlunoRepositoryTest extends PessoaTestSupport {
 		assertSame(aluno.getPessoa(), savedAluno.getPessoa());
 		assertTrue(aluno.isAtivo());
 	}
+
+	@Test
+	public void shouldFindByPessoa() {
+//		Given
+		Aluno aluno = createAluno();
+		
+//		When
+		Aluno alunoFound = alunoRepository.findByPessoa(savedPessoa);
+		
+//		Then
+		assertNotNull(alunoFound);
+		assertSame(aluno, alunoFound);
+	}
+
+	private Aluno createAluno() {
+		Aluno aluno = new Aluno();
+		aluno.setPessoa(savedPessoa);
+		aluno.setAtivo(true);
+		alunoRepository.saveAndFlush(aluno);
+		return aluno;
+	}
 	
 }

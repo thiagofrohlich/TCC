@@ -40,7 +40,7 @@ public class NoticiaController extends AbstractRestController<Noticia, br.ufpr.d
 		AssertUtils.assertParameterIsSupplied(model.getUsuario(), "Professor não pode ser nulo");
 		br.ufpr.domain.Noticia domain = mapper.map(model, br.ufpr.domain.Noticia.class);
 		domain.setUsuario(usuarioService.find(model.getUsuario().getId()));
-		domain = crudService.create(domain);
+		domain = service.create(domain);
 		
 		return mapToModel(domain);
 	}
@@ -53,7 +53,7 @@ public class NoticiaController extends AbstractRestController<Noticia, br.ufpr.d
 		AssertUtils.assertParameterIsSupplied(model.getUsuario(), "Professor não pode ser nulo");
 		br.ufpr.domain.Noticia domain = mapper.map(model, br.ufpr.domain.Noticia.class);
 		domain.setUsuario(usuarioService.find(model.getUsuario().getId()));
-		domain = crudService.update(domain);
+		domain = service.update(domain);
 		
 		return mapToModel(domain);
 	}
@@ -63,7 +63,7 @@ public class NoticiaController extends AbstractRestController<Noticia, br.ufpr.d
 	public void delete(@RequestBody Noticia model) throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Noticia domain = mapper.map(model, br.ufpr.domain.Noticia.class);
-		crudService.delete(domain.getId());
+		service.delete(domain.getId());
 	}
 	
 	@Override
@@ -72,7 +72,7 @@ public class NoticiaController extends AbstractRestController<Noticia, br.ufpr.d
 	public Noticia find(@PathVariable final Integer id) throws NullParameterException,
 			NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(id);
-		br.ufpr.domain.Noticia domain = crudService.find(id);
+		br.ufpr.domain.Noticia domain = service.find(id);
 		AssertUtils.assertIsFound(domain);
 		return mapToModel(domain);
 	}

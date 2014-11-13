@@ -144,6 +144,104 @@ public class AlunoControllerComponentTest extends PessoaTestSupport {
 		assertEquals(aluno.getPessoa().getId(), alunoFound.getPessoaId());
 	}
 	
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseExceptionGivenNullCpf() throws NullParameterException, NoResultFoundException {
+//		When
+		alunoController.findByCpf("");
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentAluno() throws NullParameterException, NoResultFoundException {
+//		When
+		alunoController.findByCpf(savedPessoa.getCpf() + "00");
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentCpf() throws NullParameterException, NoResultFoundException {
+//		Given
+		createAndSaveAluno(true);
+		
+//		When
+		alunoController.findByCpf(savedPessoa.getCpf() + "00");
+	}
+	
+	@Test
+	public void shouldFindExistentAlunoByCpf() throws NullParameterException, NoResultFoundException {
+//		Given
+		br.ufpr.domain.Aluno aluno = createAndSaveAluno(true);
+		
+//		When
+		Aluno alunoFound = alunoController.findByCpf(savedPessoa.getCpf());
+		
+//		Then
+		assertNotNull(alunoFound);
+		assertEquals(aluno.getMatricula(), alunoFound.getMatricula());
+	}
+	
+	@Test
+	public void shouldCreateAlunoForPessoaWithCpf() throws NullParameterException, NoResultFoundException {
+		
+//		When
+		Aluno alunoFound = alunoController.findByCpf(savedPessoa.getCpf());
+		
+//		Then
+		assertNotNull(alunoFound);
+		assertEquals(alunoFound.getCpf(), savedPessoa.getCpf());
+	}
+	
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseExceptionGivenNullNome() throws NullParameterException, NoResultFoundException {
+//		When
+		alunoController.findByNome(null);
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentAlunoWithNome() throws NullParameterException, NoResultFoundException {
+//		When
+		alunoController.findByNome("invalid");
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentNome() throws NullParameterException, NoResultFoundException {
+//		Given
+		createAndSaveAluno(true);
+		
+//		When
+		alunoController.findByNome("invalid");
+	}
+	
+	@Test
+	public void shouldFindExistentAlunoByNome() throws NullParameterException, NoResultFoundException {
+//		Given
+		br.ufpr.domain.Aluno aluno = createAndSaveAluno(true);
+		
+//		When
+		Aluno alunoFound = alunoController.findByNome(savedPessoa.getNome());
+		
+//		Then
+		assertNotNull(alunoFound);
+		assertEquals(aluno.getMatricula(), alunoFound.getMatricula());
+	}
+	
+	@Test
+	public void shouldCreateAlunoForPessoaWithNome() throws NullParameterException, NoResultFoundException {
+		
+//		When
+		Aluno alunoFound = alunoController.findByNome(savedPessoa.getNome());
+		
+//		Then
+		assertNotNull(alunoFound);
+		assertEquals(alunoFound.getNome(), savedPessoa.getNome());
+	}
+	
 	private br.ufpr.domain.Aluno createAndSaveAluno(boolean isActive) {
 		br.ufpr.domain.Aluno aluno = new br.ufpr.domain.Aluno();
 		aluno.setPessoa(savedPessoa);

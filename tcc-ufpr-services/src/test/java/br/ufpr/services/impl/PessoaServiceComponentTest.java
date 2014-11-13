@@ -2,6 +2,7 @@ package br.ufpr.services.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
@@ -13,6 +14,7 @@ import br.ufpr.exception.NoResultFoundException;
 import br.ufpr.exception.NotDeletedObjectException;
 import br.ufpr.exception.NullParameterException;
 import br.ufpr.repository.PessoaRepository;
+import br.ufpr.services.PessoaService;
 import br.ufpr.support.SpringTestSupport;
 
 public class PessoaServiceComponentTest extends SpringTestSupport {
@@ -95,8 +97,72 @@ public class PessoaServiceComponentTest extends SpringTestSupport {
 		assertSame(pessoa, pessoaFound);
 	}
 	
+	@Test
+	public void shouldFindByCpf() throws NoResultFoundException {
+//		Given
+		Pessoa createdPessoa = createAndSavePessoa();
+		
+//		When
+		Pessoa pessoaFound = pessoaService.findPessoaByCpf(createdPessoa.getCpf());
+		
+//		Then
+		assertNotNull(pessoaFound);
+		assertSame(pessoaFound, createdPessoa);
+	}
+	
+	@Test(expected = NoResultFoundException.class)
+	public void shouldNotFindByCpfGivenInvalidCpf() throws NoResultFoundException {
+//		Given
+		Pessoa createdPessoa = createAndSavePessoa();
+		
+//		When
+		Pessoa pessoaFound = pessoaService.findPessoaByCpf(createdPessoa.getCpf() + "00");
+		
+//		Then
+		assertNull(pessoaFound);
+	}
+	
+	@Test
+	public void shouldFindByExactNome() throws NoResultFoundException {
+//		Given
+		Pessoa createdPessoa = createAndSavePessoa();
+		
+//		When
+		Pessoa pessoaFound = pessoaService.findPessoaByNome(createdPessoa.getNome());
+		
+//		Then
+		assertNotNull(pessoaFound);
+		assertSame(pessoaFound, createdPessoa);
+	}
+	
+	@Test
+	public void shouldFindByNomeContaining() throws NoResultFoundException {
+//		Given
+		Pessoa createdPessoa = createAndSavePessoa();
+		
+//		When
+		Pessoa pessoaFound = pessoaService.findPessoaByNome("oa na");
+		
+//		Then
+		assertNotNull(pessoaFound);
+		assertSame(pessoaFound, createdPessoa);
+	}
+	
+	@Test(expected = NoResultFoundException.class)
+	public void shouldNotFindByNomeGivenInvalidNome() throws NoResultFoundException {
+//		Given
+		createAndSavePessoa();
+		
+//		When
+		Pessoa pessoaFound = pessoaService.findPessoaByNome("invalid");
+		
+//		Then
+		assertNull(pessoaFound);
+	}
+
 	private Pessoa createAndSavePessoa() {
 		br.ufpr.domain.Pessoa pessoa = new br.ufpr.domain.Pessoa();
+		pessoa.setNome("pessoa name");
 		pessoa.setCidade("none");
 		pessoaRepository.saveAndFlush(pessoa);
 		return pessoa;

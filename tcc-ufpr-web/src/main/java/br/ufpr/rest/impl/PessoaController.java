@@ -30,7 +30,7 @@ public abstract class PessoaController extends AbstractRestController<Pessoa, br
 		
 		br.ufpr.domain.Pessoa domain = mapper.map(model, br.ufpr.domain.Pessoa.class);
 		
-		domain = crudService.create(domain);
+		domain = service.create(domain);
 		
 		return mapper.map(domain, Pessoa.class);
 	}
@@ -42,7 +42,7 @@ public abstract class PessoaController extends AbstractRestController<Pessoa, br
 		
 		br.ufpr.domain.Pessoa domain = mapper.map(model, br.ufpr.domain.Pessoa.class);
 		
-		domain = crudService.update(domain);
+		domain = service.update(domain);
 		
 		return mapper.map(domain, Pessoa.class);
 	}

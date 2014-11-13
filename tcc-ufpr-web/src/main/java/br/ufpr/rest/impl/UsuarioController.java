@@ -15,7 +15,7 @@ import br.ufpr.exception.NoResultFoundException;
 import br.ufpr.exception.NotDeletedObjectException;
 import br.ufpr.exception.NullParameterException;
 import br.ufpr.model.Usuario;
-import br.ufpr.services.CrudService;
+import br.ufpr.services.PessoaService;
 import br.ufpr.services.UserService;
 import br.ufpr.util.AssertUtils;
 
@@ -24,7 +24,7 @@ import br.ufpr.util.AssertUtils;
 public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr.domain.Usuario, Integer> {
 
 	@Autowired
-	public UsuarioController(Mapper mapper, CrudService<br.ufpr.domain.Usuario, Integer> usuarioService, CrudService<Pessoa, Integer> pessoaService) {
+	public UsuarioController(Mapper mapper, UserService usuarioService, PessoaService pessoaService) {
 		super(mapper, usuarioService, pessoaService);
 	}
 
@@ -35,7 +35,7 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Usuario domain = mapper.map(model, br.ufpr.domain.Usuario.class);
 		domain.setPessoa(createPessoa(model));
-		domain = crudService.create(domain);
+		domain = service.create(domain);
 		
 		return mapToModel(domain);
 	}
@@ -47,7 +47,7 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Usuario domain = mapper.map(model, br.ufpr.domain.Usuario.class);
 		domain.setPessoa(findPessoa(model.getPessoaId()));
-		domain = crudService.update(domain);
+		domain = service.update(domain);
 		
 		return mapToModel(domain);
 	}
@@ -57,7 +57,7 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 	public void delete(@RequestBody Usuario model) throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Usuario domain = mapper.map(model, br.ufpr.domain.Usuario.class);
-		crudService.delete(domain.getId());
+		service.delete(domain.getId());
 	}
 	
 	@Override
@@ -66,7 +66,7 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 	public Usuario find(@PathVariable final Integer id) throws NullParameterException,
 			NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(id);
-		br.ufpr.domain.Usuario domain = crudService.find(id);
+		br.ufpr.domain.Usuario domain = service.find(id);
 		AssertUtils.assertIsFound(domain);
 		return mapToModel(domain);
 	}
@@ -82,6 +82,37 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 		return getUserService().canLogin(login, password);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/cpf/{cpf}", method=RequestMethod.GET)
+	public Usuario findByCpf(@PathVariable final String cpf) throws NullParameterException,
+	NoResultFoundException {
+		AssertUtils.assertParameterIsSupplied(cpf);
+		Pessoa pessoa = findPessoaByCpf(cpf);
+		AssertUtils.assertIsFound(pessoa);
+		return mapToModel(findOrCreateUsuarioForPessoa(pessoa));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/nome/{nome}", method=RequestMethod.GET)
+	public Usuario findByNome(@PathVariable final String nome) throws NullParameterException,
+	NoResultFoundException {
+		AssertUtils.assertParameterIsSupplied(nome);
+		Pessoa pessoa = findPessoaByNome(nome);
+		AssertUtils.assertIsFound(pessoa);
+		return mapToModel(findOrCreateUsuarioForPessoa(pessoa));
+	}
+	
+	private br.ufpr.domain.Usuario findOrCreateUsuarioForPessoa(Pessoa pessoa) throws NoResultFoundException {
+		br.ufpr.domain.Usuario usuario;
+		try {
+			usuario = getUserService().findByPessoa(pessoa);
+		} catch(NoResultFoundException e) {
+			usuario = new br.ufpr.domain.Usuario();
+			usuario.setPessoa(pessoa);
+		}
+		return usuario;
+	}
+	
 	private Usuario mapToModel(br.ufpr.domain.Usuario usuarioDomain) {
 		Usuario usuario = mapper.map(usuarioDomain, Usuario.class);
 		mapper.map(usuarioDomain.getPessoa(), usuario);
@@ -89,7 +120,7 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 	}
 	
 	private UserService getUserService() {
-		return (UserService) crudService;
+		return (UserService) service;
 	}
 
 }

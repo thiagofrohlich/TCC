@@ -14,8 +14,16 @@ public class AlunoServiceHandlerImpl extends AbstractServiceHandler<Aluno, Integ
 		return "/aluno";
 	}
 
-	public Aluno getByCpf(String cpf) {
-		return  (Aluno) getRestTemplate().getForObject(getPath()+"/{cpf}", Aluno.class, cpf);
+
+	@Override
+	public Aluno findByCpf(String cpf) {
+		return getRestTemplate().getForObject(getPath()+"/cpf/{cpf}", getReturnClass(), cpf);
 	}
-	
+
+	@Override
+	public Aluno findByNome(String nome) {
+		return getRestTemplate().getForObject(getPath()+"/nome/{nome}", getReturnClass(), nome);
+	}
+
+
 }

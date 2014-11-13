@@ -16,17 +16,13 @@ import br.ufpr.exception.NoResultFoundException;
 import br.ufpr.exception.NotDeletedObjectException;
 import br.ufpr.exception.NullParameterException;
 import br.ufpr.repository.UsuarioRepository;
-import br.ufpr.services.CrudService;
 import br.ufpr.services.UserService;
 import br.ufpr.support.PessoaTestSupport;
 
 public class UsuarioServiceComponentTest extends PessoaTestSupport {
 
 	@Autowired
-	private CrudService<Usuario, Integer> usuarioService;
-	
-	@Autowired
-	private UserService userService;
+	private UserService usuarioService;
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -115,11 +111,11 @@ public class UsuarioServiceComponentTest extends PessoaTestSupport {
 		String password = "password";
 		
 //		When
-		String encodedPassword = userService.encodePassword(password);
+		String encodedPassword = usuarioService.encodePassword(password);
 		
 //		Then
 		assertNotNull(encodedPassword);
-		assertEquals(userService.encodePassword(password), encodedPassword);
+		assertEquals(usuarioService.encodePassword(password), encodedPassword);
 	}
 	
 	@Test
@@ -129,7 +125,7 @@ public class UsuarioServiceComponentTest extends PessoaTestSupport {
 		String password = "password";
 		
 //		When
-		boolean canLogin = userService.canLogin(login, password);
+		boolean canLogin = usuarioService.canLogin(login, password);
 		
 //		Then
 		assertFalse(canLogin);
@@ -142,7 +138,7 @@ public class UsuarioServiceComponentTest extends PessoaTestSupport {
 		String password = "";
 		
 //		When
-		boolean canLogin = userService.canLogin(login, password);
+		boolean canLogin = usuarioService.canLogin(login, password);
 		
 //		Then
 		assertFalse(canLogin);
@@ -155,11 +151,11 @@ public class UsuarioServiceComponentTest extends PessoaTestSupport {
 		String login = usuario.getLogin() + "-wrong";
 		String password = usuario.getSenha();
 		
-		usuario.setSenha(userService.encodePassword(usuario.getSenha()));
+		usuario.setSenha(usuarioService.encodePassword(usuario.getSenha()));
 		usuarioRepository.saveAndFlush(usuario);
 		
 //		When
-		boolean canLogin = userService.canLogin(login, password);
+		boolean canLogin = usuarioService.canLogin(login, password);
 		
 //		Then
 		assertFalse(canLogin);
@@ -173,11 +169,11 @@ public class UsuarioServiceComponentTest extends PessoaTestSupport {
 		String login = usuario.getLogin();
 		String password = usuario.getSenha() + "-wrong";
 		
-		usuario.setSenha(userService.encodePassword(usuario.getSenha()));
+		usuario.setSenha(usuarioService.encodePassword(usuario.getSenha()));
 		usuarioRepository.saveAndFlush(usuario);
 		
 //		When
-		boolean canLogin = userService.canLogin(login, password);
+		boolean canLogin = usuarioService.canLogin(login, password);
 		
 //		Then
 		assertFalse(canLogin);
@@ -191,15 +187,36 @@ public class UsuarioServiceComponentTest extends PessoaTestSupport {
 		String login = usuario.getLogin();
 		String password = usuario.getSenha();
 		
-		usuario.setSenha(userService.encodePassword(usuario.getSenha()));
+		usuario.setSenha(usuarioService.encodePassword(usuario.getSenha()));
 		usuarioRepository.saveAndFlush(usuario);
 		
 //		When
-		boolean canLogin = userService.canLogin(login, password);
+		boolean canLogin = usuarioService.canLogin(login, password);
 		
 //		Then
 		assertTrue(canLogin);
 		
+	}
+	
+	@Test
+	public void shouldFindUsuarioByPessoa() throws NoResultFoundException {
+//		Given
+		Usuario usuario = createAndSaveUsuario();
+		
+//		When
+		Usuario usuarioFound = usuarioService.findByPessoa(savedPessoa);
+		
+//		Then
+		assertNotNull(usuarioFound);
+		assertSame(usuario, usuarioFound);
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldNotFindUsuarioByPessoaGivenNotCreatedUsuario() throws NoResultFoundException {
+//		When
+		usuarioService.findByPessoa(savedPessoa);
+		
+//		Then exception
 	}
 	
 	private Usuario createAndSaveUsuario() {

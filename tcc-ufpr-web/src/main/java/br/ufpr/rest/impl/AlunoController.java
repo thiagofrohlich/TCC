@@ -15,7 +15,8 @@ import br.ufpr.exception.NoResultFoundException;
 import br.ufpr.exception.NotDeletedObjectException;
 import br.ufpr.exception.NullParameterException;
 import br.ufpr.model.Aluno;
-import br.ufpr.services.CrudService;
+import br.ufpr.services.AlunoService;
+import br.ufpr.services.PessoaService;
 import br.ufpr.util.AssertUtils;
 
 @Controller
@@ -24,7 +25,7 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 
 
 	@Autowired
-	public AlunoController(Mapper mapper, CrudService<br.ufpr.domain.Aluno, Integer> alunoService, CrudService<Pessoa, Integer> pessoaService) {
+	public AlunoController(Mapper mapper, AlunoService alunoService, PessoaService pessoaService) {
 		super(mapper, alunoService, pessoaService);
 	}
 
@@ -35,7 +36,7 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Aluno domain = mapper.map(model, br.ufpr.domain.Aluno.class);
 		domain.setPessoa(createPessoa(model));
-		domain = crudService.create(domain);
+		domain = service.create(domain);
 		
 		return mapToModel(domain);
 	}
@@ -47,7 +48,7 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Aluno domain = mapper.map(model, br.ufpr.domain.Aluno.class);
 		domain.setPessoa(findPessoa(model.getPessoaId()));
-		domain = crudService.update(domain);
+		domain = service.update(domain);
 		
 		return mapToModel(domain);
 	}
@@ -57,7 +58,7 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 	public void delete(@RequestBody Aluno model) throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Aluno domain = mapper.map(model, br.ufpr.domain.Aluno.class);
-		crudService.delete(domain.getId());
+		service.delete(domain.getId());
 	}
 	
 	@Override
@@ -66,9 +67,40 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 	public Aluno find(@PathVariable final Integer id) throws NullParameterException,
 			NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(id);
-		br.ufpr.domain.Aluno domain = crudService.find(id);
+		br.ufpr.domain.Aluno domain = service.find(id);
 		AssertUtils.assertIsFound(domain);
 		return mapToModel(domain);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/cpf/{cpf}", method=RequestMethod.GET)
+	public Aluno findByCpf(@PathVariable final String cpf) throws NullParameterException,
+	NoResultFoundException {
+		AssertUtils.assertParameterIsSupplied(cpf);
+		Pessoa pessoa = findPessoaByCpf(cpf);
+		AssertUtils.assertIsFound(pessoa);
+		return mapToModel(findOrCreateAlunoForPessoa(pessoa));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/nome/{nome}", method=RequestMethod.GET)
+	public Aluno findByNome(@PathVariable final String nome) throws NullParameterException,
+	NoResultFoundException {
+		AssertUtils.assertParameterIsSupplied(nome);
+		Pessoa pessoa = findPessoaByNome(nome);
+		AssertUtils.assertIsFound(pessoa);
+		return mapToModel(findOrCreateAlunoForPessoa(pessoa));
+	}
+	
+	private br.ufpr.domain.Aluno findOrCreateAlunoForPessoa(Pessoa pessoa) throws NoResultFoundException {
+		br.ufpr.domain.Aluno aluno;
+		try {
+			aluno = getService().findByPessoa(pessoa);
+		} catch(NoResultFoundException e) {
+			aluno = new br.ufpr.domain.Aluno();
+			aluno.setPessoa(pessoa);
+		}
+		return aluno;
 	}
 	
 	private Aluno mapToModel(br.ufpr.domain.Aluno alunoDomain) {
@@ -77,4 +109,8 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 		return aluno;
 	}
 	
+	private AlunoService getService() {
+		return (AlunoService) service;
+	}
+
 }

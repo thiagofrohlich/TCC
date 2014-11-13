@@ -15,7 +15,8 @@ import br.ufpr.exception.NoResultFoundException;
 import br.ufpr.exception.NotDeletedObjectException;
 import br.ufpr.exception.NullParameterException;
 import br.ufpr.model.Professor;
-import br.ufpr.services.CrudService;
+import br.ufpr.services.PessoaService;
+import br.ufpr.services.ProfessorService;
 import br.ufpr.util.AssertUtils;
 
 @Controller
@@ -23,7 +24,7 @@ import br.ufpr.util.AssertUtils;
 public class ProfessorController extends AbstractPessoaController<Professor, br.ufpr.domain.Professor, Integer> {
 
 	@Autowired
-	public ProfessorController(Mapper mapper, CrudService<br.ufpr.domain.Professor, Integer> professorService, CrudService<Pessoa, Integer> pessoaService) {
+	public ProfessorController(Mapper mapper, ProfessorService professorService, PessoaService pessoaService) {
 		super(mapper, professorService, pessoaService);
 	}
 
@@ -34,7 +35,7 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Professor domain = mapper.map(model, br.ufpr.domain.Professor.class);
 		domain.setPessoa(createPessoa(model));
-		domain = crudService.create(domain);
+		domain = service.create(domain);
 		
 		return mapToModel(domain);
 	}
@@ -46,7 +47,7 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Professor domain = mapper.map(model, br.ufpr.domain.Professor.class);
 		domain.setPessoa(findPessoa(model.getPessoaId()));
-		domain = crudService.update(domain);
+		domain = service.update(domain);
 		
 		return mapToModel(domain);
 	}
@@ -56,7 +57,7 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 	public void delete(@RequestBody Professor model) throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Professor domain = mapper.map(model, br.ufpr.domain.Professor.class);
-		crudService.delete(domain.getId());
+		service.delete(domain.getId());
 	}
 	
 	@Override
@@ -65,15 +66,50 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 	public Professor find(@PathVariable final Integer id) throws NullParameterException,
 			NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(id);
-		br.ufpr.domain.Professor domain = crudService.find(id);
+		br.ufpr.domain.Professor domain = service.find(id);
 		AssertUtils.assertIsFound(domain);
 		return mapToModel(domain);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/cpf/{cpf}", method=RequestMethod.GET)
+	public Professor findByCpf(@PathVariable final String cpf) throws NullParameterException,
+	NoResultFoundException {
+		AssertUtils.assertParameterIsSupplied(cpf);
+		Pessoa pessoa = findPessoaByCpf(cpf);
+		AssertUtils.assertIsFound(pessoa);
+		return mapToModel(findOrCreateProfessorForPessoa(pessoa));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/nome/{nome}", method=RequestMethod.GET)
+	public Professor findByNome(@PathVariable final String nome) throws NullParameterException,
+	NoResultFoundException {
+		AssertUtils.assertParameterIsSupplied(nome);
+		Pessoa pessoa = findPessoaByNome(nome);
+		AssertUtils.assertIsFound(pessoa);
+		return mapToModel(findOrCreateProfessorForPessoa(pessoa));
+	}
+	
+	private br.ufpr.domain.Professor findOrCreateProfessorForPessoa(Pessoa pessoa) throws NoResultFoundException {
+		br.ufpr.domain.Professor professor;
+		try {
+			professor = getService().findByPessoa(pessoa);
+		} catch(NoResultFoundException e) {
+			professor = new br.ufpr.domain.Professor();
+			professor.setPessoa(pessoa);
+		}
+		return professor;
 	}
 	
 	private Professor mapToModel(br.ufpr.domain.Professor professorDomain) {
 		Professor professor = mapper.map(professorDomain, Professor.class);
 		mapper.map(professorDomain.getPessoa(), professor);
 		return professor;
+	}
+
+	private ProfessorService getService() {
+		return (ProfessorService) service;
 	}
 
 }

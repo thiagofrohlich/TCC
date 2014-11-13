@@ -134,7 +134,7 @@ public class UsuarioControllerComponentTest extends PessoaTestSupport {
 	}
 	
 	@Test
-	public void shouldFindProfessorGivenValidId() throws NullParameterException, NoResultFoundException {
+	public void shouldFindUsuarioGivenValidId() throws NullParameterException, NoResultFoundException {
 //		Given
 		br.ufpr.domain.Usuario usuario = createAndSaveUsuario();
 		
@@ -252,6 +252,104 @@ public class UsuarioControllerComponentTest extends PessoaTestSupport {
 //		Then
 		assertTrue(canLogin);
 		
+	}
+	
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseExceptionGivenNullCpf() throws NullParameterException, NoResultFoundException {
+//		When
+		usuarioController.findByCpf("");
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentUsuario() throws NullParameterException, NoResultFoundException {
+//		When
+		usuarioController.findByCpf(savedPessoa.getCpf() + "00");
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentCpf() throws NullParameterException, NoResultFoundException {
+//		Given
+		createAndSaveUsuario();
+		
+//		When
+		usuarioController.findByCpf(savedPessoa.getCpf() + "00");
+	}
+	
+	@Test
+	public void shouldFindExistentUsuarioByCpf() throws NullParameterException, NoResultFoundException {
+//		Given
+		br.ufpr.domain.Usuario usuario = createAndSaveUsuario();
+		
+//		When
+		Usuario usuarioFound = usuarioController.findByCpf(savedPessoa.getCpf());
+		
+//		Then
+		assertNotNull(usuarioFound);
+		assertEquals(usuario.getId(), usuarioFound.getId());
+	}
+	
+	@Test
+	public void shouldCreateUsuarioForPessoaWithCpf() throws NullParameterException, NoResultFoundException {
+		
+//		When
+		Usuario usuarioFound = usuarioController.findByCpf(savedPessoa.getCpf());
+		
+//		Then
+		assertNotNull(usuarioFound);
+		assertEquals(usuarioFound.getCpf(), savedPessoa.getCpf());
+	}
+	
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseExceptionGivenNullNome() throws NullParameterException, NoResultFoundException {
+//		When
+		usuarioController.findByNome(null);
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentUsuarioWithNome() throws NullParameterException, NoResultFoundException {
+//		When
+		usuarioController.findByNome("invalid");
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentNome() throws NullParameterException, NoResultFoundException {
+//		Given
+		createAndSaveUsuario();
+		
+//		When
+		usuarioController.findByNome("invalid");
+	}
+	
+	@Test
+	public void shouldFindExistentUsuarioByNome() throws NullParameterException, NoResultFoundException {
+//		Given
+		br.ufpr.domain.Usuario usuario = createAndSaveUsuario();
+		
+//		When
+		Usuario usuarioFound = usuarioController.findByNome(savedPessoa.getNome());
+		
+//		Then
+		assertNotNull(usuarioFound);
+		assertEquals(usuario.getId(), usuarioFound.getId());
+	}
+	
+	@Test
+	public void shouldCreateUsuarioForPessoaWithNome() throws NullParameterException, NoResultFoundException {
+		
+//		When
+		Usuario usuarioFound = usuarioController.findByNome(savedPessoa.getNome());
+		
+//		Then
+		assertNotNull(usuarioFound);
+		assertEquals(usuarioFound.getNome(), savedPessoa.getNome());
 	}
 	
 	private br.ufpr.domain.Usuario createAndSaveUsuario() {

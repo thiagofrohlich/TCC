@@ -14,6 +14,7 @@ import br.ufpr.exception.NoResultFoundException;
 import br.ufpr.exception.NotDeletedObjectException;
 import br.ufpr.exception.NullParameterException;
 import br.ufpr.repository.ProfessorRepository;
+import br.ufpr.services.ProfessorService;
 import br.ufpr.support.PessoaTestSupport;
 
 public class ProfessorServiceComponentTest extends PessoaTestSupport {
@@ -98,6 +99,27 @@ public class ProfessorServiceComponentTest extends PessoaTestSupport {
 //		Then
 		assertNotNull(professorFound);
 		assertSame(professor, professorFound);
+	}
+	
+	@Test
+	public void shouldFindProfessorByPessoa() throws NoResultFoundException {
+//		Given
+		Professor professor = createAndSaveProfessor(false);
+		
+//		When
+		Professor professorFound = professorService.findByPessoa(savedPessoa);
+		
+//		Then
+		assertNotNull(professorFound);
+		assertSame(professor, professorFound);
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldNotFindProfessorByPessoaGivenNotCreatedProfessor() throws NoResultFoundException {
+//		When
+		professorService.findByPessoa(savedPessoa);
+		
+//		Then exception
 	}
 	
 	private Professor createAndSaveProfessor(boolean isActive) {

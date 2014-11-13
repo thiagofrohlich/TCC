@@ -31,4 +31,25 @@ public class ProfessorRepositoryTest extends PessoaTestSupport {
 		assertSame(professor.getPessoa(), savedProfessor.getPessoa());
 	}
 	
+	@Test
+	public void shouldFindByPessoa() {
+//		Given
+		Professor professor = createProfessor();
+		
+//		When
+		Professor professorFound = professorRepository.findByPessoa(savedPessoa);
+		
+//		Then
+		assertNotNull(professorFound);
+		assertSame(professor, professorFound);
+	}
+
+	private Professor createProfessor() {
+		Professor professor = new Professor();
+		professor.setPessoa(savedPessoa);
+		professor.setAtivo(true);
+		professorRepository.saveAndFlush(professor);
+		return professor;
+	}
+	
 }
