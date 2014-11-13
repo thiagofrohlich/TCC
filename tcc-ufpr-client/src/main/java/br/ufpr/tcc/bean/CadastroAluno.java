@@ -1,6 +1,7 @@
 package br.ufpr.tcc.bean;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +14,7 @@ import javax.faces.context.FacesContext;
 import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
 import br.ufpr.model.Aluno;
+import br.ufpr.service.handler.impl.AlunoServiceHandlerImpl;
 import br.ufpr.tcc.service.CEPHandler;
 
 @ViewScoped
@@ -25,21 +27,44 @@ public class CadastroAluno implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Aluno aluno;
 	private CEPHandler cepHandler;
+	private AlunoServiceHandlerImpl alunoService;
 	private ResourceBundle rb;
+	private boolean updateAluno;
 	
 	@PostConstruct
 	public void init(){
 		aluno = (Aluno) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("editAluno");
 		if(aluno == null){
 			aluno = new Aluno();
+			aluno.setAtivo(true);
+			updateAluno = false;
+		}else{
+			updateAluno = true;
 		}
+		alunoService = new AlunoServiceHandlerImpl();
 		cepHandler = new CEPHandler();
 		rb = ResourceBundle.getBundle("msg");
 	}
 	
+	public void salvaAluno(){
+		if(validaAluno()){
+			if(updateAluno){
+				alunoService.update(aluno);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Aluno salvo com sucesso"));
+			}else{
+				aluno.setDataMatricula(Calendar.getInstance().getTime());
+				alunoService.create(aluno);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Aluno salvo com sucesso"));
+			}
+			limpaTela();
+		}
+	}
 	
+	public void limpaTela(){
+		aluno = new Aluno();
+	}
 	
-	public boolean validaaluno(){
+	public boolean validaAluno(){
 		boolean ret = true;
 		if(aluno.getNome() == null || aluno.getNome().equals("")){
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", rb.getString("erronome")));

@@ -42,7 +42,8 @@
 					</p:panelGrid>
 				</div>
 				<div  style="margin: auto; clear: both">
-					<tag:cadastro pessoa="#{alunoBean.aluno}" id="tagAluno" panelId=":cadastroAluno:tagAluno" verificaCEP="#{alunoBean.buscaCEP}" verificaCPF="#{alunoBean.verificaCPF}"/>
+					<tag:cadastro pessoa="#{alunoBean.aluno}" id="tagAluno" panelId=":cadastroAluno:tagAluno" messageId=":cadastroAluno:messageAluno" 
+									verificaCEP="#{alunoBean.buscaCEP}" verificaCPF="#{alunoBean.verificaCPF}"/>
 					<p:panelGrid styleClass="noborder" id="panelId">
 					
 						<p:row>
@@ -50,7 +51,7 @@
 								<p:commandButton onclick="PF('cancelaAluno').show()" type="button" value="#{msg.cancelar}" />
 							</p:column>
 							<p:column>
-								<p:commandButton action="#{alunoBean.buscaCEP()}" ajax="false" value="#{msg.salvar}" />
+								<p:commandButton action="#{alunoBean.salvaAluno()}" ajax="false" value="#{msg.salvar}" />
 							</p:column>
 						</p:row>
 					</p:panelGrid>

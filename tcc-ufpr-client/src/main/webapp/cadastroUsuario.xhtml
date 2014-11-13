@@ -11,11 +11,12 @@
 	<ui:composition template="/template.xhtml">
 
 		<ui:define name="centro">
-			<h:form id="cadastroAluno">
+			<h:form id="cadastroUsuario">
 			<p:messages showDetail="true" showIcon="true" showSummary="false" autoUpdate="true" id="messageUsuario" />
 				
 				<div  style="margin: auto; clear: both">
-					<tag:cadastro pessoa="#{usuarioBean.usuario}" id="tagAluno" panelId=":cadastroAluno:tagAluno" verificaCEP="#{usuarioBean.buscaCEP}" verificaCPF="#{usuarioBean.verificaCPF}"/>
+					<tag:cadastro pessoa="#{usuarioBean.usuario}" id="tagUsuario" panelId=":cadastroUsuario:tagUsuario" messageId=":cadastroUsuario:messageUsuario" 
+								verificaCEP="#{usuarioBean.buscaCEP}" verificaCPF="#{usuarioBean.verificaCPF}"/>
 					<p:panelGrid styleClass="noborder" id="panelId">
 						
 						<p:row>
@@ -51,7 +52,7 @@
 								<p:commandButton onclick="PF('cancelaUsuario').show()" type="button" value="#{msg.cancelar}" />
 							</p:column>
 							<p:column>
-								<p:commandButton action="#{usuarioBean.buscaCEP()}" ajax="false" value="#{msg.salvar}" />
+								<p:commandButton action="#{usuarioBean.salvaUsuario()}" ajax="false" value="#{msg.salvar}" />
 							</p:column>
 						</p:row>
 					</p:panelGrid>

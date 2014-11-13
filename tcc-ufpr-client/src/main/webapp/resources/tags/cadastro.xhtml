@@ -30,8 +30,10 @@
 		<composite:interface>
 			<composite:attribute name="pessoa" required="true" />
 			<composite:attribute name="panelId" required="true" />
+			<composite:attribute name="messageId" required="true" />
 			<composite:attribute name="verificaCPF" method-signature="java.lang.String action()" />
 			<composite:attribute name="verificaCEP" method-signature="java.lang.String action()" />
+			
 			
 		</composite:interface>
 		<composite:implementation>
@@ -54,7 +56,7 @@
 								</p:column>
 								<p:column>
 									<p:inputMask mask="999.999.999-99" value="#{cc.attrs.pessoa.cpf}" stylestyleClass="cpf"  >
-										<p:ajax event="valueChange" listener="#{cc.attrs.verificaCPF}" update="#{cc.attrs.panelId}:panelId" process="@this"  />
+										<p:ajax event="valueChange" listener="#{cc.attrs.verificaCPF}" update="#{cc.attrs.messageId}" process="@this"  />
 									</p:inputMask>
 								</p:column>
 							</p:row>
@@ -76,8 +78,8 @@
 								</p:column>
 								<p:column>
 									<h:selectOneRadio value="#{cc.attrs.pessoa.sexo}" layout="lineDirection">
-										<f:selectItem itemLabel="#{msg.masc}" itemValue="1"  />
-										<f:selectItem itemLabel="#{msg.feminino}" itemValue="2"/>
+										<f:selectItem itemLabel="#{msg.masc}" itemValue="M"  />
+										<f:selectItem itemLabel="#{msg.feminino}" itemValue="F"/>
 									</h:selectOneRadio>
 								</p:column>
 							</p:row>
@@ -88,7 +90,8 @@
 								</p:column>
 								<p:column>
 									<p:inputMask mask="99999-999" value="#{cc.attrs.pessoa.cep}" >
-										<p:ajax event="valueChange" listener="#{cc.attrs.verificaCEP}"  update="#{cc.attrs.panelId}:panelId" process="@this" />
+										<p:ajax event="valueChange" listener="#{cc.attrs.verificaCEP}"   process="@this" 
+										update="#{cc.attrs.panelId}:endereco #{cc.attrs.panelId}:cidade #{cc.attrs.panelId}:estado #{cc.attrs.panelId}:pais" />
 									</p:inputMask>	
 								</p:column>
 							</p:row>
@@ -98,7 +101,7 @@
 									<h:outputText value="#{msg.endereco}: " />
 								</p:column>
 								<p:column>
-									<p:inputText value="#{cc.attrs.pessoa.endereco}" />
+									<p:inputText value="#{cc.attrs.pessoa.endereco}" id="endereco"/>
 								</p:column>
 							</p:row>
 							<p:row>
@@ -106,12 +109,12 @@
 									<h:outputText value="#{msg.numero}: " />
 								</p:column>
 								<p:column>
-									<p:inputText value="#{cc.attrs.pessoa.numero}" />
+									<p:inputText value="#{cc.attrs.pessoa.numero}" id="numero"/>
 								</p:column>
 							</p:row>
 							<p:row>
 								<p:column styleClass="label">
-									<h:outputText value="#{msg.complemento}: " />
+									<h:outputText value="#{msg.complemento}: " id="complemento"/>
 								</p:column>
 								<p:column>
 									<p:inputText value="#{cc.attrs.pessoa.complemento}"/>	
@@ -122,7 +125,7 @@
 									<h:outputText value="#{msg.cidade}: " />
 								</p:column>
 								<p:column>
-									<p:inputText value="#{cc.attrs.pessoa.cidade}"/>	
+									<p:inputText value="#{cc.attrs.pessoa.cidade}" id="cidade"/>	
 								</p:column>
 							</p:row>
 							<p:row>
@@ -130,7 +133,7 @@
 									<h:outputText value="#{msg.estado}: " />
 								</p:column>
 								<p:column>
-									<p:inputText value="#{cc.attrs.pessoa.estado}" />	
+									<p:inputText value="#{cc.attrs.pessoa.estado}" id="estado"/>	
 								</p:column>
 							</p:row>
 							<p:row>
@@ -138,7 +141,7 @@
 									<h:outputText value="#{msg.pais}: " />
 								</p:column>
 								<p:column>
-									<p:inputText value="#{cc.attrs.pessoa.pais}" />
+									<p:inputText value="#{cc.attrs.pessoa.pais}" id="pais"/>
 								</p:column>
 							</p:row>
 							<p:row>

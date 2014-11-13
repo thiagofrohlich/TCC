@@ -1,5 +1,7 @@
 package br.ufpr.service.handler.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import br.ufpr.model.Professor;
@@ -11,6 +13,14 @@ public class ProfessorServiceHandlerImpl extends AbstractServiceHandler<Professo
 	@Override
 	public String getRelativePath() {
 		return "/professor";
+	}
+	
+	public List<Professor> getLista(String nome) {
+		return  (List<Professor>) getRestTemplate().getForObject(getPath()+"/{nome}", Professor.class, nome);
+	}
+	
+	public Professor getByCpf(String cpf) {
+		return  (Professor) getRestTemplate().getForObject(getPath()+"/{cpf}", Professor.class, cpf);
 	}
 
 }

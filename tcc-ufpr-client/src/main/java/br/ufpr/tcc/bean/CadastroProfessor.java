@@ -14,6 +14,7 @@ import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
 import br.ufpr.model.Aluno;
 import br.ufpr.model.Professor;
+import br.ufpr.service.handler.impl.ProfessorServiceHandlerImpl;
 import br.ufpr.tcc.service.CEPHandler;
 
 @ViewScoped
@@ -26,18 +27,43 @@ public class CadastroProfessor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Professor professor;
 	private CEPHandler cepHandler;
+	private ProfessorServiceHandlerImpl professorService;
+	private boolean updateProfessor;
 	private ResourceBundle rb;
 	
 	@PostConstruct
 	public void init(){
-		professor = new Professor();
+		professor = (Professor) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("editProfessor");
+		if(professor == null){
+			professor = new Professor();
+			updateProfessor = false;
+		}else{
+			updateProfessor = true;
+		}
 		cepHandler = new CEPHandler();
+		professorService = new ProfessorServiceHandlerImpl();
 		rb = ResourceBundle.getBundle("msg");
 	}
 	
 	
+	public void salvaProfessor(){
+		if(validaProfessor()){
+			if(updateProfessor){
+				professorService.update(professor);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Professor salvo com sucesso"));
+			}else{
+				professorService.create(professor);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Professor salvo com sucesso"));
+			}
+			limpaTela();
+		}
+	}
 	
-	public boolean validaaluno(){
+	private void limpaTela(){
+		professor = new Professor();
+	}
+	
+	public boolean validaProfessor(){
 		boolean ret = true;
 		if(professor.getNome() == null || professor.getNome().equals("")){
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", rb.getString("erronome")));
@@ -90,6 +116,7 @@ public class CadastroProfessor implements Serializable {
 		CPFValidator validator = new CPFValidator();
 		try{
 			validator.assertValid(professor.getCpf());
+			
 		}catch(InvalidStateException e){
 			FacesContext.getCurrentInstance().addMessage("messageAluno", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "CPF INVÁILDO"));
 		}

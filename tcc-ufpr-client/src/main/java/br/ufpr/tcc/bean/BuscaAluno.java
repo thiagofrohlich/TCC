@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.model.DualListModel;
+
 import br.ufpr.model.Aluno;
 
 @ViewScoped
@@ -26,6 +28,7 @@ public class BuscaAluno implements Serializable{
 	private List<Aluno> lstAlunos;
 	private ResourceBundle rb;
 	private boolean renderInfo;
+	
 	
 	@PostConstruct
 	public void init(){

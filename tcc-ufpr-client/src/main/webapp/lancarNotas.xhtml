@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/composite/tags">
+
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="centro">
+			<h:form id="buscaAluno">
+			<p:messages showDetail="true" showIcon="true" showSummary="false" autoUpdate="true" id="messageDisciplina" />
+				
+				<p:panelGrid styleClass="noborder" id="panelPesquisa">
+					
+					<p:row >
+						<p:column>
+							<h:outputText value="#{msg.disciplina}: " />
+						</p:column>
+						<p:column>
+							<p:inputText value=""/>
+							<p:commandButton  onclick="PF('buscaDisciplinaDialog').show()" icon="ui-icon-search" ajax="true" type="button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				<div class="center" style="padding-top: 15px;">
+					<p:dataTable value="" var="" editable="true" editMode="cell" rowKey="" >
+							
+						<f:facet name="header">
+							<h:outputText value="#{msg.alunos}" />
+						</f:facet>
+						
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.matricula}" />
+							</f:facet>
+							
+						</p:column>
+						
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.nome}" />
+							</f:facet>
+							
+						</p:column>
+						
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.nota}" />
+							</f:facet>
+							<p:cellEditor>
+								<f:facet name="output">
+								</f:facet>
+								<f:facet name="input">
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.faltas}" />
+							</f:facet>
+							<p:cellEditor>
+								<f:facet name="output">
+								</f:facet>
+								<f:facet name="input">
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.situacao}" />
+							</f:facet>
+							<p:cellEditor>
+								<f:facet name="output">
+								</f:facet>
+								<f:facet name="input">
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						
+					</p:dataTable>
+				
+				</div>
+				
+			</h:form>
+		</ui:define>
+		
+	</ui:composition>
+</html>
+

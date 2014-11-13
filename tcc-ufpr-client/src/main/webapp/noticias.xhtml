@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/composite/tags">
+
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="centro">
+			<h:form id="noticia">
+			<p:messages showDetail="true" showIcon="true" showSummary="false" autoUpdate="true" id="messageMatricula" />
+			
+			<p:panelGrid styleClass="noborder" id="panelNoticias">
+					<p:row>
+						<p:column>
+							<h:outputText value="#{msg.titulo}: " />
+						</p:column>
+						<p:column>
+							<p:inputText />
+						</p:column>
+					</p:row>
+					<p:row >
+						<p:column>
+							<h:outputText value="#{msg.noticia}: " />
+						</p:column>
+						<p:column>
+							<p:inputTextarea />
+						</p:column>
+					</p:row>
+					<p:row>
+							<p:column>
+								<p:commandButton onclick="PF('cancelaNoticia').show()" type="button" value="#{msg.cancelar}" />
+							</p:column>
+							<p:column>
+								<p:commandButton  value="#{msg.salvar}" />
+							</p:column>
+						</p:row>
+				</p:panelGrid>
+				
+				<p:dialog header="#{msg.cancelar}" widgetVar="cancelaNoticia"  height="100" >
+					<p:button outcome="index.xhtml" value="#{msg.sim}" />
+					<p:commandButton onclick="PF('cancelaNoticia').hide()" type="button" value="#{msg.nao}" />    
+				</p:dialog>
+			
+			</h:form>
+		</ui:define>
+		
+	</ui:composition>
+</html>
+

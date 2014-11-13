@@ -12,7 +12,9 @@ import javax.faces.context.FacesContext;
 
 import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
+import br.ufpr.model.Aluno;
 import br.ufpr.model.Usuario;
+import br.ufpr.service.handler.impl.UsuarioServiceHandlerImpl;
 import br.ufpr.tcc.service.CEPHandler;
 
 @ViewScoped
@@ -26,18 +28,43 @@ public class CadastroUsuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
 	private CEPHandler cepHandler;
+	private UsuarioServiceHandlerImpl usuarioService;
+	private boolean updateUsuario;
 	private ResourceBundle rb;
 	
 	@PostConstruct
 	public void init(){
-		usuario = new Usuario();
+		usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("editUsuario");
+		if(usuario == null ){
+			usuario = new Usuario();
+			updateUsuario = false;
+		}else{
+			updateUsuario = true;
+		}
 		cepHandler = new CEPHandler();
+		usuarioService = new UsuarioServiceHandlerImpl();
 		rb = ResourceBundle.getBundle("msg");
 	}
 	
 	
+	public void salvaUsuario(){
+		if(validaUsuario()){
+			if(updateUsuario){
+				usuarioService.update(usuario);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Usuário salvo com sucesso"));
+			}else{
+				usuarioService.create(usuario);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Usuário salvo com sucesso"));
+			}
+			limpaTela();
+		}
+	}
 	
-	public boolean validaaluno(){
+	private void limpaTela(){
+		usuario = new Usuario();
+	}
+	
+	public boolean validaUsuario(){
 		boolean ret = true;
 		if(usuario.getNome() == null || usuario.getNome().equals("")){
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", rb.getString("erronome")));

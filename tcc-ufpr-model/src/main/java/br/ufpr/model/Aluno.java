@@ -16,6 +16,7 @@ public class Aluno extends Pessoa {
 	private Boolean ativo;
 	private Date dataMatricula;
 	private List<Disciplina> disciplinas;
+	private Integer periodo;
 	
 	public Aluno(){
 		super();
@@ -52,6 +53,14 @@ public class Aluno extends Pessoa {
 	@Override
 	public void setId(Integer id) {
 		setMatricula(id);
+	}
+
+	public Integer getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(Integer periodo) {
+		this.periodo = periodo;
 	}
 	
 }

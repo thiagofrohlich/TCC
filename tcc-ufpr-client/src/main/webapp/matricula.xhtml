@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/composite/tags">
+
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="centro">
+			<h:form id="matricula">
+			<p:messages showDetail="true" showIcon="true" showSummary="false" autoUpdate="true" id="messageMatricula" />
+			
+			<p:panelGrid styleClass="noborder" id="panelPesquisa">
+					<p:row>
+						<p:column>
+							<h:outputText value="#{msg.pesquisar}: " />
+						</p:column>
+						<p:column>
+							<h:selectOneRadio value="#{matriculaBean.tipoPesquisa}">
+								<p:ajax event="valueChange"  update=":panelPesquisa" />
+								<f:selectItems itemLabel="#{msg.matricula}" itemValue="1"/>
+								<f:selectItems itemLabel="#{msg.nome}" itemValue="2"/>
+							</h:selectOneRadio>
+						</p:column>
+					</p:row>
+					<p:row rendered="#{matriculaBean.tipoPesquisa == 1}">
+						<p:column>
+							<h:outputText value="#{msg.matricula}: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{matriculaBean.aluno.matricula}"/>
+						</p:column>
+					</p:row>
+					<p:row rendered="#{matriculaBean.tipoPesquisa == 2}">
+						<p:column>
+							<h:outputText value="#{msg.nome}: " />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{matriculaBean.aluno.nome}" />
+							<p:commandButton  onclick="PF('buscaAlunoDialog').show()" icon="ui-icon-search" ajax="true" type="button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			
+				<div class="center" style="padding-top: 15px;">
+						<p:panelGrid  styleClass="noborder" id="panelId" rendered="#{matriculaBean.renderInfo}">
+							
+							<p:row >
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.nome}: " />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{matriculaBean.aluno.nome}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.cpf}: "  />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{matriculaBean.aluno.cpf}" />
+								</p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.datanasc}: "  />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{matriculaBean.aluno.dataNascimento}" />
+								</p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.genero}: " />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{matriculaBean.aluno.sexo}" />
+								</p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.genero}: " />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{matriculaBean.aluno.periodo}" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</div>			
+					
+					<div class="center" style="padding-top: 15px;">
+						<p:pickList id="pickListMatricula" value="#{matriculaBean.disciplinas}"  var="disciplina" itemLabel="#{disciplina.source.nome}" itemValue="#{disciplinas}" />
+					</div>
+					<p:commandButton value="#{msg.salvar}" />
+			</h:form>
+		</ui:define>
+		
+	</ui:composition>
+</html>
+
