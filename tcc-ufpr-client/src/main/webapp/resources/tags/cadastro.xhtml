@@ -41,6 +41,16 @@
 					
 					<div class="center" style="padding-top: 15px;">
 						<p:panelGrid  styleClass="noborder" id="panelId" >
+							<p:row>
+								<p:column styleClass="label">
+									<h:outputText value="#{msg.cpf}: "  />
+								</p:column>
+								<p:column>
+									<p:inputMask mask="999.999.999-99" value="#{cc.attrs.pessoa.cpf}" stylestyleClass="cpf"  >
+										<p:ajax event="valueChange" listener="#{cc.attrs.verificaCPF}" update="#{cc.attrs.panelId}:panelId" process="@this"  />
+									</p:inputMask>
+								</p:column>
+							</p:row>
 							
 							<p:row >
 								<p:column styleClass="label">
@@ -48,16 +58,6 @@
 								</p:column>
 								<p:column>
 									<p:inputText value="#{cc.attrs.pessoa.nome}" />
-								</p:column>
-							</p:row>
-							<p:row>
-								<p:column styleClass="label">
-									<h:outputText value="#{msg.cpf}: "  />
-								</p:column>
-								<p:column>
-									<p:inputMask mask="999.999.999-99" value="#{cc.attrs.pessoa.cpf}" stylestyleClass="cpf"  >
-										<p:ajax event="valueChange" listener="#{cc.attrs.verificaCPF}" update="#{cc.attrs.messageId}" process="@this"  />
-									</p:inputMask>
 								</p:column>
 							</p:row>
 							

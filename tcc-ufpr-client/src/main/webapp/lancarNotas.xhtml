@@ -21,14 +21,14 @@
 							<h:outputText value="#{msg.disciplina}: " />
 						</p:column>
 						<p:column>
-							<p:inputText value=""/>
+							<p:inputText value="#{notasBean.disciplina.nome}"/>
 							<p:commandButton  onclick="PF('buscaDisciplinaDialog').show()" icon="ui-icon-search" ajax="true" type="button" />
 						</p:column>
 					</p:row>
 				</p:panelGrid>
 				
 				<div class="center" style="padding-top: 15px;">
-					<p:dataTable value="" var="" editable="true" editMode="cell" rowKey="" >
+					<p:dataTable value="#{notasBean.lstAlunos}" var="lstAlunos" editable="true" editMode="cell" rowKey="#{lstAlunos.id}" >
 							
 						<f:facet name="header">
 							<h:outputText value="#{msg.alunos}" />
@@ -38,14 +38,14 @@
 							<f:facet name="header">
 								<h:outputText value="#{msg.matricula}" />
 							</f:facet>
-							
+							<h:outputText value="#{lstAlunos.matricula}" />	
 						</p:column>
 						
 						<p:column>
 							<f:facet name="header">
 								<h:outputText value="#{msg.nome}" />
 							</f:facet>
-							
+							<h:outputText value="#{lstAlunos.nome}" />	
 						</p:column>
 						
 						<p:column>
@@ -54,6 +54,7 @@
 							</f:facet>
 							<p:cellEditor>
 								<f:facet name="output">
+									<h:outputText value="#{lstAlunos.}" />
 								</f:facet>
 								<f:facet name="input">
 								</f:facet>

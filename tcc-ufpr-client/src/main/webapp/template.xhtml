@@ -29,8 +29,10 @@
 	
 	<div align="center">
             <p:layout >  
-                <p:layoutUnit position="north" size="100">  
-                   
+                <p:layoutUnit position="north" size="100" > 
+                	<div style="float:left;">
+                   		<p:graphicImage value="/resources/img/definitiva.png" style="width:65%;float:left;"/>
+                	</div> 
                 </p:layoutUnit>  
  
                 <p:layoutUnit position="west" size="220" >  
@@ -41,7 +43,7 @@
                             		 <p:menuitem value="#{msg.cadastroUsuario}"  url="http://localhost:8080/tcc-ufpr-client/cadastroUsuario.xhtml" />
                             		 <p:menuitem value="#{msg.buscaUsuario}"  url="http://localhost:8080/tcc-ufpr-client/buscaUsuario.xhtml" />
                             		 <p:menuitem value="#{msg.cadastroDisciplina}"  url="http://localhost:8080/tcc-ufpr-client/cadastroDisciplina.xhtml" />
-                            		 <p:menuitem value="#{msg.cadastroNoticia}"  url="" />
+                            		 <p:menuitem value="#{msg.cadastroNoticia}"  url="http://localhost:8080/tcc-ufpr-client/noticias.xhtml" />
                             	</p:submenu>
                             	<p:submenu label="#{msg.aluno}">
                             		 <p:menuitem value="#{msg.cadastroAluno}"  url="http://localhost:8080/tcc-ufpr-client/cadastroAluno.xhtml" />
@@ -50,7 +52,7 @@
                             	<p:submenu label="#{msg.professor}">
                             		 <p:menuitem value="#{msg.cadastroProfessor}"  url="http://localhost:8080/tcc-ufpr-client/cadastroProfessor.xhtml" />
                             		 <p:menuitem value="#{msg.buscaProfessor}"  url="http://localhost:8080/tcc-ufpr-client/buscaProfessor.xhtml" />
-                            		 <p:menuitem value="#{msg.lancarNotas}"  url="" />
+                            		 <p:menuitem value="#{msg.lancarNotas}"  url="http://localhost:8080/tcc-ufpr-client/lancarNotas.xhtml" />
                             	</p:submenu>
                             	<p:menuitem value="#{msg.relatorio}"  url="" />
                             </p:menu>

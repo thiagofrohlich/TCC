@@ -9,10 +9,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.springframework.web.client.HttpServerErrorException;
 
+import br.com.caelum.stella.format.CPFFormatter;
 import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
-import br.ufpr.model.Aluno;
 import br.ufpr.model.Usuario;
 import br.ufpr.service.handler.impl.UsuarioServiceHandlerImpl;
 import br.ufpr.tcc.service.CEPHandler;
@@ -31,6 +32,7 @@ public class CadastroUsuario implements Serializable {
 	private UsuarioServiceHandlerImpl usuarioService;
 	private boolean updateUsuario;
 	private ResourceBundle rb;
+	private CPFFormatter formatter;
 	
 	@PostConstruct
 	public void init(){
@@ -44,11 +46,13 @@ public class CadastroUsuario implements Serializable {
 		cepHandler = new CEPHandler();
 		usuarioService = new UsuarioServiceHandlerImpl();
 		rb = ResourceBundle.getBundle("msg");
+		formatter = new CPFFormatter();
 	}
 	
 	
 	public void salvaUsuario(){
 		if(validaUsuario()){
+			formatter.unformat(usuario.getCpf());
 			if(updateUsuario){
 				usuarioService.update(usuario);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Usuário salvo com sucesso"));
@@ -117,6 +121,11 @@ public class CadastroUsuario implements Serializable {
 		CPFValidator validator = new CPFValidator();
 		try{
 			validator.assertValid(usuario.getCpf());
+			try{
+				usuario = usuarioService.findByCpf(formatter.unformat(usuario.getCpf()));
+			}catch(HttpServerErrorException e){
+				
+			}
 		}catch(InvalidStateException e){
 			FacesContext.getCurrentInstance().addMessage("messageAluno", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "CPF INVÁILDO"));
 		}

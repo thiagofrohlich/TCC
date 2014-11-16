@@ -9,3 +9,14 @@ tcc-ufpr-domain/.classpath
 *.project
 *.classpath
 tcc-ufpr-client/.settings/org.eclipse.wst.common.component
+*.classpath
+tcc-ufpr-client/.classpath
+*.project
+tcc-ufpr-client/.classpath
+tcc-ufpr-client/.project
+tcc-ufpr-domain/.classpath
+tcc-ufpr-client/.classpath
+tcc-ufpr-client/.project
+tcc-ufpr-domain/.classpath
+tcc-ufpr-domain/.project
+tcc-ufpr-model/.classpath

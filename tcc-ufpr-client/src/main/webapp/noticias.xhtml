@@ -17,10 +17,20 @@
 			<p:panelGrid styleClass="noborder" id="panelNoticias">
 					<p:row>
 						<p:column>
+							<h:outputText value="#{msg.data}: " />
+						</p:column>
+						<p:column>
+							<p:calendar locale="pt_BR" mask="true" showButtonPanel="false" navigator="true" value="#{noticiasBean.noticia.dataPublicacao}" 
+												pattern="dd/MM/yyyy" styleClass="inputDate" validatorMessage="data invalida" />
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
 							<h:outputText value="#{msg.titulo}: " />
 						</p:column>
 						<p:column>
-							<p:inputText />
+							<p:inputText value="#{noticiasBean.noticia.titulo}"/>
 						</p:column>
 					</p:row>
 					<p:row >
@@ -28,7 +38,7 @@
 							<h:outputText value="#{msg.noticia}: " />
 						</p:column>
 						<p:column>
-							<p:inputTextarea />
+							<p:inputTextarea value="#{noticiasBean.noticia.conteudo}" styleClass="textArea"/>
 						</p:column>
 					</p:row>
 					<p:row>
@@ -36,7 +46,7 @@
 								<p:commandButton onclick="PF('cancelaNoticia').show()" type="button" value="#{msg.cancelar}" />
 							</p:column>
 							<p:column>
-								<p:commandButton  value="#{msg.salvar}" />
+								<p:commandButton  value="#{msg.salvar}" action="#{noticiasBean.salva()}"  ajax="false"/>
 							</p:column>
 						</p:row>
 				</p:panelGrid>

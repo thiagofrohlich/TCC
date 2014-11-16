@@ -158,9 +158,23 @@
 									<h:outputText value="#{buscaUsuarioBean.usuario.telefone}" />
 								</p:column>
 							</p:row>
+							
 							<p:row>
 								<p:column  styleClass="label">
-									<p:commandButton value="#{msg.imprimir}" />
+									<h:outputText value="#{msg.acesso}: " />
+								</p:column>
+								<p:column>
+									<p:selectManyCheckbox value="#{buscaUsuarioBean.acessos}" >
+										<f:selectItem itemLabel="#{msg.aluno}" itemValue="ALUNO"/>
+										<f:selectItem itemLabel="#{msg.professor}" itemValue="PROFESSOR"/>
+										<f:selectItem itemLabel="#{msg.administracao}" itemValue="ADMINISTRACAO"/>
+									</p:selectManyCheckbox>
+								</p:column>
+							</p:row>
+							
+							<p:row>
+								<p:column  styleClass="label">
+									<p:commandButton value="#{msg.salvar}" />
 								</p:column>
 								<p:column>
 									<p:commandButton value="#{msg.editar}" action="#{buscaUsuarioBean.editaUsuario()}" ajax="false" />

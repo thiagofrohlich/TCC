@@ -24,6 +24,11 @@
 
 .cod{width: 60px;}
 
+.textArea{
+	width: 500px;
+	height: 300px;
+}
+
 .marginLeft{margin-left:10px;}
 
 .ui-corner-all{

@@ -9,10 +9,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.springframework.web.client.HttpServerErrorException;
 
+import br.com.caelum.stella.format.CPFFormatter;
 import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
-import br.ufpr.model.Aluno;
 import br.ufpr.model.Professor;
 import br.ufpr.service.handler.impl.ProfessorServiceHandlerImpl;
 import br.ufpr.tcc.service.CEPHandler;
@@ -30,7 +31,7 @@ public class CadastroProfessor implements Serializable {
 	private ProfessorServiceHandlerImpl professorService;
 	private boolean updateProfessor;
 	private ResourceBundle rb;
-	
+	private CPFFormatter formatter;
 	@PostConstruct
 	public void init(){
 		professor = (Professor) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("editProfessor");
@@ -43,11 +44,13 @@ public class CadastroProfessor implements Serializable {
 		cepHandler = new CEPHandler();
 		professorService = new ProfessorServiceHandlerImpl();
 		rb = ResourceBundle.getBundle("msg");
+		formatter = new CPFFormatter();
 	}
 	
 	
 	public void salvaProfessor(){
 		if(validaProfessor()){
+			formatter.unformat(professor.getCpf());
 			if(updateProfessor){
 				professorService.update(professor);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Professor salvo com sucesso"));
@@ -116,7 +119,11 @@ public class CadastroProfessor implements Serializable {
 		CPFValidator validator = new CPFValidator();
 		try{
 			validator.assertValid(professor.getCpf());
-			
+			try{
+				professor = professorService.findByCpf(formatter.unformat(professor.getCpf()));
+			}catch (HttpServerErrorException e){
+				
+			}
 		}catch(InvalidStateException e){
 			FacesContext.getCurrentInstance().addMessage("messageAluno", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "CPF INVÁILDO"));
 		}
