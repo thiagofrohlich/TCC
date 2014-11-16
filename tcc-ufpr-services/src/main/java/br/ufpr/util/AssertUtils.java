@@ -1,5 +1,7 @@
 package br.ufpr.util;
 
+import java.util.List;
+
 import br.ufpr.domain.DomainObject;
 import br.ufpr.exception.MissingIdException;
 import br.ufpr.exception.NoResultFoundException;
@@ -36,6 +38,13 @@ public class AssertUtils {
 
 	public static void assertIsFound(DomainObject domainObject) throws NoResultFoundException {
 		if(domainObject == null) {
+			throw new NoResultFoundException();
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static void assertIsFound(List domainList) throws NoResultFoundException {
+		if(domainList == null || domainList.isEmpty()) {
 			throw new NoResultFoundException();
 		}
 	}

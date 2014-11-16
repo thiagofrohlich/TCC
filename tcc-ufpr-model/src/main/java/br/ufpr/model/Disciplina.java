@@ -1,5 +1,7 @@
 package br.ufpr.model;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -9,6 +11,7 @@ public class Disciplina extends BusinessModel {
 	private Integer periodo;
 	private Turno turno;
 	private Professor professor;
+	private List<Aluno> alunos;
 	
 	public String getNome() {
 		return nome;
@@ -33,6 +36,12 @@ public class Disciplina extends BusinessModel {
 	}
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
+	}
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
 	}
 	
 }

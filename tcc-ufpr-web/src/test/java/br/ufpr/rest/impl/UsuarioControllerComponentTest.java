@@ -334,7 +334,7 @@ public class UsuarioControllerComponentTest extends PessoaTestSupport {
 		br.ufpr.domain.Usuario usuario = createAndSaveUsuario();
 		
 //		When
-		Usuario usuarioFound = usuarioController.findByNome(savedPessoa.getNome());
+		Usuario usuarioFound = usuarioController.findByNome(savedPessoa.getNome()).get(0);
 		
 //		Then
 		assertNotNull(usuarioFound);
@@ -345,7 +345,7 @@ public class UsuarioControllerComponentTest extends PessoaTestSupport {
 	public void shouldCreateUsuarioForPessoaWithNome() throws NullParameterException, NoResultFoundException {
 		
 //		When
-		Usuario usuarioFound = usuarioController.findByNome(savedPessoa.getNome());
+		Usuario usuarioFound = usuarioController.findByNome(savedPessoa.getNome()).get(0);
 		
 //		Then
 		assertNotNull(usuarioFound);
