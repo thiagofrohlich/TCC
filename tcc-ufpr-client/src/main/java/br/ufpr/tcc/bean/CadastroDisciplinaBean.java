@@ -5,11 +5,16 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.ufpr.model.Disciplina;
 import br.ufpr.model.Professor;
+import br.ufpr.model.Usuario;
+import br.ufpr.service.handler.impl.DisciplinaServiceHandlerImpl;
+import br.ufpr.service.handler.impl.ProfessorServiceHandlerImpl;
 
 
 @ViewScoped
@@ -20,17 +25,62 @@ public class CadastroDisciplinaBean {
 	private Disciplina disciplina;
 	private ResourceBundle rb;
 	private List<Professor> lstProfessores;
+	private Professor professor;
+	private ProfessorServiceHandlerImpl professorService;
+	private DisciplinaServiceHandlerImpl disciplinaService;
+	private boolean updateDisciplina;
 	
 	@PostConstruct
 	public void init(){
-		disciplina = new Disciplina();
+		disciplina = (Disciplina) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("editDisciplina");
+		if(disciplina == null){
+			professor = new Professor();
+			disciplina = new Disciplina();
+			updateDisciplina = false;
+		}else{
+			setProfessor(disciplina.getProfessor());
+			updateDisciplina = true;
+		}
+		professorService = new ProfessorServiceHandlerImpl();
+		disciplinaService = new DisciplinaServiceHandlerImpl();
 		lstProfessores = new ArrayList<>();
 		rb = ResourceBundle.getBundle("msg");
 	}
 	
 	public void buscaProfessor(){
-		
+		lstProfessores = professorService.getLista(nomeProfessor);
 	}
+	
+	public void salvaDisciplina(){
+		if(verificaDisciplina()){
+			if(updateDisciplina){
+				disciplinaService.update(disciplina);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Disciplina salva com sucesso"));
+			}else{
+				disciplinaService.create(disciplina);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Disciplina salva com sucesso"));
+			}
+		}
+	}
+	
+	
+	public boolean verificaDisciplina(){
+		boolean ret = true;
+		if(disciplina.getNome() == null || disciplina.equals("")){
+			ret = false;
+		}
+		if(disciplina.getPeriodo() == null || disciplina.getPeriodo() == 0){
+			ret = false;
+		}
+		if(disciplina.getTurno() == null){
+			ret = false;
+		}
+		if(professor == null || professor.getId() == null){
+			ret = false;
+		}
+		return ret;
+	}
+	
 
 	public Disciplina getDisciplina() {
 		return disciplina;
@@ -62,6 +112,14 @@ public class CadastroDisciplinaBean {
 
 	public void setNomeProfessor(String nomeProfessor) {
 		this.nomeProfessor = nomeProfessor;
+	}
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
 	}
 	
 	

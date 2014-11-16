@@ -14,6 +14,14 @@ public class ProfessorServiceHandlerImpl extends AbstractServiceHandler<Professo
 	public String getRelativePath() {
 		return "/professor";
 	}
+	
+	public List<Professor> getLista(String nome) {
+		return  (List<Professor>) getRestTemplate().getForObject(getPath()+"/{nome}", Professor.class, nome);
+	}
+	
+	public Professor getByCpf(String cpf) {
+		return  (Professor) getRestTemplate().getForObject(getPath()+"/{cpf}", Professor.class, cpf);
+	}
 
 	@Override
 	public Professor findByCpf(String cpf) {
