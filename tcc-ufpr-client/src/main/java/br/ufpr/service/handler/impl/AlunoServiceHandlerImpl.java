@@ -1,5 +1,7 @@
 package br.ufpr.service.handler.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import br.ufpr.model.Aluno;
@@ -18,9 +20,10 @@ public class AlunoServiceHandlerImpl extends AbstractServiceHandler<Aluno, Integ
 		return getRestTemplate().getForObject(getPath()+"/cpf/{cpf}", getReturnClass(), cpf);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Aluno findByNome(String nome) {
-		return getRestTemplate().getForObject(getPath()+"/nome/{nome}", getReturnClass(), nome);
+	public List<Aluno> findByNome(String nome) {
+		return getRestTemplate().getForObject(getPath()+"/nome/{nome}", List.class, nome);
 	}
 
 }

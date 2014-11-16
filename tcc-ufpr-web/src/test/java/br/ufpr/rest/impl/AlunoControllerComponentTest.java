@@ -224,7 +224,7 @@ public class AlunoControllerComponentTest extends PessoaTestSupport {
 		br.ufpr.domain.Aluno aluno = createAndSaveAluno(true);
 		
 //		When
-		Aluno alunoFound = alunoController.findByNome(savedPessoa.getNome());
+		Aluno alunoFound = alunoController.findByNome(savedPessoa.getNome()).get(0);
 		
 //		Then
 		assertNotNull(alunoFound);
@@ -235,7 +235,7 @@ public class AlunoControllerComponentTest extends PessoaTestSupport {
 	public void shouldCreateAlunoForPessoaWithNome() throws NullParameterException, NoResultFoundException {
 		
 //		When
-		Aluno alunoFound = alunoController.findByNome(savedPessoa.getNome());
+		Aluno alunoFound = alunoController.findByNome(savedPessoa.getNome()).get(0);
 		
 //		Then
 		assertNotNull(alunoFound);

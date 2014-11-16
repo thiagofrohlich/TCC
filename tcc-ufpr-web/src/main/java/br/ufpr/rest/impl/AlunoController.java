@@ -1,5 +1,8 @@
 package br.ufpr.rest.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -84,12 +87,21 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 	
 	@ResponseBody
 	@RequestMapping(value="/nome/{nome}", method=RequestMethod.GET)
-	public Aluno findByNome(@PathVariable final String nome) throws NullParameterException,
+	public List<Aluno> findByNome(@PathVariable final String nome) throws NullParameterException,
 	NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(nome);
-		Pessoa pessoa = findPessoaByNome(nome);
-		AssertUtils.assertIsFound(pessoa);
-		return mapToModel(findOrCreateAlunoForPessoa(pessoa));
+		List<Pessoa> pessoas = findPessoaByNome(nome);
+		AssertUtils.assertIsFound(pessoas);
+		return createReturnList(pessoas);
+	}
+
+	private List<Aluno> createReturnList(List<Pessoa> pessoas)
+			throws NoResultFoundException {
+		List<Aluno> returnList = new ArrayList<>(pessoas.size());
+		for(Pessoa pessoa : pessoas) {
+			returnList.add(mapToModel(findOrCreateAlunoForPessoa(pessoa)));
+		}
+		return returnList;
 	}
 	
 	private br.ufpr.domain.Aluno findOrCreateAlunoForPessoa(Pessoa pessoa) throws NoResultFoundException {

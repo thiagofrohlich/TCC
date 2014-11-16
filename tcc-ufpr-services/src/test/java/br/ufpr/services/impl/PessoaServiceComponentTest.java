@@ -128,7 +128,7 @@ public class PessoaServiceComponentTest extends SpringTestSupport {
 		Pessoa createdPessoa = createAndSavePessoa();
 		
 //		When
-		Pessoa pessoaFound = pessoaService.findPessoaByNome(createdPessoa.getNome());
+		Pessoa pessoaFound = pessoaService.findPessoaByNome(createdPessoa.getNome()).get(0);
 		
 //		Then
 		assertNotNull(pessoaFound);
@@ -141,7 +141,7 @@ public class PessoaServiceComponentTest extends SpringTestSupport {
 		Pessoa createdPessoa = createAndSavePessoa();
 		
 //		When
-		Pessoa pessoaFound = pessoaService.findPessoaByNome("oa na");
+		Pessoa pessoaFound = pessoaService.findPessoaByNome("oa na").get(0);
 		
 //		Then
 		assertNotNull(pessoaFound);
@@ -154,7 +154,7 @@ public class PessoaServiceComponentTest extends SpringTestSupport {
 		createAndSavePessoa();
 		
 //		When
-		Pessoa pessoaFound = pessoaService.findPessoaByNome("invalid");
+		Pessoa pessoaFound = pessoaService.findPessoaByNome("invalid").get(0);
 		
 //		Then
 		assertNull(pessoaFound);

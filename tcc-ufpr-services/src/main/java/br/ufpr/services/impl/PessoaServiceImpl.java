@@ -1,5 +1,7 @@
 package br.ufpr.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,10 +30,10 @@ public class PessoaServiceImpl extends AbstractCrudService<Pessoa, Integer> impl
 	}
 
 	@Override
-	public Pessoa findPessoaByNome(String nome) throws NoResultFoundException {
-		Pessoa pessoa = getPessoaRepository().findByNomeContaining(nome);
-		AssertUtils.assertIsFound(pessoa);
-		return pessoa;
+	public List<Pessoa> findPessoaByNome(String nome) throws NoResultFoundException {
+		List<Pessoa> pessoas = getPessoaRepository().findByNomeContaining(nome);
+		AssertUtils.assertIsFound(pessoas);
+		return pessoas;
 	}
 	
 	private PessoaRepository getPessoaRepository() {

@@ -1,6 +1,7 @@
 package br.ufpr.rest.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public abstract class AbstractPessoaController<M extends BusinessModel, D extend
 		return pessoaService.findPessoaByCpf(cpf);
 	}
 	
-	protected Pessoa findPessoaByNome(String nome) throws NoResultFoundException {
+	protected List<Pessoa> findPessoaByNome(String nome) throws NoResultFoundException {
 		return pessoaService.findPessoaByNome(nome);
 	}
 	

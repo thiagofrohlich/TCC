@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +67,7 @@ public class PessoaRepositoryTest extends SpringTestSupport {
 		Pessoa createdPessoa = createPessoa();
 		
 //		When
-		Pessoa pessoaFound = pessoaRepository.findByNomeContaining(createdPessoa.getNome());
+		Pessoa pessoaFound = pessoaRepository.findByNomeContaining(createdPessoa.getNome()).get(0);
 		
 //		Then
 		assertNotNull(pessoaFound);
@@ -77,7 +80,7 @@ public class PessoaRepositoryTest extends SpringTestSupport {
 		Pessoa createdPessoa = createPessoa();
 		
 //		When
-		Pessoa pessoaFound = pessoaRepository.findByNomeContaining("oa na");
+		Pessoa pessoaFound = pessoaRepository.findByNomeContaining("oa na").get(0);
 		
 //		Then
 		assertNotNull(pessoaFound);
@@ -90,10 +93,11 @@ public class PessoaRepositoryTest extends SpringTestSupport {
 		createPessoa();
 		
 //		When
-		Pessoa pessoaFound = pessoaRepository.findByNomeContaining("invalid");
+		List<Pessoa> pessoaFound = pessoaRepository.findByNomeContaining("invalid");
 		
 //		Then
-		assertNull(pessoaFound);
+		assertNotNull(pessoaFound);
+		assertTrue(pessoaFound.isEmpty());
 	}
 
 	private Pessoa createPessoa() {

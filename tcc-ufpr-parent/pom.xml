@@ -497,7 +497,7 @@
 	<repository>
         <id>local</id>
         <name>local</name>
-        <url>C:/Users/Rodrigo Silva/.m2/repository</url>
+        <url>C:/Users/Thiago/.m2/repository</url>
         <layout>default</layout>
     </repository>
 	    
