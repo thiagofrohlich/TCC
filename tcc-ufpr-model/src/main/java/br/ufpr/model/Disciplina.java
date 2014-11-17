@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Disciplina extends BusinessModel {
 
+	private static final long serialVersionUID = 1L;
 	private String nome;
 	private Integer periodo;
 	private Turno turno;
