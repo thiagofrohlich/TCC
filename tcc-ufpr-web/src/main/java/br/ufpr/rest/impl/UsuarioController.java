@@ -21,6 +21,7 @@ import br.ufpr.model.Usuario;
 import br.ufpr.services.PessoaService;
 import br.ufpr.services.UserService;
 import br.ufpr.util.AssertUtils;
+import br.ufpr.wrapper.UsuarioWrapper;
 
 @Controller
 @RequestMapping("/usuario")
@@ -97,7 +98,7 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 	
 	@ResponseBody
 	@RequestMapping(value="/nome/{nome}", method=RequestMethod.GET)
-	public List<Usuario> findByNome(@PathVariable final String nome) throws NullParameterException,
+	public UsuarioWrapper findByNome(@PathVariable final String nome) throws NullParameterException,
 	NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(nome);
 		List<Pessoa> pessoas = findPessoaByNome(nome);
@@ -105,13 +106,13 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 		return createReturnList(pessoas);
 	}
 	
-	private List<Usuario> createReturnList(List<Pessoa> pessoas)
+	private UsuarioWrapper createReturnList(List<Pessoa> pessoas)
 			throws NoResultFoundException {
 		List<Usuario> returnList = new ArrayList<>(pessoas.size());
 		for(Pessoa pessoa : pessoas) {
 			returnList.add(mapToModel(findOrCreateUsuarioForPessoa(pessoa)));
 		}
-		return returnList;
+		return new UsuarioWrapper(returnList);
 	}
 	
 	private br.ufpr.domain.Usuario findOrCreateUsuarioForPessoa(Pessoa pessoa) throws NoResultFoundException {

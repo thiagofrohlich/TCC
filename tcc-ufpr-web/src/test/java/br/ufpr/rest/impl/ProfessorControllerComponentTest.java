@@ -224,7 +224,7 @@ public class ProfessorControllerComponentTest extends PessoaTestSupport {
 		br.ufpr.domain.Professor professor = createAndSaveProfessor(true);
 		
 //		When
-		Professor professorFound = professorController.findByNome(savedPessoa.getNome()).get(0);
+		Professor professorFound = professorController.findByNome(savedPessoa.getNome()).getList().get(0);
 		
 //		Then
 		assertNotNull(professorFound);
@@ -235,7 +235,7 @@ public class ProfessorControllerComponentTest extends PessoaTestSupport {
 	public void shouldCreateProfessorForPessoaWithNome() throws NullParameterException, NoResultFoundException {
 		
 //		When
-		Professor professorFound = professorController.findByNome(savedPessoa.getNome()).get(0);
+		Professor professorFound = professorController.findByNome(savedPessoa.getNome()).getList().get(0);
 		
 //		Then
 		assertNotNull(professorFound);

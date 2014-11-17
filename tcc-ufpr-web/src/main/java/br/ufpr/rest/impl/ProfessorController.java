@@ -21,6 +21,7 @@ import br.ufpr.model.Professor;
 import br.ufpr.services.PessoaService;
 import br.ufpr.services.ProfessorService;
 import br.ufpr.util.AssertUtils;
+import br.ufpr.wrapper.ProfessorWrapper;
 
 @Controller
 @RequestMapping("/professor")
@@ -86,7 +87,7 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 	
 	@ResponseBody
 	@RequestMapping(value="/nome/{nome}", method=RequestMethod.GET)
-	public List<Professor> findByNome(@PathVariable final String nome) throws NullParameterException,
+	public ProfessorWrapper findByNome(@PathVariable final String nome) throws NullParameterException,
 	NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(nome);
 		List<Pessoa> pessoas = findPessoaByNome(nome);
@@ -94,13 +95,13 @@ public class ProfessorController extends AbstractPessoaController<Professor, br.
 		return createReturnList(pessoas);
 	}
 	
-	private List<Professor> createReturnList(List<Pessoa> pessoas)
+	private ProfessorWrapper createReturnList(List<Pessoa> pessoas)
 			throws NoResultFoundException {
 		List<Professor> returnList = new ArrayList<>(pessoas.size());
 		for(Pessoa pessoa : pessoas) {
 			returnList.add(mapToModel(findOrCreateProfessorForPessoa(pessoa)));
 		}
-		return returnList;
+		return new ProfessorWrapper(returnList);
 	}
 	
 	private br.ufpr.domain.Professor findOrCreateProfessorForPessoa(Pessoa pessoa) throws NoResultFoundException {

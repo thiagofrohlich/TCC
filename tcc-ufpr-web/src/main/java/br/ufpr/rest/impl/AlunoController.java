@@ -21,6 +21,7 @@ import br.ufpr.model.Aluno;
 import br.ufpr.services.AlunoService;
 import br.ufpr.services.PessoaService;
 import br.ufpr.util.AssertUtils;
+import br.ufpr.wrapper.AlunoWrapper;
 
 @Controller
 @RequestMapping("/aluno")
@@ -87,7 +88,7 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 	
 	@ResponseBody
 	@RequestMapping(value="/nome/{nome}", method=RequestMethod.GET)
-	public List<Aluno> findByNome(@PathVariable final String nome) throws NullParameterException,
+	public AlunoWrapper findByNome(@PathVariable final String nome) throws NullParameterException,
 	NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(nome);
 		List<Pessoa> pessoas = findPessoaByNome(nome);
@@ -95,13 +96,13 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 		return createReturnList(pessoas);
 	}
 
-	private List<Aluno> createReturnList(List<Pessoa> pessoas)
+	private AlunoWrapper createReturnList(List<Pessoa> pessoas)
 			throws NoResultFoundException {
 		List<Aluno> returnList = new ArrayList<>(pessoas.size());
 		for(Pessoa pessoa : pessoas) {
 			returnList.add(mapToModel(findOrCreateAlunoForPessoa(pessoa)));
 		}
-		return returnList;
+		return new AlunoWrapper(returnList);
 	}
 	
 	private br.ufpr.domain.Aluno findOrCreateAlunoForPessoa(Pessoa pessoa) throws NoResultFoundException {
