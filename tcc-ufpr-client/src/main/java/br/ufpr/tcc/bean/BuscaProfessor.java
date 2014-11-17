@@ -10,6 +10,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import br.ufpr.model.Professor;
+import br.ufpr.model.Usuario;
+import br.ufpr.service.handler.impl.ProfessorServiceHandlerImpl;
 
 
 @ViewScoped
@@ -22,6 +24,9 @@ public class BuscaProfessor {
 	private Professor professor;
 	private List<Professor> lstProfessores;
 	private ResourceBundle rb;
+	private ProfessorServiceHandlerImpl professorService;
+	private String nomeProfessor;
+	private Professor professorSelecionado;
 	
 	private boolean renderInfo;
 	
@@ -30,11 +35,12 @@ public class BuscaProfessor {
 		renderInfo = false;
 		tipoPesquisa = 1;
 		professor = new Professor();
+		professorSelecionado = new Professor();
 		lstProfessores = new ArrayList<>();
+		professorService = new ProfessorServiceHandlerImpl();
 		rb = ResourceBundle.getBundle("msg");
-		//teste
-		professor.setNome("Rodrigo");
-		professor.setCpf("04943356966");
+		
+		
 	}
 	
 	
@@ -43,6 +49,16 @@ public class BuscaProfessor {
 		return "cadastroProfessor.xhtml?faces-redirect=true";
 	}
 	
+	public void buscaProfessorPorNome(){
+		lstProfessores = professorService.findByNome(nomeProfessor);
+	}
+	
+	
+	public void selecionaProfessor(){
+		professor = professorSelecionado;
+		professorSelecionado = new Professor();
+		
+	}
 	
 	
 
@@ -85,6 +101,26 @@ public class BuscaProfessor {
 
 	public boolean isRenderInfo() {
 		return renderInfo;
+	}
+
+
+	public String getNomeProfessor() {
+		return nomeProfessor;
+	}
+
+
+	public void setNomeProfessor(String nomeProfessor) {
+		this.nomeProfessor = nomeProfessor;
+	}
+
+
+	public Professor getProfessorSelecionado() {
+		return professorSelecionado;
+	}
+
+
+	public void setProfessorSelecionado(Professor professorSelecionado) {
+		this.professorSelecionado = professorSelecionado;
 	}
 
 	

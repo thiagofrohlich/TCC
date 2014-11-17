@@ -50,7 +50,7 @@ public class CadastroProfessor implements Serializable {
 	
 	public void salvaProfessor(){
 		if(validaProfessor()){
-			formatter.unformat(professor.getCpf());
+			professor.setCpf(formatter.unformat(professor.getCpf()));
 			if(updateProfessor){
 				professorService.update(professor);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Professor salvo com sucesso"));

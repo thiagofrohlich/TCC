@@ -26,6 +26,8 @@ public class BuscaUsuario {
 	private ResourceBundle rb;
 	private boolean renderInfo;
 	private String[] acessos;
+	private String nomeUsuario;
+	private Usuario usuarioSelecionado;
 	
 	@PostConstruct
 	public void init(){
@@ -34,14 +36,12 @@ public class BuscaUsuario {
 		usuario = new Usuario();
 		usuarioService = new UsuarioServiceHandlerImpl();
 		lstUsuarios = new ArrayList<>();
+		usuarioSelecionado = new Usuario();
 		rb = ResourceBundle.getBundle("msg");
 		//teste
-		usuario.setNome("Rodrigo");
-		usuario.setCpf("04943356966");
+		
 		acessos = new String[2];
-		for(int i = 0; i > usuario.getAcessos().size(); i++){
-			acessos[i] = usuario.getAcessos().get(i).getKey(); 
-		}
+		
 	}
 	
 	
@@ -54,7 +54,19 @@ public class BuscaUsuario {
 		return "cadastroUsuario.xhtml?faces-redirect=true";
 	}
 	
+	public void buscaUsuarioPorNome(){
+		lstUsuarios = usuarioService.findByNome(nomeUsuario);
+	}
 	
+	
+	public void selecionaUsuario(){
+		usuario = usuarioSelecionado;
+		usuarioSelecionado = new Usuario();
+		for(int i = 0; i > usuario.getAcessos().size(); i++){
+			acessos[i] = usuario.getAcessos().get(i).getKey(); 
+		}
+		renderInfo = true;
+	}
 	
 
 	public Integer getTipoPesquisa() {
@@ -107,6 +119,26 @@ public class BuscaUsuario {
 
 	public void setAcessos(String[] acessos) {
 		this.acessos = acessos;
+	}
+
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
+
+
+	public Usuario getUsuarioSelecionado() {
+		return usuarioSelecionado;
+	}
+
+
+	public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+		this.usuarioSelecionado = usuarioSelecionado;
 	}
 
 	

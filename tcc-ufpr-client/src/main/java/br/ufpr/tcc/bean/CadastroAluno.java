@@ -54,7 +54,7 @@ public class CadastroAluno implements Serializable{
 	
 	public void salvaAluno(){
 		if(validaAluno()){
-			formatter.unformat(aluno.getCpf());
+			aluno.setCpf(formatter.unformat(aluno.getCpf()));
 			if(updateAluno){
 				alunoService.update(aluno);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Aluno salvo com sucesso"));

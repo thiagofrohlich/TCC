@@ -52,7 +52,7 @@ public class CadastroUsuario implements Serializable {
 	
 	public void salvaUsuario(){
 		if(validaUsuario()){
-			formatter.unformat(usuario.getCpf());
+			usuario.setCpf(formatter.unformat(usuario.getCpf()));
 			if(updateUsuario){
 				usuarioService.update(usuario);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Usuário salvo com sucesso"));
@@ -145,6 +145,16 @@ public class CadastroUsuario implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+
+	public boolean isUpdateUsuario() {
+		return updateUsuario;
+	}
+
+
+	public void setUpdateUsuario(boolean updateUsuario) {
+		this.updateUsuario = updateUsuario;
 	}
 	
 	

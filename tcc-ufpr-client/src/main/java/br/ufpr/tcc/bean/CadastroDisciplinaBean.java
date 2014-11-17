@@ -48,7 +48,7 @@ public class CadastroDisciplinaBean {
 	}
 	
 	public void buscaProfessor(){
-		lstProfessores = professorService.getLista(nomeProfessor);
+		lstProfessores = professorService.findByNome(nomeProfessor);
 	}
 	
 	public void salvaDisciplina(){

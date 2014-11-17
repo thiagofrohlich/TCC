@@ -11,37 +11,18 @@
 	<ui:composition template="/template.xhtml">
 
 		<ui:define name="centro">
-			<h:form id="buscaAluno">
+			<h:form id="buscaProfessor">
 			<p:messages showDetail="true" showIcon="true" showSummary="false" autoUpdate="true" id="messageDisciplina" />
 				
 				<p:panelGrid styleClass="noborder" id="panelPesquisa">
-					<p:row>
-						<p:column>
-							<h:outputText value="#{msg.pesquisar}: " />
-						</p:column>
-						<p:column>
-							<h:selectOneRadio value="#{buscaProfessorBean.tipoPesquisa}">
-								<p:ajax event="valueChange"  update=":panelPesquisa" />
-								<f:selectItems itemLabel="#{msg.matricula}" itemValue="1"/>
-								<f:selectItems itemLabel="#{msg.nome}" itemValue="2"/>
-							</h:selectOneRadio>
-						</p:column>
-					</p:row>
-					<p:row rendered="#{buscaProfessorBean.tipoPesquisa == 1}">
-						<p:column>
-							<h:outputText value="#{msg.matricula}: " />
-						</p:column>
-						<p:column>
-							<p:inputText value=""/>
-						</p:column>
-					</p:row>
-					<p:row rendered="#{buscaProfessorBean.tipoPesquisa == 2}">
+					
+					<p:row >
 						<p:column>
 							<h:outputText value="#{msg.nome}: " />
 						</p:column>
 						<p:column>
-							<h:outputText value="" />
-							<p:commandButton  onclick="PF('buscaAlunoDialog').show()" icon="ui-icon-search" ajax="true" type="button" />
+							<h:outputText value="#{buscaProfessorBean.professor.nome}" />
+							<p:commandButton  onclick="PF('buscaProfessorDialog').show()" icon="ui-icon-search" ajax="true" type="button" />
 						</p:column>
 					</p:row>
 				</p:panelGrid>
@@ -168,6 +149,39 @@
 							</p:row>
 						</p:panelGrid>
 					</div>
+				
+					<p:dialog widgetVar="buscaProfessorDialog" id="professorDialog" closable="true" resizable="true" width="500" height="500">
+					<p:panelGrid styleClass="noborder">
+						<p:row>
+						<p:column styleClass="label">
+							<h:outputText value="#{msg.professor}: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{buscaProfessorBean.nomeProfessor}" />
+							<p:commandButton  icon="ui-icon-search" ajax="true" action="#{buscaProfessorBean.buscaProfessorPorNome()}" update=":buscaProfessor:professorTable"/>
+						</p:column>
+					</p:row>
+					</p:panelGrid>
+					
+					<p:dataTable value="#{buscaProfessorBean.lstProfessores}" var="lstProfessor" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{lstProfessor.id}" 
+									 id="userTable" selection="#{buscaProfessorBean.professorSelecionado}" selectionMode="single" >
+							<p:ajax event="rowSelect" listener="#{buscaProfessorBean.selecionaProfessor()}" update=":buscaProfessor" />
+						<p:column style="text-align: left;">
+							<f:facet name="header">
+								<h:outputText value="#{msg.nome}" />
+							</f:facet>
+							<h:outputText value="#{lstProfessor.nome}" />
+						</p:column>
+						
+											
+						<p:column style="text-align: right;">
+							<f:facet name="header">
+								<h:outputText value="#{msg.doc}" />
+							</f:facet>
+							<h:outputText value="#{lstProfessor.cpf}"  />
+						</p:column>
+					</p:dataTable>
+				</p:dialog>
 				
 			</h:form>
 		</ui:define>

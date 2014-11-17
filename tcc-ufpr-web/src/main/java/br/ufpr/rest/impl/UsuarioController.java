@@ -38,6 +38,7 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 		AssertUtils.assertParameterIsSupplied(model);
 		br.ufpr.domain.Usuario domain = mapper.map(model, br.ufpr.domain.Usuario.class);
 		domain.setPessoa(createPessoa(model));
+		domain.setSenha(getUserService().encodePassword(domain.getSenha()));
 		domain = service.create(domain);
 		
 		return mapToModel(domain);
@@ -77,11 +78,13 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 	@RequestMapping(value="/password/encode/{password}", method=RequestMethod.GET)
 	public String encodePassword(@PathVariable final String password) throws NullParameterException {
 		AssertUtils.assertParameterIsSupplied(password);
-		return getUserService().encodePassword(password);
+		String encoded = getUserService().encodePassword(password);
+		return encoded;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/login/{login}/{password}", method=RequestMethod.GET)
-	public boolean canLogin(@PathVariable final String login, @PathVariable final String password) {
+	public Boolean canLogin(@PathVariable final String login, @PathVariable final String password) {
 		return getUserService().canLogin(login, password);
 	}
 	

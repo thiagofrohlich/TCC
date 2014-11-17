@@ -21,7 +21,7 @@ public class UsuarioServiceHandlerImpl extends AbstractServiceHandler<Usuario, I
 	}
 
 	@Override
-	public boolean canLogin(String login, String password) {
+	public Boolean canLogin(String login, String password) {
 		return getRestTemplate().getForObject(getPath()+"/login/{login}/{password}", Boolean.class, login, password);
 	}
 	

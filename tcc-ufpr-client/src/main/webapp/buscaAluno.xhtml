@@ -21,9 +21,9 @@
 						</p:column>
 						<p:column>
 							<h:selectOneRadio value="#{buscaAlunoBean.tipoPesquisa}">
-								<p:ajax event="valueChange"  update=":panelPesquisa" />
-								<f:selectItems itemLabel="#{msg.matricula}" itemValue="1"/>
-								<f:selectItems itemLabel="#{msg.nome}" itemValue="2"/>
+								<p:ajax event="valueChange"  update=":buscaAluno:panelPesquisa" />
+								<f:selectItem itemLabel="#{msg.matricula}" itemValue="1"/>
+								<f:selectItem itemLabel="#{msg.nome}" itemValue="2"/>
 							</h:selectOneRadio>
 						</p:column>
 					</p:row>
@@ -32,7 +32,8 @@
 							<h:outputText value="#{msg.matricula}: " />
 						</p:column>
 						<p:column>
-							<p:inputText value=""/>
+							<p:inputText value="#{buscaAlunoBean.aluno.matricula}"/>
+							<p:commandButton icon="ui-icon-search" action="#{buscaAlunoBean.buscaAlunoPorMatricula()}" ajax="false" />
 						</p:column>
 					</p:row>
 					<p:row rendered="#{buscaAlunoBean.tipoPesquisa == 2}">
@@ -47,7 +48,7 @@
 				</p:panelGrid>
 				
 				<div class="center" style="padding-top: 15px;">
-						<p:panelGrid  styleClass="noborder" id="panelId" rendered="#{!buscaAlunoBean.renderInfo}">
+						<p:panelGrid  styleClass="noborder" id="panelId" rendered="#{buscaAlunoBean.renderInfo}">
 							
 							<p:row >
 								<p:column styleClass="label">
@@ -71,7 +72,9 @@
 									<h:outputText value="#{msg.datanasc}: "  />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaAlunoBean.aluno.dataNascimento}" />
+									<h:outputText value="#{buscaAlunoBean.aluno.dataNascimento}" >
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+									</h:outputText>
 								</p:column>
 							</p:row>
 							
@@ -168,6 +171,46 @@
 							</p:row>
 						</p:panelGrid>
 					</div>
+				
+				<p:dialog widgetVar="buscaAlunoDialog" id="alunoDialog" closable="true" resizable="true" width="500" height="500">
+					<p:panelGrid styleClass="noborder">
+						<p:row>
+						<p:column styleClass="label">
+							<h:outputText value="#{msg.aluno}: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{buscaAlunoBean.nomeAluno}" />
+							<p:commandButton  icon="ui-icon-search" ajax="true" action="#{buscaAlunoBean.buscaAlunoPorNome()}" update=":buscaAluno:alunoTable"/>
+						</p:column>
+					</p:row>
+					</p:panelGrid>
+					
+					<p:dataTable value="#{buscaAlunoBean.lstAlunos}" var="lstAlunos" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{lstAlunos.matricula}" 
+									 id="alunoTable" selection="#{buscaAlunoBean.alunoSelecionado}" selectionMode="single" >
+							<p:ajax event="rowSelect" listener="#{buscaAlunoBean.selecionaAluno()}" update=":buscaAluno" />
+						<p:column style="text-align: left;">
+							<f:facet name="header">
+								<h:outputText value="#{msg.nome}" />
+							</f:facet>
+							<h:outputText value="#{lstAlunos.nome}" />
+						</p:column>
+						
+						<p:column style="text-align: right;">
+							<f:facet name="header">
+								<h:outputText value="#{msg.matricula}" />
+							</f:facet>
+							<h:outputText value="#{lstAlunos.matricula}"  />
+						</p:column>
+											
+						<p:column style="text-align: right;">
+							<f:facet name="header">
+								<h:outputText value="#{msg.doc}" />
+							</f:facet>
+							<h:outputText value="#{lstAlunos.cpf}"  />
+						</p:column>
+					</p:dataTable>
+				</p:dialog>
+				
 				
 			</h:form>
 		</ui:define>

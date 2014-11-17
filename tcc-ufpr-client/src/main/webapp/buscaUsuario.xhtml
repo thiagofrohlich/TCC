@@ -11,43 +11,25 @@
 	<ui:composition template="/template.xhtml">
 
 		<ui:define name="centro">
-			<h:form id="buscaAluno">
+			<h:form id="buscaUsuario">
 			<p:messages showDetail="true" showIcon="true" showSummary="false" autoUpdate="true" id="messageDisciplina" />
 				
 				<p:panelGrid styleClass="noborder" id="panelPesquisa">
-					<p:row>
-						<p:column>
-							<h:outputText value="#{msg.pesquisar}: " />
-						</p:column>
-						<p:column>
-							<h:selectOneRadio value="#{buscaUsuarioBean.tipoPesquisa}">
-								<p:ajax event="valueChange"  update=":panelPesquisa" />
-								<f:selectItems itemLabel="#{msg.matricula}" itemValue="1"/>
-								<f:selectItems itemLabel="#{msg.nome}" itemValue="2"/>
-							</h:selectOneRadio>
-						</p:column>
-					</p:row>
-					<p:row rendered="#{buscaUsuarioBean.tipoPesquisa == 1}">
-						<p:column>
-							<h:outputText value="#{msg.matricula}: " />
-						</p:column>
-						<p:column>
-							<p:inputText value=""/>
-						</p:column>
-					</p:row>
-					<p:row rendered="#{buscaUsuarioBean.tipoPesquisa == 2}">
+					
+					
+					<p:row >
 						<p:column>
 							<h:outputText value="#{msg.nome}: " />
 						</p:column>
 						<p:column>
-							<h:outputText value="" />
-							<p:commandButton  onclick="PF('buscaAlunoDialog').show()" icon="ui-icon-search" ajax="true" type="button" />
+							<h:outputText value="#{buscaUsuarioBean.usuario.nome}" />
+							<p:commandButton  onclick="PF('buscaUsuarioDialog').show()" icon="ui-icon-search" ajax="true" type="button" />
 						</p:column>
 					</p:row>
 				</p:panelGrid>
 				
 				<div class="center" style="padding-top: 15px;">
-						<p:panelGrid  styleClass="noborder" id="panelId" rendered="#{!buscaUsuarioBean.renderInfo}">
+						<p:panelGrid  styleClass="noborder" id="panelId" rendered="#{buscaUsuarioBean.renderInfo}">
 							
 							<p:row >
 								<p:column styleClass="label">
@@ -71,7 +53,9 @@
 									<h:outputText value="#{msg.datanasc}: "  />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaUsuarioBean.usuario.dataNascimento}" />
+									<h:outputText value="#{buscaUsuarioBean.usuario.dataNascimento}" >
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+									</h:outputText>
 								</p:column>
 							</p:row>
 							
@@ -174,7 +158,7 @@
 							
 							<p:row>
 								<p:column  styleClass="label">
-									<p:commandButton value="#{msg.salvar}" />
+									<p:commandButton value="#{msg.salvar}" action="#{buscaUsuarioBean.salva()}" ajax="false"/>
 								</p:column>
 								<p:column>
 									<p:commandButton value="#{msg.editar}" action="#{buscaUsuarioBean.editaUsuario()}" ajax="false" />
@@ -182,6 +166,39 @@
 							</p:row>
 						</p:panelGrid>
 					</div>
+					
+					<p:dialog widgetVar="buscaUsuarioDialog" id="userDialog" closable="true" resizable="true" width="500" height="500">
+					<p:panelGrid styleClass="noborder">
+						<p:row>
+						<p:column styleClass="label">
+							<h:outputText value="#{msg.usuario}: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{buscaUsuarioBean.nomeUsuario}" />
+							<p:commandButton  icon="ui-icon-search" ajax="true" action="#{buscaUsuarioBean.buscaUsuarioPorNome()}" update=":buscaUsuario:userTable"/>
+						</p:column>
+					</p:row>
+					</p:panelGrid>
+					
+					<p:dataTable value="#{buscaUsuarioBean.lstUsuarios}" var="lstUsuarios" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{lstUsuarios.id}" 
+									 id="userTable" selection="#{buscaUsuarioBean.usuarioSelecionado}" selectionMode="single" >
+							<p:ajax event="rowSelect" listener="#{buscaUsuarioBean.selecionaUsuario()}" update=":buscaUsuario" />
+						<p:column style="text-align: left;">
+							<f:facet name="header">
+								<h:outputText value="#{msg.nome}" />
+							</f:facet>
+							<h:outputText value="#{lstUsuarios.nome}" />
+						</p:column>
+						
+											
+						<p:column style="text-align: right;">
+							<f:facet name="header">
+								<h:outputText value="#{msg.doc}" />
+							</f:facet>
+							<h:outputText value="#{lstUsuarios.cpf}"  />
+						</p:column>
+					</p:dataTable>
+				</p:dialog>
 				
 			</h:form>
 		</ui:define>

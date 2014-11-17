@@ -8,7 +8,7 @@ public interface UsuarioServiceHandler extends ServiceHandler<Usuario, Integer>{
 
 	String encodePassword(String password);
 	
-	boolean canLogin(String login, String password);
+	Boolean canLogin(String login, String password);
 	
 	Usuario findByCpf(String cpf);
 	

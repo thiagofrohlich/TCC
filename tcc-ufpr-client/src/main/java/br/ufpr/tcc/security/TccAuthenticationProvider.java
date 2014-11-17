@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import br.ufpr.service.handler.impl.UsuarioServiceHandlerImpl;
+
 
 @Component
 public class TccAuthenticationProvider  implements AuthenticationProvider{
 	
-//	private UsuarioServiceHandler usuarioServiceHandler = new UsuarioServiceHandler();
+	private UsuarioServiceHandlerImpl usuarioService = new UsuarioServiceHandlerImpl();
 
 	
 	@Override
@@ -23,14 +26,12 @@ public class TccAuthenticationProvider  implements AuthenticationProvider{
 		String login = (String) authentication.getName();
 		String password = (String) authentication.getCredentials();
 		
-////	UsuarioSummary usuario = usuarioServiceHandler.getByLogin(login);
-//		throwExceptionIfNotFound(usuario);
-//		throwExceptionIfPasswordIsInvalid(password, usuario);
-		
-//		
-		Collection<GrantedAuthority> authorities = getAuthorities("USUARIO");
-		
-		return new UsernamePasswordAuthenticationToken(login, password, authorities);
+		if(usuarioService.canLogin(login, password)){
+			Collection<GrantedAuthority> authorities = getAuthorities("USUARIO");
+			return new UsernamePasswordAuthenticationToken(login, password, authorities);
+		}else{
+			throw new BadCredentialsException("Usuário não encontrado.");
+		}
 	}
 
 	private Collection<GrantedAuthority> getAuthorities(String acesso) {
@@ -49,12 +50,13 @@ public class TccAuthenticationProvider  implements AuthenticationProvider{
 		}
 	}
 
-	private void throwExceptionIfNotFound(UsuarioSummary usuario) {
+	private void throwExceptionIfNotFound(Usuario usuario) {
 		if(usuario == null) {
 			throw new BadCredentialsException("Usuário não encontrado.");
 		}
 	}
 */
+	
 	@Override
 	public boolean supports(Class<?> arg0) {
 		return true;
