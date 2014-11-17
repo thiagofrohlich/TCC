@@ -1,5 +1,9 @@
 package br.ufpr.exception;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class NullParameterException extends TccException {
 
 	private static final String DEFAULT_MESSAGE = "O parametro passado não pode ser nulo!";
