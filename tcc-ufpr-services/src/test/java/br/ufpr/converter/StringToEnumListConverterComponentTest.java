@@ -37,7 +37,7 @@ public class StringToEnumListConverterComponentTest extends SpringTestSupport {
 	@Test
 	public void shouldTransformStringToEnumList() {
 //		Given
-		String acessosString = Acesso.CADASTRO.getKey();
+		String acessosString = Acesso.ALUNO.getKey();
 		
 //		When
 		List acessos = mapper.map(acessosString, List.class);
