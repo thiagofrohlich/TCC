@@ -21,3 +21,11 @@ tcc-ufpr-domain/.classpath
 tcc-ufpr-domain/.project
 tcc-ufpr-model/.classpath
 tcc-ufpr-client/.project
+tcc-ufpr-services/.classpath
+tcc-ufpr-model/.settings/org.eclipse.jdt.core.prefs
+tcc-ufpr-services/.classpath
+tcc-ufpr-client/.settings/org.eclipse.wst.common.project.facet.core.xml
+tcc-ufpr-client/.settings/org.eclipse.wst.common.project.facet.core.prefs.xml
+tcc-ufpr-client/.settings/org.eclipse.wst.common.component
+tcc-ufpr-client/.project
+tcc-ufpr-client/.classpath
