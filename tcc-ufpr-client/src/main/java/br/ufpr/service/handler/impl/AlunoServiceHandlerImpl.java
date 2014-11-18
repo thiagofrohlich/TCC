@@ -1,12 +1,11 @@
 package br.ufpr.service.handler.impl;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import br.ufpr.model.Aluno;
-import br.ufpr.model.Professor;
 import br.ufpr.service.handler.AlunoServiceHandler;
+import br.ufpr.wrapper.AlunoWrapper;
+import br.ufpr.wrapper.Wrapper;
 
 @Service
 public class AlunoServiceHandlerImpl extends AbstractServiceHandler<Aluno, Integer> implements AlunoServiceHandler {
@@ -24,8 +23,9 @@ public class AlunoServiceHandlerImpl extends AbstractServiceHandler<Aluno, Integ
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Aluno> findByNome(String nome) {
-		return (List<Aluno>) getRestTemplate().getForObject(getPath()+"/nome/{nome}", List.class, nome);
+	public AlunoWrapper findByNome(String nome) {
+		return (AlunoWrapper) getRestTemplate().getForObject(getPath()+"/nome/{nome}", Wrapper.class, nome);
+
 	}
 
 

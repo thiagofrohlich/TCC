@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import br.ufpr.model.Professor;
 import br.ufpr.service.handler.ProfessorServiceHandler;
+import br.ufpr.wrapper.ProfessorWrapper;
+import br.ufpr.wrapper.Wrapper;
 
 @Service
 public class ProfessorServiceHandlerImpl extends AbstractServiceHandler<Professor, Integer> implements ProfessorServiceHandler {
@@ -26,10 +28,9 @@ public class ProfessorServiceHandlerImpl extends AbstractServiceHandler<Professo
 		return getRestTemplate().getForObject(getPath()+"/cpf/{cpf}", getReturnClass(), cpf);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Professor> findByNome(String nome) {
-		return getRestTemplate().getForObject(getPath()+"/nome/{nome}", List.class, nome);
+	public ProfessorWrapper findByNome(String nome) {
+		return (ProfessorWrapper) getRestTemplate().getForObject(getPath()+"/nome/{nome}", Wrapper.class, nome);
 	}
 
 }

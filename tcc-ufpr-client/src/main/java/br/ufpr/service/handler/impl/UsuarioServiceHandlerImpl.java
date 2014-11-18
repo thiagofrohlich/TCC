@@ -1,11 +1,11 @@
 package br.ufpr.service.handler.impl;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import br.ufpr.model.Usuario;
 import br.ufpr.service.handler.UsuarioServiceHandler;
+import br.ufpr.wrapper.UsuarioWrapper;
+import br.ufpr.wrapper.Wrapper;
 
 @Service
 public class UsuarioServiceHandlerImpl extends AbstractServiceHandler<Usuario, Integer> implements UsuarioServiceHandler {
@@ -34,10 +34,9 @@ public class UsuarioServiceHandlerImpl extends AbstractServiceHandler<Usuario, I
 		return getRestTemplate().getForObject(getPath()+"/cpf/{cpf}", getReturnClass(), cpf);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Usuario> findByNome(String nome) {
-		return getRestTemplate().getForObject(getPath()+"/nome/{nome}", List.class, nome);
+	public UsuarioWrapper findByNome(String nome) {
+		return (UsuarioWrapper) getRestTemplate().getForObject(getPath()+"/nome/{nome}", Wrapper.class, nome);
 	}
 	
 }

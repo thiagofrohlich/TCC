@@ -1,8 +1,7 @@
 package br.ufpr.service.handler;
 
-import java.util.List;
-
 import br.ufpr.model.Usuario;
+import br.ufpr.wrapper.UsuarioWrapper;
 
 public interface UsuarioServiceHandler extends ServiceHandler<Usuario, Integer>{
 
@@ -12,6 +11,6 @@ public interface UsuarioServiceHandler extends ServiceHandler<Usuario, Integer>{
 	
 	Usuario findByCpf(String cpf);
 	
-	List<Usuario> findByNome(String nome);
+	UsuarioWrapper findByNome(String nome);
 	
 }

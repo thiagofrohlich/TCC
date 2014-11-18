@@ -15,8 +15,8 @@ public class Aluno extends Pessoa {
 	private Integer matricula;
 	private Boolean ativo;
 	private Date dataMatricula;
-	private List<Disciplina> disciplinas;
 	private Integer periodo;
+	private List<AlunoDisciplina> alunoDisciplinas;
 	
 	public Aluno(){
 		super();
@@ -40,12 +40,6 @@ public class Aluno extends Pessoa {
 	public void setDataMatricula(Date dataMatricula) {
 		this.dataMatricula = dataMatricula;
 	}
-	public List<Disciplina> getDisciplinas() {
-		return disciplinas;
-	}
-	public void setDisciplinas(List<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
-	}
 	@Override
 	public Integer getId() {
 		return getMatricula();
@@ -61,6 +55,14 @@ public class Aluno extends Pessoa {
 
 	public void setPeriodo(Integer periodo) {
 		this.periodo = periodo;
+	}
+
+	public List<AlunoDisciplina> getAlunoDisciplinas() {
+		return alunoDisciplinas;
+	}
+
+	public void setAlunoDisciplinas(List<AlunoDisciplina> alunoDisciplinas) {
+		this.alunoDisciplinas = alunoDisciplinas;
 	}
 	
 }
