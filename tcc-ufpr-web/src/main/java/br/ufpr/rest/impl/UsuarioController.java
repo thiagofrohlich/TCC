@@ -110,6 +110,15 @@ public class UsuarioController extends AbstractPessoaController<Usuario, br.ufpr
 		return createReturnList(pessoas);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/login/{login}", method=RequestMethod.GET)
+	public Usuario findByLogin(@PathVariable final String login) throws NullParameterException, NoResultFoundException {
+		AssertUtils.assertParameterIsSupplied(login);
+		br.ufpr.domain.Usuario domain = getUserService().findByLogin(login);
+		AssertUtils.assertIsFound(domain);
+		return mapToModel(domain);
+	}
+	
 	private UsuarioWrapper createReturnList(List<Pessoa> pessoas)
 			throws NoResultFoundException {
 		List<Usuario> returnList = new ArrayList<>(pessoas.size());

@@ -13,4 +13,6 @@ public interface UsuarioServiceHandler extends ServiceHandler<Usuario, Integer>{
 	
 	UsuarioWrapper findByNome(String nome);
 	
+	Usuario findByLogin(String login);
+	
 }

@@ -1,11 +1,23 @@
 package br.ufpr.domain;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 
 /**
@@ -13,6 +25,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames = { "login" }))
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
 public class Usuario implements Serializable, DomainObject {
 	private static final long serialVersionUID = 1L;

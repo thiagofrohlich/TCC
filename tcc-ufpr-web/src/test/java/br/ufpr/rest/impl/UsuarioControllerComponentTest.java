@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -350,6 +351,36 @@ public class UsuarioControllerComponentTest extends PessoaTestSupport {
 //		Then
 		assertNotNull(usuarioFound);
 		assertEquals(usuarioFound.getNome(), savedPessoa.getNome());
+	}
+	
+	@Test(expected=NullParameterException.class)
+	public void shouldRaiseExceptionGivenNullLogin() throws NullParameterException, NoResultFoundException {
+//		When
+		usuarioController.findByLogin("");
+		
+//		Then exception
+	}
+	
+	@Test(expected=NoResultFoundException.class)
+	public void shouldRaiseExceptionGivenInexistentLogin() throws NullParameterException, NoResultFoundException {
+//		Given
+		createAndSaveUsuario();
+		
+//		When
+		usuarioController.findByLogin("invalid");
+	}
+	
+	@Test
+	public void shouldFindExistentUsuarioByLogin() throws NullParameterException, NoResultFoundException {
+//		Given
+		br.ufpr.domain.Usuario usuario = createAndSaveUsuario();
+		
+//		When
+		Usuario usuarioFound = usuarioController.findByLogin(usuario.getLogin());
+		
+//		Then
+		assertNotNull(usuarioFound);
+		assertEquals(usuario.getId(), usuarioFound.getId());
 	}
 	
 	private br.ufpr.domain.Usuario createAndSaveUsuario() {
