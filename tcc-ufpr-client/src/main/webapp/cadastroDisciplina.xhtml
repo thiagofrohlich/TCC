@@ -29,7 +29,7 @@
 						</p:column>
 						<p:column>
 							<p:inputText value="#{disciplinaBean.disciplina.periodo}" >
-								 <f:validateRegex pattern="[0-9]" />
+								
 							</p:inputText>
 						</p:column>
 					</p:row>
@@ -38,7 +38,7 @@
 							<h:outputText value="#{msg.turno}: " />
 						</p:column>
 						<p:column>
-							<h:selectOneRadio value="#{disciplinaBean.disciplina.turno.value}">
+							<h:selectOneRadio value="#{disciplinaBean.disciplina.turno}">
 								<f:selectItem itemLabel="#{msg.manha}" itemValue="M"/>
 								<f:selectItem itemLabel="#{msg.tarde}" itemValue="T"/>
 								<f:selectItem itemLabel="#{msg.noite}" itemValue="N"/>
@@ -51,7 +51,7 @@
 							<h:outputText value="#{msg.professor}: " />
 						</p:column>
 						<p:column>
-							<h:outputText value="" />
+							<h:outputText value="#{disciplinaBean.disciplina.professor.nome}" />
 							<p:commandButton  onclick="PF('professorDialog').show()" icon="ui-icon-search" ajax="true" type="button" />
 						</p:column>
 					</p:row>
@@ -60,14 +60,14 @@
 								<p:commandButton onclick="PF('cancelaDisciplina').show()" type="button" value="#{msg.cancelar}" />
 							</p:column>
 							<p:column>
-								<p:commandButton ajax="false" value="#{msg.salvar}" />
+								<p:commandButton ajax="false" value="#{msg.salvar}" action="#{disciplinaBean.salvaDisciplina()}"/>
 							</p:column>
 					</p:row>
 				</p:panelGrid>
 				
 				
 				<p:dialog header="#{msg.cancelar}" widgetVar="cancelaDisciplina"  height="100" >
-					<p:button outcome="index.xhtml" value="#{msg.sim}" />
+					<p:button outcome="inicio.xhtml" value="#{msg.sim}" />
 					<p:commandButton onclick="PF('cancelaDisciplina|').hide()" type="button" value="#{msg.nao}" />    
 				</p:dialog>
 				
@@ -85,9 +85,10 @@
 					</p:row>
 					</p:panelGrid>
 					
-					<p:dataTable value="#{disciplinaBean.lstProfessores}" var="lstProf" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{lstProf.id}" 
+					<p:dataTable value="#{disciplinaBean.lstProfessores.list}" var="lstProf" 
+								selectionMode="single"	rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{lstProf.id}" 
 									 id="profTable">
-							<p:ajax event="rowSelect"  update="@form" />
+							<p:ajax event="rowSelect" listener="#{disciplinaBean.selectProfessor}" update="@form" />
 						<p:column style="text-align: left;">
 							<f:facet name="header">
 								<h:outputText value="#{msg.nome}" />

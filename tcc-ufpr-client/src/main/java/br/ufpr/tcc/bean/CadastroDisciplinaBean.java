@@ -10,11 +10,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.event.SelectEvent;
+
 import br.ufpr.model.Disciplina;
 import br.ufpr.model.Professor;
 import br.ufpr.model.Usuario;
 import br.ufpr.service.handler.impl.DisciplinaServiceHandlerImpl;
 import br.ufpr.service.handler.impl.ProfessorServiceHandlerImpl;
+import br.ufpr.wrapper.ProfessorWrapper;
 
 
 @ViewScoped
@@ -24,7 +27,7 @@ public class CadastroDisciplinaBean {
 	private String nomeProfessor;
 	private Disciplina disciplina;
 	private ResourceBundle rb;
-	private List<Professor> lstProfessores;
+	private ProfessorWrapper lstProfessores;
 	private Professor professor;
 	private ProfessorServiceHandlerImpl professorService;
 	private DisciplinaServiceHandlerImpl disciplinaService;
@@ -43,7 +46,7 @@ public class CadastroDisciplinaBean {
 		}
 		professorService = new ProfessorServiceHandlerImpl();
 		disciplinaService = new DisciplinaServiceHandlerImpl();
-		lstProfessores = new ArrayList<>();
+		lstProfessores = new ProfessorWrapper();
 		rb = ResourceBundle.getBundle("msg");
 	}
 	
@@ -60,7 +63,12 @@ public class CadastroDisciplinaBean {
 				disciplinaService.create(disciplina);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Disciplina salva com sucesso"));
 			}
+			disciplina = new Disciplina();
 		}
+	}
+	
+	public void selectProfessor(SelectEvent event){
+		disciplina.setProfessor((Professor) event.getObject());
 	}
 	
 	
@@ -75,7 +83,7 @@ public class CadastroDisciplinaBean {
 		if(disciplina.getTurno() == null){
 			ret = false;
 		}
-		if(professor == null || professor.getId() == null){
+		if(disciplina.getProfessor() == null || disciplina.getProfessor().getId() == null){
 			ret = false;
 		}
 		return ret;
@@ -98,13 +106,7 @@ public class CadastroDisciplinaBean {
 		this.rb = rb;
 	}
 
-	public List<Professor> getLstProfessores() {
-		return lstProfessores;
-	}
-
-	public void setLstProfessores(List<Professor> lstProfessores) {
-		this.lstProfessores = lstProfessores;
-	}
+	
 
 	public String getNomeProfessor() {
 		return nomeProfessor;
@@ -120,6 +122,14 @@ public class CadastroDisciplinaBean {
 
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
+	}
+
+	public ProfessorWrapper getLstProfessores() {
+		return lstProfessores;
+	}
+
+	public void setLstProfessores(ProfessorWrapper lstProfessores) {
+		this.lstProfessores = lstProfessores;
 	}
 	
 	

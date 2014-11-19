@@ -24,7 +24,7 @@ public class AlunoServiceHandlerImpl extends AbstractServiceHandler<Aluno, Integ
 	@SuppressWarnings("unchecked")
 	@Override
 	public AlunoWrapper findByNome(String nome) {
-		return (AlunoWrapper) getRestTemplate().getForObject(getPath()+"/nome/{nome}", Wrapper.class, nome);
+		return (AlunoWrapper) getRestTemplate().getForObject(getPath()+"/nome/{nome}", AlunoWrapper.class, nome);
 
 	}
 

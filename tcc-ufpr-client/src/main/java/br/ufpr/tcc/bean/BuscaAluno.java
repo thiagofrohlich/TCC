@@ -14,6 +14,7 @@ import org.primefaces.model.DualListModel;
 
 import br.ufpr.model.Aluno;
 import br.ufpr.service.handler.impl.AlunoServiceHandlerImpl;
+import br.ufpr.wrapper.AlunoWrapper;
 
 @ViewScoped
 @ManagedBean(name = "buscaAlunoBean")
@@ -27,7 +28,7 @@ public class BuscaAluno implements Serializable{
 	private Integer tipoPesquisa;
 	private Aluno aluno;
 	private Aluno alunoSelecionado;
-	private List<Aluno> lstAlunos;
+	private AlunoWrapper lstAlunos;
 	private ResourceBundle rb;
 	private boolean renderInfo;
 	private String nomeAluno;
@@ -40,12 +41,12 @@ public class BuscaAluno implements Serializable{
 		tipoPesquisa = 1;
 		aluno = new Aluno();
 		alunoSelecionado = new Aluno();
-		lstAlunos = new ArrayList<>();
+		lstAlunos = new AlunoWrapper();
 		rb = ResourceBundle.getBundle("msg");
 	}
 	
 	public void buscaAlunoPorNome(){
-		lstAlunos = (List<Aluno>) alunoService.findByNome(nomeAluno);
+		lstAlunos = alunoService.findByNome(nomeAluno);
 	}
 	
 	public void buscaAlunoPorMatricula(){
@@ -101,18 +102,6 @@ public class BuscaAluno implements Serializable{
 
 
 
-	public List<Aluno> getLstAlunos() {
-		return lstAlunos;
-	}
-
-
-
-
-
-	public void setLstAlunos(List<Aluno> lstAlunos) {
-		this.lstAlunos = lstAlunos;
-	}
-
 
 
 
@@ -143,6 +132,14 @@ public class BuscaAluno implements Serializable{
 
 	public void setAlunoSelecionado(Aluno alunoSelecionado) {
 		this.alunoSelecionado = alunoSelecionado;
+	}
+
+	public AlunoWrapper getLstAlunos() {
+		return lstAlunos;
+	}
+
+	public void setLstAlunos(AlunoWrapper lstAlunos) {
+		this.lstAlunos = lstAlunos;
 	}
 
 	

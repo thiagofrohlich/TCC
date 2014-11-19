@@ -185,7 +185,7 @@
 					</p:row>
 					</p:panelGrid>
 					
-					<p:dataTable value="#{buscaAlunoBean.lstAlunos}" var="lstAlunos" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{lstAlunos.matricula}" 
+					<p:dataTable value="#{buscaAlunoBean.lstAlunos.list}" var="lstAlunos" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{lstAlunos.matricula}" 
 									 id="alunoTable" selection="#{buscaAlunoBean.alunoSelecionado}" selectionMode="single" >
 							<p:ajax event="rowSelect" listener="#{buscaAlunoBean.selecionaAluno()}" update=":buscaAluno" />
 						<p:column style="text-align: left;">

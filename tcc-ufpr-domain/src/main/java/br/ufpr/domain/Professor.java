@@ -29,7 +29,7 @@ public class Professor implements Serializable, DomainObject {
 	private Date updatedAt;
 
 	//bi-directional many-to-one association to Disciplina
-	@OneToMany(mappedBy="professor")
+	@OneToMany(mappedBy="professor", fetch = FetchType.EAGER )
 	private List<Disciplina> disciplinas;
 
 	//bi-directional many-to-one association to Pessoa

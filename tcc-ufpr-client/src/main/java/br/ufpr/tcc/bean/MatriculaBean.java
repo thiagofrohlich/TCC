@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.User;
 
 import br.ufpr.model.Aluno;
 import br.ufpr.model.Disciplina;
+import br.ufpr.service.handler.impl.AlunoServiceHandlerImpl;
+import br.ufpr.wrapper.AlunoWrapper;
 
 
 @ViewScoped
@@ -24,27 +26,49 @@ public class MatriculaBean {
 
 	private Integer tipoPesquisa;
 	private Aluno aluno;
-	private List<Aluno> lstAlunos;
+
 	private ResourceBundle rb;
 	private boolean renderInfo;
 	private List<Disciplina> lstDisciplinas;
 	private List<Disciplina> lstEscolhidas;
 	private DualListModel<Disciplina> disciplinas;
+	private String nomeAluno;
+	private AlunoServiceHandlerImpl alunoService;
+	private Aluno alunoSelecionado;
+	private AlunoWrapper lstAlunos;
 	
 	@PostConstruct
 	public void init(){
 		renderInfo = false;
 		tipoPesquisa = 1;
 		aluno = new Aluno();
-		lstAlunos = new ArrayList<>();
+		lstAlunos = new AlunoWrapper();
 		lstDisciplinas = new ArrayList<>();
 		lstEscolhidas = new ArrayList<>();
 		rb = ResourceBundle.getBundle("msg");
+		alunoSelecionado = new Aluno();
 	}
 	
 	
 	public void salva(){
 		
+	}
+	
+	public void buscaAlunoPorNome(){
+		lstAlunos = alunoService.findByNome(nomeAluno);
+	}
+	
+	public void buscaAlunoPorMatricula(){
+		aluno = alunoService.getOne(aluno.getMatricula());
+		if(aluno != null && aluno.getMatricula() != null){
+			renderInfo = true;
+		}
+	}
+	
+	public void selecionaAluno(){
+		aluno = alunoSelecionado;
+		alunoSelecionado = new Aluno();
+		renderInfo = true;
 	}
 	
 	public boolean verificaMatricula(){
@@ -76,13 +100,7 @@ public class MatriculaBean {
 		this.aluno = aluno;
 	}
 
-	public List<Aluno> getLstAlunos() {
-		return lstAlunos;
-	}
-
-	public void setLstAlunos(List<Aluno> lstAlunos) {
-		this.lstAlunos = lstAlunos;
-	}
+	
 
 	public boolean isRenderInfo() {
 		return renderInfo;
@@ -132,6 +150,36 @@ public class MatriculaBean {
 
 	public void setDisciplinas(DualListModel<Disciplina> disciplinas) {
 		this.disciplinas = disciplinas;
+	}
+
+
+	public String getNomeAluno() {
+		return nomeAluno;
+	}
+
+
+	public void setNomeAluno(String nomeAluno) {
+		this.nomeAluno = nomeAluno;
+	}
+
+
+	public Aluno getAlunoSelecionado() {
+		return alunoSelecionado;
+	}
+
+
+	public void setAlunoSelecionado(Aluno alunoSelecionado) {
+		this.alunoSelecionado = alunoSelecionado;
+	}
+
+
+	public AlunoWrapper getLstAlunos() {
+		return lstAlunos;
+	}
+
+
+	public void setLstAlunos(AlunoWrapper lstAlunos) {
+		this.lstAlunos = lstAlunos;
 	}
 	
 }

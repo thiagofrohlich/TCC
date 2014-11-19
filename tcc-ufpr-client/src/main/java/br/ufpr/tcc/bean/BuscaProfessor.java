@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import br.ufpr.model.Professor;
 import br.ufpr.model.Usuario;
 import br.ufpr.service.handler.impl.ProfessorServiceHandlerImpl;
+import br.ufpr.wrapper.ProfessorWrapper;
 
 
 @ViewScoped
@@ -22,7 +23,7 @@ public class BuscaProfessor {
 	
 	private Integer tipoPesquisa;
 	private Professor professor;
-	private List<Professor> lstProfessores;
+	private ProfessorWrapper lstProfessores;
 	private ResourceBundle rb;
 	private ProfessorServiceHandlerImpl professorService;
 	private String nomeProfessor;
@@ -36,7 +37,7 @@ public class BuscaProfessor {
 		tipoPesquisa = 1;
 		professor = new Professor();
 		professorSelecionado = new Professor();
-		lstProfessores = new ArrayList<>();
+		lstProfessores = new ProfessorWrapper();
 		professorService = new ProfessorServiceHandlerImpl();
 		rb = ResourceBundle.getBundle("msg");
 		
@@ -51,6 +52,7 @@ public class BuscaProfessor {
 	
 	public void buscaProfessorPorNome(){
 		lstProfessores = professorService.findByNome(nomeProfessor);
+		renderInfo = true;
 	}
 	
 	
@@ -89,14 +91,7 @@ public class BuscaProfessor {
 	}
 
 
-	public List<Professor> getLstProfessores() {
-		return lstProfessores;
-	}
-
-
-	public void setLstProfessores(List<Professor> lstProfessores) {
-		this.lstProfessores = lstProfessores;
-	}
+	
 
 
 	public boolean isRenderInfo() {
@@ -121,6 +116,16 @@ public class BuscaProfessor {
 
 	public void setProfessorSelecionado(Professor professorSelecionado) {
 		this.professorSelecionado = professorSelecionado;
+	}
+
+
+	public ProfessorWrapper getLstProfessores() {
+		return lstProfessores;
+	}
+
+
+	public void setLstProfessores(ProfessorWrapper lstProfessores) {
+		this.lstProfessores = lstProfessores;
 	}
 
 	

@@ -28,7 +28,7 @@
 				</p:panelGrid>
 				
 				<div class="center" style="padding-top: 15px;">
-						<p:panelGrid  styleClass="noborder" id="panelId" rendered="#{!buscaProfessorBean.renderInfo}">
+						<p:panelGrid  styleClass="noborder" id="panelId" rendered="#{buscaProfessorBean.renderInfo}">
 							
 							<p:row >
 								<p:column styleClass="label">
@@ -52,7 +52,9 @@
 									<h:outputText value="#{msg.datanasc}: "  />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{buscaProfessorBean.professor.dataNascimento}" />
+									<h:outputText value="#{buscaProfessorBean.professor.dataNascimento}" >
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+									</h:outputText>
 								</p:column>
 							</p:row>
 							
@@ -163,8 +165,8 @@
 					</p:row>
 					</p:panelGrid>
 					
-					<p:dataTable value="#{buscaProfessorBean.lstProfessores}" var="lstProfessor" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{lstProfessor.id}" 
-									 id="userTable" selection="#{buscaProfessorBean.professorSelecionado}" selectionMode="single" >
+					<p:dataTable value="#{buscaProfessorBean.lstProfessores.list}" var="lstProfessor" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{lstProfessor.id}" 
+									 id="professorTable" selection="#{buscaProfessorBean.professorSelecionado}" selectionMode="single" >
 							<p:ajax event="rowSelect" listener="#{buscaProfessorBean.selecionaProfessor()}" update=":buscaProfessor" />
 						<p:column style="text-align: left;">
 							<f:facet name="header">

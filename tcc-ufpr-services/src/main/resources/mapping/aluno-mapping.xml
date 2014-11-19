@@ -16,6 +16,7 @@
 			<a>id</a>
 			<b>id</b>
 		</field-exclude>
+		
 	</mapping>
 	
 </mappings>

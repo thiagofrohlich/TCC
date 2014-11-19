@@ -15,18 +15,20 @@
 			<p:messages showDetail="true" showIcon="true" showSummary="false" autoUpdate="true" id="messageMatricula" />
 			
 			<p:panelGrid styleClass="noborder" id="panelPesquisa">
+					
 					<p:row>
 						<p:column>
 							<h:outputText value="#{msg.pesquisar}: " />
 						</p:column>
 						<p:column>
 							<h:selectOneRadio value="#{matriculaBean.tipoPesquisa}">
-								<p:ajax event="valueChange"  update=":panelPesquisa" />
-								<f:selectItems itemLabel="#{msg.matricula}" itemValue="1"/>
-								<f:selectItems itemLabel="#{msg.nome}" itemValue="2"/>
+								<p:ajax event="valueChange"  update=":matricula:panelPesquisa" />
+								<f:selectItem itemLabel="#{msg.matricula}" itemValue="1"/>
+								<f:selectItem itemLabel="#{msg.nome}" itemValue="2"/>
 							</h:selectOneRadio>
 						</p:column>
 					</p:row>
+					
 					<p:row rendered="#{matriculaBean.tipoPesquisa == 1}">
 						<p:column>
 							<h:outputText value="#{msg.matricula}: " />
@@ -71,7 +73,9 @@
 									<h:outputText value="#{msg.datanasc}: "  />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{matriculaBean.aluno.dataNascimento}" />
+									<h:outputText value="#{matriculaBean.aluno.dataNascimento}" >
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+									</h:outputText>
 								</p:column>
 							</p:row>
 							
@@ -96,7 +100,8 @@
 					</div>			
 					
 					<div class="center" style="padding-top: 15px;">
-						<p:pickList id="pickListMatricula" value="#{matriculaBean.disciplinas}"  var="disciplina" itemLabel="#{disciplina.source.nome}" itemValue="#{disciplinas}" />
+						<p:pickList id="pickListMatricula" value="#{matriculaBean.disciplinas}" rendered="false"  
+						var="disciplina" itemLabel="#{disciplina.source.nome}" itemValue="#{disciplinas}" />
 					</div>
 					<p:commandButton value="#{msg.salvar}" />
 					
@@ -108,15 +113,15 @@
 							<h:outputText value="#{msg.aluno}: " />
 						</p:column>
 						<p:column>
-							<p:inputText value="#{buscaAlunoBean.nomeAluno}" />
-							<p:commandButton  icon="ui-icon-search" ajax="true" action="#{buscaAlunoBean.buscaAlunoPorNome()}" update=":buscaAluno:alunoTable"/>
+							<p:inputText value="#{matriculaBean.nomeAluno}" />
+							<p:commandButton  icon="ui-icon-search" ajax="true" action="#{matriculaBean.buscaAlunoPorNome()}" update=":matricula:alunoTable"/>
 						</p:column>
 					</p:row>
 					</p:panelGrid>
 					
-					<p:dataTable value="#{buscaAlunoBean.lstAlunos}" var="lstAlunos" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{lstAlunos.matricula}" 
-									 id="alunoTable" selection="#{buscaAlunoBean.alunoSelecionado}" selectionMode="single" >
-							<p:ajax event="rowSelect" listener="#{buscaAlunoBean.selecionaAluno()}" update=":buscaAluno" />
+					<p:dataTable value="#{matriculaBean.lstAlunos.list}" var="lstAlunos" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{lstAlunos.matricula}" 
+									 id="alunoTable" selection="#{matriculaBean.alunoSelecionado}" selectionMode="single" >
+							<p:ajax event="rowSelect" listener="#{matriculaBean.selecionaAluno()}" update="@form" />
 						<p:column style="text-align: left;">
 							<f:facet name="header">
 								<h:outputText value="#{msg.nome}" />

@@ -42,7 +42,7 @@ public class Aluno implements Serializable, DomainObject {
 	private Usuario updatedBy;
 
 	//bi-directional many-to-one association to AlunoDisciplina
-	@OneToMany(mappedBy="aluno")
+	@OneToMany(mappedBy="aluno", fetch = FetchType.EAGER)
 	private List<AlunoDisciplina> alunoDisciplinas;
 
 	public Aluno() {
