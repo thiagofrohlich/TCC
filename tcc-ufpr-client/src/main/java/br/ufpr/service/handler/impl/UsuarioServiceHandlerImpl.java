@@ -38,5 +38,10 @@ public class UsuarioServiceHandlerImpl extends AbstractServiceHandler<Usuario, I
 	public UsuarioWrapper findByNome(String nome) {
 		return (UsuarioWrapper) getRestTemplate().getForObject(getPath()+"/nome/{nome}", Wrapper.class, nome);
 	}
+
+	@Override
+	public Usuario findByLogin(String login) {
+		return getRestTemplate().getForObject(getPath()+"/login/{login}", getReturnClass(), login);
+	}
 	
 }
