@@ -20,6 +20,7 @@
         <intercept-url pattern="/lancar**" access="hasRole('USUARIO')" />
         
         
+        
        <!--  <logout logout-url="/logout" /> -->
         <logout logout-success-url="/login.xhtml" delete-cookies="JSESSIONID"/>
         <form-login default-target-url="/inicio.jsf"
