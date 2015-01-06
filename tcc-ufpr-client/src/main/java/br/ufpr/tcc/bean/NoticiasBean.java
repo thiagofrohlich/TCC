@@ -10,8 +10,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import br.ufpr.model.Noticia;
 import br.ufpr.service.handler.impl.NoticiaServiceHandlerImpl;
+import br.ufpr.service.handler.impl.UsuarioServiceHandlerImpl;
 
 @ViewScoped
 @ManagedBean(name = "noticiasBean")
@@ -24,19 +27,23 @@ public class NoticiasBean  implements Serializable{
 	private ResourceBundle rb;
 	private Noticia noticia;
 	private NoticiaServiceHandlerImpl noticiaServiceHandlerImpl;
-	
+	private UsuarioServiceHandlerImpl usuarioServiceHandlerImpl;
 	@PostConstruct
 	public void init(){
 		rb = ResourceBundle.getBundle("msg");
 		noticia = new Noticia();
 		noticia.setDataPublicacao(Calendar.getInstance().getTime());
 		noticiaServiceHandlerImpl = new NoticiaServiceHandlerImpl();
+		usuarioServiceHandlerImpl = new UsuarioServiceHandlerImpl();
 	}
 	
 	
 	public void salva(){
 		if(verificaCampos()){
+			noticia.setUsuario(usuarioServiceHandlerImpl.findByLogin((String)SecurityContextHolder.getContext().getAuthentication().getName()));
 			noticiaServiceHandlerImpl.create(noticia);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Notícia salva com sucesso"));
+			limpaTela();
 		}
 	}
 	
@@ -55,6 +62,11 @@ public class NoticiasBean  implements Serializable{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Por favor preencha o conteúdo da noticia"));
 		}
 		return ret;
+	}
+	
+	private void limpaTela(){
+		noticia = new Noticia();
+		noticia.setDataPublicacao(Calendar.getInstance().getTime());
 	}
 	
 
