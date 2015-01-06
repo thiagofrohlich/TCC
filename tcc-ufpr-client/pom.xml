@@ -25,6 +25,13 @@
 		  <artifactId>jasperreports</artifactId>
 		</dependency>
         
+        <!-- mail -->
+        
+         <dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+		</dependency>
+        
 		<!--  PRIMEFACES -->
 		<dependency>
 			<groupId>org.primefaces</groupId>

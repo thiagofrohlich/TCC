@@ -46,6 +46,7 @@
 		<java-compiler.version>1.7</java-compiler.version>
 		<maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
 		<maven-jar-plugin.version>2.5</maven-jar-plugin.version>
+		<mail.version>1.3.2</mail.version>
 	</properties>
 	
 	<modules>
@@ -106,6 +107,14 @@
 		        <artifactId>log4j</artifactId>
 		        <version>${log4j.version}</version>
 		    </dependency>	    	
+		    
+		    <!-- mail -->
+		    
+		    <dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-email</artifactId>
+				<version>${mail.version}</version>
+			</dependency>
 		    
 		    <!-- SPRING -->
 		

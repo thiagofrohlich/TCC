@@ -28,9 +28,7 @@ public class Professor implements Serializable, DomainObject {
 	@Column(name="updated_at")
 	private Date updatedAt;
 
-	//bi-directional many-to-one association to Disciplina
-	@OneToMany(mappedBy="professor", fetch = FetchType.EAGER )
-	private List<Disciplina> disciplinas;
+	
 
 	//bi-directional many-to-one association to Pessoa
 	@ManyToOne
@@ -68,28 +66,7 @@ public class Professor implements Serializable, DomainObject {
 		this.updatedAt = updatedAt;
 	}
 
-	public List<Disciplina> getDisciplinas() {
-		return this.disciplinas;
-	}
-
-	public void setDisciplinas(List<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
-	}
-
-	public Disciplina addDisciplina(Disciplina disciplina) {
-		getDisciplinas().add(disciplina);
-		disciplina.setProfessor(this);
-
-		return disciplina;
-	}
-
-	public Disciplina removeDisciplina(Disciplina disciplina) {
-		getDisciplinas().remove(disciplina);
-		disciplina.setProfessor(null);
-
-		return disciplina;
-	}
-
+	
 	public Pessoa getPessoa() {
 		return this.pessoa;
 	}

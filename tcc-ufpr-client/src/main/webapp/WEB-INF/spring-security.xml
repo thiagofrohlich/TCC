@@ -15,6 +15,9 @@
 	
 	<http auto-config="true" use-expressions="true">
         <intercept-url pattern="/cadastro**" access="hasRole('USUARIO')" />
+        <intercept-url pattern="/busca**" access="hasRole('USUARIO')" />
+        <intercept-url pattern="/noticias**" access="hasRole('USUARIO')" />
+        <intercept-url pattern="/lancar**" access="hasRole('USUARIO')" />
         
         
        <!--  <logout logout-url="/logout" /> -->

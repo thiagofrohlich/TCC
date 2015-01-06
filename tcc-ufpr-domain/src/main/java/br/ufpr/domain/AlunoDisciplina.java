@@ -29,9 +29,8 @@ public class AlunoDisciplina implements Serializable {
 	private Date updatedAt;
 
 	//bi-directional many-to-one association to Aluno
-	@ManyToOne
-	@JoinColumn(name="aluno_matricula", insertable=false, updatable=false)
-	private Aluno aluno;
+	@Column(name="aluno_matricula", insertable=false, updatable=false)
+	private Integer aluno;
 
 	//bi-directional many-to-one association to Disciplina
 	@ManyToOne
@@ -78,11 +77,11 @@ public class AlunoDisciplina implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Aluno getAluno() {
+	public Integer getAluno() {
 		return this.aluno;
 	}
 
-	public void setAluno(Aluno aluno) {
+	public void setAluno(Integer aluno) {
 		this.aluno = aluno;
 	}
 

@@ -35,6 +35,7 @@
 						</p:column>
 						<p:column>
 							<p:inputText value="#{matriculaBean.aluno.matricula}"/>
+							<p:commandButton icon="ui-icon-search" action="#{matriculaBean.buscaAlunoPorMatricula()}" ajax="false" />
 						</p:column>
 					</p:row>
 					<p:row rendered="#{matriculaBean.tipoPesquisa == 2}">
@@ -90,7 +91,7 @@
 							
 							<p:row>
 								<p:column styleClass="label">
-									<h:outputText value="#{msg.genero}: " />
+									<h:outputText value="#{msg.periodo}: " />
 								</p:column>
 								<p:column>
 									<h:outputText value="#{matriculaBean.aluno.periodo}" />
@@ -99,11 +100,38 @@
 						</p:panelGrid>
 					</div>			
 					
-					<div class="center" style="padding-top: 15px;">
-						<p:pickList id="pickListMatricula" value="#{matriculaBean.disciplinas}" rendered="false"  
-						var="disciplina" itemLabel="#{disciplina.source.nome}" itemValue="#{disciplinas}" />
+					<div class="center" style="padding-top: 15px;width: 700px" >
+						<p:dataTable value="#{matriculaBean.lstDisciplinas}" var="disciplina" selection="#{matriculaBean.lstEscolhidas}" rowKey="#{disciplina.id}"
+										scrollable="true" scrollHeight="250"  rendered="#{matriculaBean.renderInfo}">
+										
+							<f:facet name="header">
+								<h:outputText value="#{msg.disciplina}" />
+							</f:facet>
+							<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+							<p:column style="width:50%;text-align:left">
+								<f:facet name="header">
+									<h:outputText value="#{msg.nome}" />	
+								</f:facet>
+								<h:outputText value="#{disciplina.nome}" />
+							</p:column>
+							
+							<p:column style="width:20%;text-align:right">
+								<f:facet name="header">
+									<h:outputText value="#{msg.periodo}" />	
+								</f:facet>
+								<h:outputText value="#{disciplina.periodo}" />
+							</p:column>
+							
+							<p:column style="width:20%;text-align:left">
+								<f:facet name="header">
+									<h:outputText value="#{msg.turno}" />	
+								</f:facet>
+								<h:outputText value="#{disciplina.turno.value}" />
+							</p:column>
+						
+						</p:dataTable>
 					</div>
-					<p:commandButton value="#{msg.salvar}" />
+					<p:commandButton value="#{msg.salvar}" action="#{matriculaBean.salva()}" ajax="false"/>
 					
 					
 					<p:dialog widgetVar="buscaAlunoDialog" id="alunoDialog" closable="true" resizable="true" width="500" height="500">
@@ -114,7 +142,7 @@
 						</p:column>
 						<p:column>
 							<p:inputText value="#{matriculaBean.nomeAluno}" />
-							<p:commandButton  icon="ui-icon-search" ajax="true" action="#{matriculaBean.buscaAlunoPorNome()}" update=":matricula:alunoTable"/>
+							<p:commandButton  icon="ui-icon-search" ajax="true" action="#{matriculaBean.buscaAlunoPorNome}" update=":matricula:alunoTable"/>
 						</p:column>
 					</p:row>
 					</p:panelGrid>

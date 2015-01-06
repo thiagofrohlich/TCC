@@ -10,11 +10,20 @@ public class AlunoDisciplina extends BusinessModel {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Aluno aluno;
-	private Disciplina disciplina;
+	private Integer aluno;
+	private Integer disciplina;
 	private BigDecimal nota;
 	private Date dataCurso;
 	private Integer faltas;
+	
+	public AlunoDisciplina(Integer aluno, Integer disciplina){
+		this.aluno = aluno;
+		this.disciplina = disciplina;
+	}
+	
+	public AlunoDisciplina(){
+		super();
+	}
 	
 	public BigDecimal getNota() {
 		return nota;
@@ -34,17 +43,22 @@ public class AlunoDisciplina extends BusinessModel {
 	public void setFaltas(Integer faltas) {
 		this.faltas = faltas;
 	}
-	public Aluno getAluno() {
+
+	public Integer getAluno() {
 		return aluno;
 	}
-	public void setAluno(Aluno aluno) {
+
+	public void setAluno(Integer aluno) {
 		this.aluno = aluno;
 	}
-	public Disciplina getDisciplina() {
+
+	public Integer getDisciplina() {
 		return disciplina;
 	}
-	public void setDisciplina(Disciplina disciplina) {
+
+	public void setDisciplina(Integer disciplina) {
 		this.disciplina = disciplina;
 	}
+	
 
 }

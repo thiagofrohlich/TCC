@@ -106,7 +106,7 @@ public class Aluno implements Serializable, DomainObject {
 
 	public AlunoDisciplina addAlunoDisciplina(AlunoDisciplina alunoDisciplina) {
 		getAlunoDisciplinas().add(alunoDisciplina);
-		alunoDisciplina.setAluno(this);
+		alunoDisciplina.setAluno(this.matricula);
 
 		return alunoDisciplina;
 	}
