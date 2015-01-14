@@ -1,7 +1,9 @@
 package br.ufpr.tcc.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
@@ -28,9 +30,11 @@ public class NoticiasBean  implements Serializable{
 	private Noticia noticia;
 	private NoticiaServiceHandlerImpl noticiaServiceHandlerImpl;
 	private UsuarioServiceHandlerImpl usuarioServiceHandlerImpl;
+	private List<Noticia> lstNoticias;
 	@PostConstruct
 	public void init(){
 		rb = ResourceBundle.getBundle("msg");
+		lstNoticias = new ArrayList<>();
 		noticia = new Noticia();
 		noticia.setDataPublicacao(Calendar.getInstance().getTime());
 		noticiaServiceHandlerImpl = new NoticiaServiceHandlerImpl();
@@ -67,6 +71,10 @@ public class NoticiasBean  implements Serializable{
 	private void limpaTela(){
 		noticia = new Noticia();
 		noticia.setDataPublicacao(Calendar.getInstance().getTime());
+	}
+	
+	public void buscaNoticias(){
+		
 	}
 	
 

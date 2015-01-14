@@ -30,10 +30,11 @@ public class BuscaProfessor {
 	private Professor professorSelecionado;
 	
 	private boolean renderInfo;
-	
+	private boolean renderTable;
 	@PostConstruct
 	public void init(){
 		renderInfo = false;
+		renderTable = false;
 		tipoPesquisa = 1;
 		professor = new Professor();
 		professorSelecionado = new Professor();
@@ -52,13 +53,14 @@ public class BuscaProfessor {
 	
 	public void buscaProfessorPorNome(){
 		lstProfessores = professorService.findByNome(nomeProfessor);
-		renderInfo = true;
+		renderTable = true;
 	}
 	
 	
 	public void selecionaProfessor(){
 		professor = professorSelecionado;
 		professorSelecionado = new Professor();
+		renderInfo= true;
 		
 	}
 	
@@ -126,6 +128,16 @@ public class BuscaProfessor {
 
 	public void setLstProfessores(ProfessorWrapper lstProfessores) {
 		this.lstProfessores = lstProfessores;
+	}
+
+
+	public boolean isRenderTable() {
+		return renderTable;
+	}
+
+
+	public void setRenderTable(boolean renderTable) {
+		this.renderTable = renderTable;
 	}
 
 	

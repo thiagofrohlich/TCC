@@ -61,6 +61,7 @@ public class AlunoController extends AbstractPessoaController<Aluno, br.ufpr.dom
 	@RequestMapping(method=RequestMethod.DELETE)
 	public void delete(@RequestBody Aluno model) throws NullParameterException, NotDeletedObjectException, NoResultFoundException {
 		AssertUtils.assertParameterIsSupplied(model);
+		
 		br.ufpr.domain.Aluno domain = mapper.map(model, br.ufpr.domain.Aluno.class);
 		service.delete(domain.getId());
 	}

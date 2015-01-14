@@ -51,7 +51,7 @@ public class LoginController implements PhaseListener {
         
 
         FacesContext.getCurrentInstance().responseComplete();
-
+        
         return null;
     }
     

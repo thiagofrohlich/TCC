@@ -26,6 +26,7 @@ public class BuscaUsuario {
 	private UsuarioWrapper lstUsuarios;
 	private ResourceBundle rb;
 	private boolean renderInfo;
+	private boolean renderTable;
 	private String[] acessos;
 	private String nomeUsuario;
 	private Usuario usuarioSelecionado;
@@ -33,6 +34,7 @@ public class BuscaUsuario {
 	@PostConstruct
 	public void init(){
 		renderInfo = false;
+		renderTable = false;
 		tipoPesquisa = 1;
 		usuario = new Usuario();
 		usuarioService = new UsuarioServiceHandlerImpl();
@@ -58,6 +60,7 @@ public class BuscaUsuario {
 	
 	public void buscaUsuarioPorNome(){
 		lstUsuarios = usuarioService.findByNome(nomeUsuario);
+		renderTable = true;
 	}
 	
 	
@@ -158,6 +161,16 @@ public class BuscaUsuario {
 
 	public void setLstUsuarios(UsuarioWrapper lstUsuarios) {
 		this.lstUsuarios = lstUsuarios;
+	}
+
+
+	public boolean isRenderTable() {
+		return renderTable;
+	}
+
+
+	public void setRenderTable(boolean renderTable) {
+		this.renderTable = renderTable;
 	}
 
 	

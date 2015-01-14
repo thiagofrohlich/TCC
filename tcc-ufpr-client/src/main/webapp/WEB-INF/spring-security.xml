@@ -22,7 +22,7 @@
         
         
        <!--  <logout logout-url="/logout" /> -->
-        <logout logout-success-url="/login.xhtml" delete-cookies="JSESSIONID"/>
+        <logout logout-success-url="/inicio.xhtml" delete-cookies="JSESSIONID"/>
         <form-login default-target-url="/inicio.jsf"
         always-use-default-target="true"
 		username-parameter="username"
