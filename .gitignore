@@ -30,3 +30,5 @@ tcc-ufpr-client/.settings/org.eclipse.wst.common.component
 tcc-ufpr-client/.project
 tcc-ufpr-client/.classpath
 tcc-ufpr-domain/src/main/resources/db.properties
+tcc-ufpr-client/.settings/org.eclipse.wst.common.project.facet.core.xml
+tcc-ufpr-domain/src/main/resources/db.properties
